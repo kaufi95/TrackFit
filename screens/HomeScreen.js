@@ -1,33 +1,64 @@
-import * as React from 'react';
-import { Button, StyleSheet, View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import WorkoutCard from '../components/WorkoutCard';
+import { ScrollView } from 'native-base';
+
 const HomeScreen = ({ navigation }) => {
-  let workouts = null;
+  const [workouts, setWorkouts] = useState([]);
+
+  useEffect(() => {
+    save();
+    load();
+  }, []);
 
   const load = async () => {
     try {
-      workouts = await AsyncStorage.getItem('workouts');
+      let temp = await AsyncStorage.getItem('workouts');
+      if (temp !== null) {
+        setWorkouts(JSON.parse(temp));
+        console.log('loaded value');
+      } else {
+        console.log('no value available');
+      }
     } catch (e) {
-      console.error('Failed to load count.', e);
+      console.error('Failed to load workouts.', e);
+    }
+  };
+
+  const save = async () => {
+    try {
+      let workouts = [
+        {
+          name: 'TestWorkout1',
+          lastDate: '22.22.2222'
+        },
+        {
+          name: 'TestWorkout2',
+          lastDate: '11.11.1111'
+        },
+        {
+          name: 'TestWorkout3',
+          lastDate: '00.00.0000'
+        }
+      ];
+      await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+      console.log('saved value');
+    } catch (e) {
+      console.error('Failed to save workouts.', e);
     }
   };
 
   const renderWorkouts = () => {
-    load();
-    if (workouts) return <Text>data - TEST</Text>;
-    return <Text>No workouts added yet.</Text>;
+    if (workouts != null) {
+      return (workouts.map(workout => <WorkoutCard key={workout.name} navigation={navigation} workout={workout}/>));
+    } else {
+      return <Text>No workouts added yet.</Text>;
+    }
   };
 
-  return <View style={styles.containerView}>{renderWorkouts()}</View>;
+  return <ScrollView>{renderWorkouts()}</ScrollView>;
 };
-
-const styles = StyleSheet.create({
-  containerView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
 export default HomeScreen;

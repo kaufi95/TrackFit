@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { Button } from 'react-native';
 import { NativeBaseProvider, extendTheme } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import CreateWorkout from './screens/CreateWorkout';
+import WorkoutScreen from './screens/WorkoutScreen';
 
 // Define the config
 const config = {
@@ -47,6 +48,7 @@ export default function App() {
           />
           <Stack.Screen name="History" component={HistoryScreen} />
           <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
+          <Stack.Screen name="Workout" component={WorkoutScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
