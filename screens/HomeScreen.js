@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import WorkoutCard from '../components/WorkoutCard';
 import { ScrollView } from 'native-base';
 
-import testdata from '../components/testdata';
+import testdata from '../scripts/testdata';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -46,17 +46,17 @@ const HomeScreen = ({ navigation }) => {
   const renderWorkouts = () => {
     if (workouts.length > 0) {
       return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-          {workouts.map((workout) => (
-            <View key={workout.name} style={styles.item}>
-              <WorkoutCard key={workout.name} navigation={navigation} workout={workout} />
+        <ScrollView contentContainerStyle={styles.content}>
+          {workouts.map((workout, index) => (
+            <View key={index} style={styles.item}>
+              <WorkoutCard key={index} navigation={navigation} workout={workout} />
             </View>
           ))}
         </ScrollView>
       );
     } else {
       return (
-        <View style={styles.container2}>
+        <View style={styles.container}>
           <Text>No workouts added yet.</Text>
           <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
         </View>
@@ -69,20 +69,17 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  content: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start'
-  },
-  item: {
-    width: '50%'
-  },
-  container2: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  content: {
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  item: {
+    width: '50%',
+    padding: 5
   }
 });
 
