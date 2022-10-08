@@ -42,12 +42,12 @@ export default function App() {
             options={({ navigation }) => ({
               headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" color="#fff" />,
               headerRight: () => (
-                <Button onPress={() => navigation.navigate('CreateWorkout')} title="Add" color="#fff" />
+                <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" color="#fff" />
               )
             })}
           />
           <Stack.Screen name="History" component={HistoryScreen} />
-          <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
+          <Stack.Screen name="Create a Workout" component={CreateWorkout} />
           <Stack.Screen name="Workout" component={WorkoutScreen} />
         </Stack.Navigator>
       </NavigationContainer>

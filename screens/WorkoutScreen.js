@@ -5,7 +5,6 @@ const WorkoutScreen = (props) => {
   return (
     <View style={styles.containerView}>
       {console.log(props)}
-      <Text>Test WorkoutScreen</Text>
       <Text>{props.route.params.workout.name}</Text>
       <Text>{props.route.params.workout.lastDate}</Text>
     </View>
