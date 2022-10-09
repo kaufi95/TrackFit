@@ -1,47 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import WorkoutCard from '../components/WorkoutCard';
 import { ScrollView } from 'native-base';
 
-import testdata from '../scripts/testdata';
+import { load } from '../scripts/storage';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
-    save();
-    load();
+    load().then(setWorkouts);
   }, []);
-
-  const load = async () => {
-    try {
-      let temp = await AsyncStorage.getItem('workouts');
-      if (temp !== null) {
-        setWorkouts(JSON.parse(temp));
-        console.log('loaded workouts');
-      } else {
-        console.log('no workouts available');
-      }
-    } catch (e) {
-      console.error('Failed to load workouts.', e);
-    }
-  };
-
-  const save = async () => {
-    try {
-      let workouts = [];
-
-      // uncomment to activate testdata
-      workouts = testdata();
-
-      await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
-      console.log('saved workouts');
-    } catch (e) {
-      console.error('Failed to save workouts.', e);
-    }
-  };
 
   const renderWorkouts = () => {
     if (workouts.length > 0) {

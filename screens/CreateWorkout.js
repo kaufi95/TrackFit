@@ -1,11 +1,14 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
-import { Box, Input, Pressable, Text, ScrollView, HStack, Button } from 'native-base';
+import { StyleSheet, KeyboardAvoidingView, Alert } from 'react-native';
+import { Input, Pressable, Text, ScrollView, HStack, Button } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 
-const CreateWorkout = () => {
+import { save } from '../scripts/storage';
+
+const CreateWorkout = ({ navigation }) => {
+  const [name, setName] = useState('');
   const [textValue, setTextValue] = useState('');
-  const [numInputs, setNumInputs] = useState(1);
+  const [numInputs, setNumInputs] = useState(3);
   const refInputs = useRef([textValue]);
 
   const setInputValue = (index, value) => {
@@ -24,91 +27,124 @@ const CreateWorkout = () => {
     setNumInputs((value) => value + 1);
   };
 
+  const saveWorkout = () => {
+    let exercises = {};
+    for (let i = 0; i < inputs.length; i++) {
+      exercises[i] = refInputs.current[i];
+    }
+
+    let workout = {
+      name: name,
+      lastDate: new Date().toLocaleDateString('de-AT', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+      exercises: exercises
+    };
+
+    if (workout.name != '' && workout.exercises[0] != '') {
+      console.log(workout);
+      save(workout);
+      navigation.navigate('Home');
+    } else {
+      Alert.alert('Error while saving workout', 'Enter a name or add an exercise');
+    }
+  };
+
   const scrollViewRef = useRef();
 
   const inputs = [];
 
   for (let i = 0; i < numInputs; i++) {
     inputs.push(
-      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', margin: 5 }}>
-        <HStack style={styles.stack}>
-          <Text style={styles.text}>{i + 1}.</Text>
-          <Input
-            style={styles.input}
-            variant="unstyled"
-            onChangeText={(value) => setInputValue(i, value)}
-            value={refInputs.current[i]}
-            placeholder="Exercise"
-          />
-          <Pressable onPress={() => removeInput(i)}>
-            <AntDesign name="minuscircleo" size={20} color="red" />
-          </Pressable>
-        </HStack>
-      </View>
+      <HStack key={i} style={styles.stack}>
+        <Text style={styles.text}>{i + 1}.</Text>
+        <Input
+          variant="unstyled"
+          size="mg"
+          style={styles.input}
+          onChangeText={(value) => setInputValue(i, value)}
+          value={refInputs.current[i]}
+          placeholder="Exercise"
+        />
+        <Pressable style={styles.icon} onPress={() => removeInput(i)}>
+          <AntDesign name="minuscircleo" size={20} color="red" />
+        </Pressable>
+      </HStack>
     );
   }
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
-      behavior="position"
+      behavior="padding"
       enabled
-      keyboardVerticalOffset={100}
+      keyboardVerticalOffset="100"
     >
+      <Input
+        variant="rounded"
+        size="2xl"
+        style={styles.header}
+        placeholder="Workout name"
+        onChangeText={(value) => setName(value)}
+      />
       <ScrollView
-        contentContainerStyle={styles.content}
+        contentContainerStyle={styles.view}
         ref={scrollViewRef}
         onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
       >
-        <View style={styles.view}>
-          <Box style={styles.box}>
-            <Input variant="rounded" w="75%" mx="auto" placeholder="Workout name" />
-          </Box>
-          {inputs}
+        {inputs}
+        <HStack>
           <Button variant="rounded" style={styles.button} onPress={addInput}>
-            <Text style={styles.buttonText}>Add Exercise</Text>
+            Add Exercise
           </Button>
-        </View>
+          <Button variant="rounded" style={styles.button} onPress={saveWorkout}>
+            Save Workout
+          </Button>
+        </HStack>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  content: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
   view: {
-    flex: 1,
     alignItems: 'center'
   },
   input: {
-    maxWidth: '80%'
+    width: '70%',
+    maxWidth: '70%'
+  },
+  header: {
+    height: 50,
+    padding: 20
   },
   button: {
     margin: 20,
-    backgroundColor: 'cyan'
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: 'cyan',
+    marginBottom: 50
   },
   text: {
     color: 'black',
-    width: 20,
+    width: 30,
     marginLeft: 15
-  },
-  buttonText: {
-    color: 'white'
   },
   box: {
     margin: 15
   },
+  icon: {
+    width: 30,
+    marginLeft: 15,
+    marginRight: 5
+  },
   stack: {
-    flex: 0.9,
+    flex: 0.8,
+    flexDirection: 'row',
     alignItems: 'center',
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 30,
-    padding: 10
+    padding: 10,
+    margin: 10
   }
 });
 
