@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Text } from 'react-native';
 import { NativeBaseProvider, extendTheme } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -39,9 +39,9 @@ export default function App() {
             name="Home"
             component={HomeScreen}
             options={({ navigation }) => ({
-              headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" color="#fff" />,
+              headerLeft: () => <Text onPress={() => navigation.navigate('History')} >History</Text>,
               headerRight: () => (
-                <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" color="#fff" />
+                <Text onPress={() => navigation.navigate('Create a Workout')} >Add</Text>
               )
             })}
           />
