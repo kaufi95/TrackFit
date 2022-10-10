@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, KeyboardAvoidingView, Alert } from 'react-native';
-import { Input, Pressable, Text, ScrollView, HStack, Button } from 'native-base';
+import { TouchableOpacity, StyleSheet, KeyboardAvoidingView, Alert } from 'react-native';
+import { Input, Text, ScrollView, HStack, Button } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 
-import { save } from '../scripts/storage';
+import { saveWorkout } from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -27,7 +27,7 @@ const CreateWorkout = ({ navigation }) => {
     setNumInputs((value) => value + 1);
   };
 
-  const saveWorkout = () => {
+  const addWorkout = () => {
     let exercises = {};
     for (let i = 0; i < inputs.length; i++) {
       exercises[i] = refInputs.current[i];
@@ -41,7 +41,7 @@ const CreateWorkout = ({ navigation }) => {
 
     if (workout.name != '' && workout.exercises[0] != '') {
       console.log(workout);
-      save(workout);
+      saveWorkout(workout);
       navigation.navigate('Home');
     } else {
       Alert.alert('Error while saving workout', 'Enter a name or add an exercise');
@@ -64,9 +64,9 @@ const CreateWorkout = ({ navigation }) => {
           value={refInputs.current[i]}
           placeholder="Exercise"
         />
-        <Pressable style={styles.icon} onPress={() => removeInput(i)}>
+        <TouchableOpacity style={styles.icon} onPress={() => removeInput(i)}>
           <AntDesign name="minuscircleo" size={20} color="red" />
-        </Pressable>
+        </TouchableOpacity>
       </HStack>
     );
   }
@@ -95,7 +95,7 @@ const CreateWorkout = ({ navigation }) => {
           <Button variant="rounded" style={styles.button} onPress={addInput}>
             Add Exercise
           </Button>
-          <Button variant="rounded" style={styles.button} onPress={saveWorkout}>
+          <Button variant="rounded" style={styles.button} onPress={addWorkout}>
             Save Workout
           </Button>
         </HStack>
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     maxWidth: '70%'
   },
   header: {
+    width: '80%',
     height: 50,
     padding: 20
   },
