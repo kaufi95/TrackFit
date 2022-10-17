@@ -6,12 +6,10 @@ import { AntDesign } from '@expo/vector-icons';
 import { storeWorkout } from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
-  const [name, setName] = useState('');
+  let name = '';
   const [textValue, setTextValue] = useState('');
   const [numInputs, setNumInputs] = useState(3);
   const refInputs = useRef([textValue]);
-
-  const nameRef = useRef(name);
 
   const setInputValue = (index, value) => {
     const inputs = refInputs.current;
@@ -42,28 +40,28 @@ const CreateWorkout = ({ navigation }) => {
   const saveWorkout = () => {
     let exercises = {};
     for (let i = 0; i < refInputs.current.length; i++) {
-      exercises[i] = refInputs.current[i];
+      exercises[refInputs.current[i]] = {};
     }
 
     let workout = {
-      name: nameRef.current,
+      name: name,
       lastDate: new Date().toLocaleDateString('de-AT', { year: 'numeric', month: '2-digit', day: '2-digit' }),
       exercises: exercises
     };
 
-    // if (workout.name != '') {
-    //   Alert.alert('Error while saving workout', 'Please enter a name');
-    //   return;
-    // }
+    if (workout.name == '') {
+      Alert.alert('Error while saving workout', 'Please enter a name');
+      return;
+    }
 
-    // if (workout.exercises.length < 1) {
-    //   Alert.alert('Error while saving workout', 'Please add an exercise');
-    //   return;
-    // }
+    if (workout.exercises.length == 0) {
+      Alert.alert('Error while saving workout', 'Please add an exercise');
+      return;
+    }
 
     console.log(workout);
-    // storeWorkout(workout);
-    // navigation.navigate('Home');
+    storeWorkout(workout);
+    navigation.navigate('Home');
   };
 
   const input = (item) => {
@@ -75,7 +73,6 @@ const CreateWorkout = ({ navigation }) => {
           size="mg"
           style={styles.input}
           onChangeText={(value) => setInputValue(item.index, value)}
-          value={refInputs.current[item.index]}
           placeholder="Exercise"
         />
         <TouchableOpacity style={styles.icon} onPress={() => removeInput(item.index)}>
@@ -99,7 +96,7 @@ const CreateWorkout = ({ navigation }) => {
           style={styles.header}
           placeholder="Workout name"
           onChangeText={(value) => {
-            setName(value);
+            name = value;
             setHeader();
           }}
         />

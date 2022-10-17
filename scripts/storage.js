@@ -19,9 +19,7 @@ export const loadWorkouts = async () => {
 export const storeWorkout = async (workout) => {
   try {
     let workouts = await loadWorkouts();
-    workouts.push(workout);
-
-    console.log(workout);
+    workouts = [workout, ...workouts];
 
     // uncomment to empty workouts
     // workouts = [];
