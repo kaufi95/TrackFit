@@ -59,8 +59,8 @@ const CreateWorkout = ({ navigation }) => {
     }
 
     console.log(workout);
-    // storeWorkout(workout);
-    // navigation.navigate('Home');
+    storeWorkout(workout);
+    navigation.navigate('Home');
   };
 
   const input = (item) => {
