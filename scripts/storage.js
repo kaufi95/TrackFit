@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import testdata from './testdata';
 
-export const load = async () => {
+export const loadWorkouts = async () => {
   try {
     let temp = await AsyncStorage.getItem('workouts');
     if (temp !== null) {
@@ -16,10 +16,12 @@ export const load = async () => {
   }
 };
 
-export const save = async (workout) => {
+export const storeWorkout = async (workout) => {
   try {
-    let workouts = await load();
-    if (workout != null) workouts.push(workout);
+    let workouts = await loadWorkouts();
+    workouts.push(workout);
+
+    console.log(workout);
 
     // uncomment to empty workouts
     // workouts = [];

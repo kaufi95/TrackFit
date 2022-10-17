@@ -1,36 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+
+import { FlatGrid } from 'react-native-super-grid';
+import AnimatedLoader from 'react-native-animated-loader';
 
 import WorkoutCard from '../components/WorkoutCard';
-import { ScrollView } from 'native-base';
-
-import { load } from '../scripts/storage';
+import { loadWorkouts } from '../scripts/storage';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
+  const [isLoading, setIsLoading] = useState([]);
 
   useEffect(() => {
-    load().then(setWorkouts);
+    navigation.setOptions({
+      headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" />,
+      headerRight: () => <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" />
+    });
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      loadWorkouts().then((workouts) => {
+        setWorkouts(workouts);
+        setIsLoading(false);
+      });
+    }, [])
+  );
+
   const renderWorkouts = () => {
-    if (workouts != null && workouts.length > 0) {
+    if (isLoading) {
       return (
-        <ScrollView contentContainerStyle={styles.content}>
-          {workouts.map((workout, index) => (
-            <View key={index} style={styles.item}>
-              <WorkoutCard key={index} navigation={navigation} workout={workout} />
-            </View>
-          ))}
-        </ScrollView>
+        <AnimatedLoader
+          visible={true}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require('./loader.json')}
+          animationStyle={styles.lottie}
+          speed={1}
+        >
+          <Text>Loading content...</Text>
+        </AnimatedLoader>
       );
     } else {
-      return (
-        <View style={styles.container}>
-          <Text>No workouts added yet.</Text>
-          <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
-        </View>
-      );
+      if (workouts.length > 0) {
+        return (
+          <FlatGrid
+            itemDimension={150}
+            data={workouts}
+            style={styles.gridView}
+            spacing={10}
+            renderItem={({ item }) => <WorkoutCard workout={item} navigation={navigation} />}
+            extraData={workouts}
+          />
+        );
+      } else {
+        return (
+          <View style={styles.container}>
+            <Text>No workouts added yet.</Text>
+            <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
+          </View>
+        );
+      }
     }
   };
 
@@ -43,13 +73,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  content: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-  item: {
-    width: '50%',
-    padding: 5
+  lottie: {
+    width: 150,
+    height: 150
   }
 });
 

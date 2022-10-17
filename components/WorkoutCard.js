@@ -1,36 +1,36 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 
-import { Pressable, Flex, Text } from 'native-base';
+import { Pressable, View, Text } from 'native-base';
 
 const WorkoutCard = (props) => {
   return (
-    <Pressable
-      onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}
-      rounded="8"
-      borderColor="coolGray.300"
-      maxW="96"
-      shadow="5"
-      bg="coolGray.100"
-      p="10"
-    >
-      <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize={16}>
-        {props.workout.name}
-      </Text>
-      <Flex>
-        <Text color="darkBlue.600" mt="2" fontWeight="medium" fontSize={12}>
-          {props.workout.lastDate}
-        </Text>
-      </Flex>
+    <Pressable onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}>
+      <View style={styles.container}>
+        <Text style={styles.name}>{props.workout.name}</Text>
+        <Text style={styles.date}>{props.workout.lastDate}</Text>
+      </View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: '#1abc9c',
+    justifyContent: 'flex-end',
+    borderRadius: 5,
+    padding: 10,
+    height: 150
+  },
+  name: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  date: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600'
   }
 });
 
