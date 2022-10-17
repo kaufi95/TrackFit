@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { TouchableOpacity, StyleSheet, KeyboardAvoidingView, Alert } from 'react-native';
+import { TouchableOpacity, StyleSheet, KeyboardAvoidingView, Alert, Platform } from 'react-native';
 import { Input, Text, ScrollView, HStack, Button } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -74,9 +74,9 @@ const CreateWorkout = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
-      behavior="padding"
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset="50"
       enabled
-      keyboardVerticalOffset="100"
     >
       <Input
         variant="rounded"
