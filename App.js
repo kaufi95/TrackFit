@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { NativeBaseProvider, extendTheme } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
+import ExerciseScreen from './screens/ExerciseScreen';
 
 // Define the config
 const config = {
@@ -35,19 +35,11 @@ export default function App() {
             }
           }}
         >
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={({ navigation }) => ({
-              headerLeft: () => <Text onPress={() => navigation.navigate('History')} >History</Text>,
-              headerRight: () => (
-                <Text onPress={() => navigation.navigate('Create a Workout')} >Add</Text>
-              )
-            })}
-          />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="History" component={HistoryScreen} />
           <Stack.Screen name="Create a Workout" component={CreateWorkout} />
           <Stack.Screen name="Workout" component={WorkoutScreen} />
+          <Stack.Screen name="Exercise" component={ExerciseScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
