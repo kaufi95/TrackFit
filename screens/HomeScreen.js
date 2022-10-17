@@ -34,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
         <AnimatedLoader
           visible={true}
           overlayColor="rgba(255,255,255,0.75)"
-          source={require('./loader.json')}
+          source={require('../assets/loader.json')}
           animationStyle={styles.lottie}
           speed={1}
         >
