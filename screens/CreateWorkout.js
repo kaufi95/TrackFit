@@ -6,15 +6,13 @@ import { AntDesign } from '@expo/vector-icons';
 import { storeWorkout } from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
-  let name = '';
-  const [textValue, setTextValue] = useState('');
+  const nameRef = useRef('');
   const [numInputs, setNumInputs] = useState(3);
-  const refInputs = useRef([textValue]);
+  const refInputs = useRef(['', '', '']);
 
   const setInputValue = (index, value) => {
     const inputs = refInputs.current;
     inputs[index] = value;
-    setTextValue(value);
   };
 
   const removeInput = (i) => {
@@ -39,12 +37,13 @@ const CreateWorkout = ({ navigation }) => {
 
   const saveWorkout = () => {
     let exercises = {};
-    for (let i = 0; i < refInputs.current.length; i++) {
-      exercises[refInputs.current[i]] = {};
-    }
+
+    refInputs.current.map((item) => {
+      if (item != '') exercises[item] = {};
+    });
 
     let workout = {
-      name: name,
+      name: nameRef.current,
       lastDate: new Date().toLocaleDateString('de-AT', { year: 'numeric', month: '2-digit', day: '2-digit' }),
       exercises: exercises
     };
@@ -54,14 +53,14 @@ const CreateWorkout = ({ navigation }) => {
       return;
     }
 
-    if (workout.exercises.length == 0) {
+    if (Object.values(workout.exercises).length == 0) {
       Alert.alert('Error while saving workout', 'Please add an exercise');
       return;
     }
 
     console.log(workout);
-    storeWorkout(workout);
-    navigation.navigate('Home');
+    // storeWorkout(workout);
+    // navigation.navigate('Home');
   };
 
   const input = (item) => {
@@ -89,23 +88,18 @@ const CreateWorkout = ({ navigation }) => {
       keyboardVerticalOffset="50"
       enabled
     >
-      <View style={styles.view}>
+      <View style={styles.view1}>
         <Input
           variant="rounded"
           size="2xl"
           style={styles.header}
           placeholder="Workout name"
           onChangeText={(value) => {
-            name = value;
+            nameRef.current = value;
             setHeader();
           }}
         />
       </View>
-      {/* <ScrollView
-        contentContainerStyle={styles.view}
-        ref={scrollViewRef}
-        onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
-      > */}
       <FlatList
         data={refInputs.current}
         spacing={10}
@@ -113,10 +107,11 @@ const CreateWorkout = ({ navigation }) => {
         extraData={refInputs.current}
         keyExtractor={(item, index) => index.toString()}
       />
-      <Button variant="rounded" style={styles.button} onPress={addInput}>
-        Add Exercise
-      </Button>
-      {/* </ScrollView> */}
+      <View style={styles.view2}>
+        <Button variant="rounded" style={styles.button} onPress={addInput}>
+          Add Exercise
+        </Button>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -127,7 +122,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  view: {
+  view1: {
+    alignItems: 'center',
+    padding: 10
+  },
+  view2: {
     alignItems: 'center',
     padding: 10
   },
@@ -141,10 +140,10 @@ const styles = StyleSheet.create({
     padding: 20
   },
   button: {
-    margin: 20,
+    width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'cyan',
+    borderWidth: 1,
     marginBottom: 50
   },
   text: {

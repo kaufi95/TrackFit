@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
         </AnimatedLoader>
       );
     } else {
-      if (workouts.length > 0) {
+      if (workouts != null && workouts.length > 0) {
         return (
           <FlatGrid
             itemDimension={150}
