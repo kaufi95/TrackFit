@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, FlatList } from 'react-native';
+import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
 
 const WorkoutScreen = ({ navigation, route }) => {
   const [exercises, setExercises] = useState([]);
@@ -8,10 +8,10 @@ const WorkoutScreen = ({ navigation, route }) => {
     setExercises(route.params.workout.exercises);
   }, []);
 
-  const exercise = (item) => {
+  const exercise = (entry) => {
     return (
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: item.item })}>
-        <Text>{Object.keys(item.item)[0].toUpperCase()}</Text>
+      <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: entry.item })}>
+        <Text>{Object.keys(entry.item)[0].toUpperCase()}</Text>
       </Pressable>
     );
   };
@@ -21,7 +21,7 @@ const WorkoutScreen = ({ navigation, route }) => {
       contentContainerStyle={styles.list}
       data={exercises}
       spacing={10}
-      renderItem={(item) => exercise(item)}
+      renderItem={(entry) => exercise(entry)}
       extraData={exercises}
       keyExtractor={(item, index) => index.toString()}
     />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const ExerciseScreen = (props) => {
-  const [exercise, setExercise] = useState();
+  const [exercise, setExercise] = useState([]);
 
   useEffect(() => {
     setExercise(props.route.params.exercise);
