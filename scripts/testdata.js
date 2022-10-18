@@ -1,6 +1,7 @@
 const testdata = () => {
   return [
     {
+      id: '1',
       name: 'Chest-Bizeps-Day',
       lastDate: '22.22.2222',
       exercises: [
@@ -121,6 +122,7 @@ const testdata = () => {
       ]
     },
     {
+      id: '2',
       name: 'Back-Day',
       lastDate: '11.11.1111',
       exercises: [
@@ -241,6 +243,7 @@ const testdata = () => {
       ]
     },
     {
+      id: '3',
       name: 'TestWorkout3',
       lastDate: '01.00.0000',
       exercises: [

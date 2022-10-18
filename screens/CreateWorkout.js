@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
 import { Input, Text, HStack, Button } from 'native-base';
+
 import { AntDesign } from '@expo/vector-icons';
+import uuid from 'react-native-uuid';
 
 import { storeWorkout } from '../scripts/storage';
 
@@ -43,6 +45,7 @@ const CreateWorkout = ({ navigation }) => {
     });
 
     let workout = {
+      id: uuid.v4(),
       name: nameRef.current,
       lastDate: new Date().toLocaleDateString('de-AT', { year: 'numeric', month: '2-digit', day: '2-digit' }),
       exercises: exercises
