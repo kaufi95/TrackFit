@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Button, View, Text } from 'react-native';
+import { StyleSheet, Button, View, Text, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { FlatGrid } from 'react-native-super-grid';
@@ -14,6 +14,11 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
+      headerTitle: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+          <Text style={styles.text}>Home</Text>
+        </TouchableOpacity>
+      ),
       headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" />,
       headerRight: () => <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" />
     });
@@ -76,6 +81,11 @@ const styles = StyleSheet.create({
   lottie: {
     width: 150,
     height: 150
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff'
   }
 });
 

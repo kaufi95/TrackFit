@@ -8,6 +8,7 @@ import HistoryScreen from './screens/HistoryScreen';
 import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
 // Define the config
 const config = {
@@ -40,6 +41,7 @@ export default function App() {
           <Stack.Screen name="Create a Workout" component={CreateWorkout} />
           <Stack.Screen name="Workout" component={WorkoutScreen} />
           <Stack.Screen name="Exercise" component={ExerciseScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
