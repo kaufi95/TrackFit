@@ -10,6 +10,7 @@ export const loadWorkouts = async () => {
       return JSON.parse(temp);
     } else {
       console.log('no workouts available');
+      return [];
     }
   } catch (e) {
     console.error('Failed to load workouts.', e);
@@ -21,12 +22,6 @@ export const storeWorkout = async (workout) => {
     let workouts = await loadWorkouts();
     workouts = [workout, ...workouts];
 
-    // uncomment to empty workouts
-    // workouts = [];
-
-    // uncomment to activate testdata
-    // workouts = testdata();
-
     await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
     console.log('saved workouts');
   } catch (e) {
@@ -37,11 +32,8 @@ export const storeWorkout = async (workout) => {
 export const removeWorkout = async (workout) => {
   try {
     let workouts = await loadWorkouts();
-    console.log(workouts);
-    console.log(workout);
 
     const index = workouts.findIndex((element) => element.id === workout.id);
-    console.log(index);
 
     if (index === -1) {
       console.log('workout not found');
@@ -53,5 +45,23 @@ export const removeWorkout = async (workout) => {
     console.log('removed workout');
   } catch (e) {
     console.error('Failed to remove workout.', e);
+  }
+};
+
+export const clearWorkouts = async () => {
+  try {
+    await AsyncStorage.setItem('workouts', JSON.stringify([]));
+    console.log('saved workouts');
+  } catch (e) {
+    console.error('Failed to save workouts.', e);
+  }
+};
+
+export const insertTestdata = async () => {
+  try {
+    await AsyncStorage.setItem('workouts', JSON.stringify(testdata()));
+    console.log('saved workouts');
+  } catch (e) {
+    console.error('Failed to save workouts.', e);
   }
 };
