@@ -28,7 +28,7 @@ const CreateWorkout = ({ navigation }) => {
   const setHeader = () => {
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => saveWorkout()} title="Add" color={'white'}>
+        <Button onPress={() => saveWorkout()} title="Add">
           Save
         </Button>
       )
@@ -85,7 +85,7 @@ const CreateWorkout = ({ navigation }) => {
     <KeyboardAvoidingView
       style={styles.kav}
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset="50"
+      keyboardVerticalOffset={Platform.OS == 'ios' ? '75' : '135'}
       enabled
     >
       <View style={styles.view1}>
@@ -106,6 +106,7 @@ const CreateWorkout = ({ navigation }) => {
         renderItem={(index) => input(index)}
         extraData={refInputs.current}
         keyExtractor={(item, index) => index.toString()}
+        removeClippedSubviews={false}
       />
       <View style={styles.view2}>
         <Button variant="rounded" style={styles.button} onPress={addInput}>
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     borderWidth: 1,
-    marginBottom: 50
+    marginBottom: 25
   },
   text: {
     color: 'black',
