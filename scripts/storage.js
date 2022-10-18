@@ -33,3 +33,25 @@ export const storeWorkout = async (workout) => {
     console.error('Failed to save workouts.', e);
   }
 };
+
+export const removeWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+    console.log(workouts);
+    console.log(workout);
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+    console.log(index);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return;
+    }
+
+    workouts.splice(index, 1);
+    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    console.log('removed workout');
+  } catch (e) {
+    console.error('Failed to remove workout.', e);
+  }
+};
