@@ -11,7 +11,7 @@ const WorkoutCard = (props) => {
       onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}
     >
       <View style={styles.up}>
-        <WorkoutMenu workout={props.workout} />
+        {/* <WorkoutMenu workout={props.workout} /> */}
       </View>
       <View style={styles.down}>
         <Text style={styles.name}>{props.workout.name}</Text>

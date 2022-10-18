@@ -1,8 +1,6 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { Pressable, Text, Menu, ThreeDotsIcon } from 'native-base';
-
-import uuid from 'react-native-uuid';
 
 import { removeWorkout } from '../scripts/storage';
 
@@ -12,7 +10,7 @@ const WorkoutCard = (props) => {
       trigger={(triggerProps) => {
         return (
           <Pressable {...triggerProps}>
-            <ThreeDotsIcon size={8} />
+            <Text style={styles.text}>. . .</Text>
           </Pressable>
         );
       }}
@@ -36,5 +34,12 @@ const WorkoutCard = (props) => {
     </Menu>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
+});
 
 export default WorkoutCard;
