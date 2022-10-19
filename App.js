@@ -1,7 +1,7 @@
 import React from 'react';
-import { NativeBaseProvider, extendTheme } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import HomeScreen from './screens/HomeScreen';
 import HistoryScreen from './screens/HistoryScreen';
@@ -10,26 +10,27 @@ import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
-// Define the config
-const config = {
-  useSystemColorMode: false,
-  initialColorMode: 'dark'
+const theme = {
+  ...DefaultTheme
+  // colors: {
+  //   ...DefaultTheme.colors,
+  //   primary: 'tomato',
+  //   accent: 'yellow'
+  // }
 };
-
-// extend the theme
-export const theme = extendTheme({ config });
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NativeBaseProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
               backgroundColor: '#76a7a7'
             },
+            headerTitleAlign: 'center',
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold'
@@ -44,6 +45,6 @@ export default function App() {
           <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </NativeBaseProvider>
+    </PaperProvider>
   );
 }

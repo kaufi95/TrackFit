@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
-import { Input, Text, HStack, Button } from 'native-base';
+import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
+import { Text, Button, IconButton } from 'react-native-paper';
 
-import { AntDesign } from '@expo/vector-icons';
+import moment from 'moment';
 import uuid from 'react-native-uuid';
 
 import { storeWorkout } from '../scripts/storage';
@@ -47,7 +47,7 @@ const CreateWorkout = ({ navigation }) => {
     let workout = {
       id: uuid.v4(),
       name: nameRef.current,
-      lastDate: new Date().toLocaleDateString('de-AT', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+      lastDate: moment(new Date()).format('DD.MM.YYYY'),
       exercises: exercises
     };
 
@@ -62,25 +62,22 @@ const CreateWorkout = ({ navigation }) => {
     }
 
     console.log(workout);
-    storeWorkout(workout);
-    navigation.navigate('Home');
+    storeWorkout(workout).then(() => {
+      navigation.popToTop();
+    });
   };
 
-  const input = (item) => {
+  const inputExercise = (item) => {
     return (
-      <HStack key={item.index} style={styles.stack}>
+      <View key={item.index} style={styles.stack}>
         <Text style={styles.text}>{item.index + 1}.</Text>
-        <Input
-          variant="unstyled"
-          size="mg"
-          style={styles.input}
+        <TextInput
+          style={styles.inputExercise}
           onChangeText={(value) => setInputValue(item.index, value)}
           placeholder="Exercise"
         />
-        <TouchableOpacity style={styles.icon} onPress={() => removeInput(item.index)}>
-          <AntDesign name="minuscircleo" size={20} color="red" />
-        </TouchableOpacity>
-      </HStack>
+        <IconButton icon="minus-circle-outline" size={25} color="red" onPress={() => removeInput(item.index)} />
+      </View>
     );
   };
 
@@ -91,11 +88,9 @@ const CreateWorkout = ({ navigation }) => {
       keyboardVerticalOffset={Platform.OS == 'ios' ? '75' : '135'}
       enabled
     >
-      <View style={styles.view1}>
-        <Input
-          variant="rounded"
-          size="2xl"
-          style={styles.header}
+      <View style={styles.viewHeader}>
+        <TextInput
+          style={styles.inputHeader}
           placeholder="Workout name"
           onChangeText={(value) => {
             nameRef.current = value;
@@ -106,13 +101,13 @@ const CreateWorkout = ({ navigation }) => {
       <FlatList
         data={refInputs.current}
         spacing={10}
-        renderItem={(index) => input(index)}
+        renderItem={(index) => inputExercise(index)}
         extraData={refInputs.current}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={false}
       />
-      <View style={styles.view2}>
-        <Button variant="rounded" style={styles.button} onPress={addInput}>
+      <View style={styles.viewFooter}>
+        <Button style={styles.button} onPress={addInput}>
           Add Exercise
         </Button>
       </View>
@@ -126,26 +121,26 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  view1: {
+  viewHeader: {
     alignItems: 'center',
-    padding: 10
+    marginTop: 10
   },
-  view2: {
+  viewFooter: {
     alignItems: 'center',
-    padding: 10
+    padding: 5
   },
-  input: {
-    width: '70%',
-    maxWidth: '70%'
+  inputExercise: {
+    width: '75%'
   },
-  header: {
+  inputHeader: {
     width: '80%',
     height: 50,
-    padding: 20
+    padding: 10,
+    fontSize: 25
   },
   button: {
     width: '80%',
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
     borderWidth: 1,
     marginBottom: 25
@@ -155,22 +150,13 @@ const styles = StyleSheet.create({
     width: 30,
     marginLeft: 15
   },
-  box: {
-    margin: 15
-  },
-  icon: {
-    width: 30,
-    marginLeft: 15,
-    marginRight: 5
-  },
   stack: {
-    flex: 0.8,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 30,
-    padding: 10,
+    padding: 5,
     margin: 10
   }
 });

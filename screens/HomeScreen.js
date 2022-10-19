@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Button, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, View, Text } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { Title } from 'react-native-paper';
 
 import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
@@ -15,9 +16,9 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Text style={styles.text}>Home</Text>
-        </TouchableOpacity>
+        <Title style={styles.text} onLongPress={() => navigation.navigate('Settings')}>
+          Home
+        </Title>
       ),
       headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" />,
       headerRight: () => <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" />
@@ -47,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
         </AnimatedLoader>
       );
     } else {
-      if (workouts != null && workouts.length > 0) {
+      if (workouts.length > 0) {
         return (
           <FlatGrid
             itemDimension={150}
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     height: 150
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#fff'
   }

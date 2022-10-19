@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  button: {}
+  }
 });
 
 export default SettingsScreen;

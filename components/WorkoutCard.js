@@ -1,23 +1,18 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Pressable, View, Text } from 'native-base';
+import { Card, Title, Paragraph } from 'react-native-paper';
 
 import WorkoutMenu from './WorkoutMenu';
 
 const WorkoutCard = (props) => {
   return (
-    <Pressable
-      style={styles.container}
-      onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}
-    >
-      <View style={styles.up}>
-        {/* <WorkoutMenu workout={props.workout} /> */}
-      </View>
-      <View style={styles.down}>
-        <Text style={styles.name}>{props.workout.name}</Text>
-        <Text style={styles.date}>{props.workout.lastDate}</Text>
-      </View>
-    </Pressable>
+    <Card style={styles.container} onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}>
+      <WorkoutMenu workout={props.workout} navigation={props.navigation} />
+      <Card.Content style={styles.down}>
+        <Title style={styles.name}>{props.workout.name}</Title>
+        <Paragraph style={styles.date}>{props.workout.lastDate}</Paragraph>
+      </Card.Content>
+    </Card>
   );
 };
 
@@ -27,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#1abc9c',
     borderRadius: 5,
-    padding: 10,
+    padding: 5,
     height: 150
   },
   up: {
