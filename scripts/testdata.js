@@ -11,15 +11,15 @@ const testdata = () => {
               date: '22.22.2222',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -28,15 +28,15 @@ const testdata = () => {
               date: '21.22.2222',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -49,15 +49,15 @@ const testdata = () => {
               date: '22.22.2222',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -66,15 +66,15 @@ const testdata = () => {
               date: '21.22.2222',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -87,15 +87,15 @@ const testdata = () => {
               date: '22.22.2222',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -104,15 +104,15 @@ const testdata = () => {
               date: '21.22.2222',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -132,15 +132,15 @@ const testdata = () => {
               date: '11.11.1111',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -149,15 +149,15 @@ const testdata = () => {
               date: '10.11.1111',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -170,15 +170,15 @@ const testdata = () => {
               date: '11.11.1111',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -187,15 +187,15 @@ const testdata = () => {
               date: '10.11.1111',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -208,15 +208,15 @@ const testdata = () => {
               date: '11.11.1111',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -225,15 +225,15 @@ const testdata = () => {
               date: '10.11.1111',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -253,15 +253,15 @@ const testdata = () => {
               date: '01.00.0000',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -270,15 +270,15 @@ const testdata = () => {
               date: '00.00.0000',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -291,15 +291,15 @@ const testdata = () => {
               date: '01.00.0000',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -308,15 +308,15 @@ const testdata = () => {
               date: '00.00.0000',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -329,15 +329,15 @@ const testdata = () => {
               date: '01.00.0000',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
@@ -346,15 +346,15 @@ const testdata = () => {
               date: '00.00.0000',
               sets: {
                 1: {
-                  weigh: 20,
+                  weight: 20,
                   repeats: 8
                 },
                 2: {
-                  weigh: 25,
+                  weight: 25,
                   repeats: 6
                 },
                 3: {
-                  weigh: 30,
+                  weight: 30,
                   repeats: 6
                 }
               }
