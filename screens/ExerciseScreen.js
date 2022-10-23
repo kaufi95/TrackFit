@@ -8,11 +8,9 @@ const ExerciseScreen = (props) => {
     setExercise(props.route.params.exercise);
   }, []);
 
-  console.log(exercise);
-
   return (
     <View style={styles.containerView}>
-      <Text>{Object.keys(exercise)[0]}</Text>
+      <Text>{exercise.name}</Text>
     </View>
   );
 };

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const testdata = () => {
   return [
     {
@@ -8,7 +10,7 @@ const testdata = () => {
           name: 'Benchpress',
           sessions: [
             {
-              date: '22.22.2222',
+              date: moment(new Date(2022, 9, 22)),
               sets: {
                 1: {
                   weight: 20,
@@ -25,7 +27,7 @@ const testdata = () => {
               }
             },
             {
-              date: '21.22.2222',
+              date: moment(new Date(2022, 9, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -47,7 +49,7 @@ const testdata = () => {
           name: 'Butterfly',
           butterfly: [
             {
-              date: '22.22.2222',
+              date: moment(new Date(2022, 9, 22)),
               sets: {
                 1: {
                   weight: 20,
@@ -64,7 +66,7 @@ const testdata = () => {
               }
             },
             {
-              date: '21.22.2222',
+              date: moment(new Date(2022, 9, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -86,7 +88,7 @@ const testdata = () => {
           name: 'Cable-Cross',
           sessions: [
             {
-              date: '22.22.2222',
+              date: moment(new Date(2022, 9, 22)),
               sets: {
                 1: {
                   weight: 20,
@@ -103,7 +105,7 @@ const testdata = () => {
               }
             },
             {
-              date: '21.22.2222',
+              date: moment(new Date(2022, 9, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -131,7 +133,7 @@ const testdata = () => {
           name: 'Pullups',
           sessions: [
             {
-              date: '11.11.1111',
+              date: moment(new Date(2022, 7, 22)),
               sets: {
                 1: {
                   weight: 20,
@@ -148,7 +150,7 @@ const testdata = () => {
               }
             },
             {
-              date: '10.11.1111',
+              date: moment(new Date(2022, 7, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -170,7 +172,7 @@ const testdata = () => {
           name: 'Lat-Pulldown',
           sessions: [
             {
-              date: '11.11.1111',
+              date: moment(new Date(2022, 7, 22)),
               sets: {
                 1: {
                   weight: 20,
@@ -187,7 +189,7 @@ const testdata = () => {
               }
             },
             {
-              date: '10.11.1111',
+              date: moment(new Date(2022, 7, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -209,7 +211,7 @@ const testdata = () => {
           name: 'Seated-Row',
           sessions: [
             {
-              date: '11.11.1111',
+              date: moment(new Date(2022, 7, 22)),
               sets: {
                 1: {
                   weight: 20,
@@ -226,7 +228,7 @@ const testdata = () => {
               }
             },
             {
-              date: '10.11.1111',
+              date: moment(new Date(2022, 7, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -254,7 +256,7 @@ const testdata = () => {
           name: 'TestExercise1',
           sessions: [
             {
-              date: '01.00.0000',
+              date: moment(new Date(2022, 8, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -271,7 +273,7 @@ const testdata = () => {
               }
             },
             {
-              date: '00.00.0000',
+              date: moment(new Date(2022, 8, 20)),
               sets: {
                 1: {
                   weight: 20,
@@ -293,7 +295,7 @@ const testdata = () => {
           name: 'TestExercise2',
           sessions: [
             {
-              date: '01.00.0000',
+              date: moment(new Date(2022, 8, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -310,7 +312,7 @@ const testdata = () => {
               }
             },
             {
-              date: '00.00.0000',
+              date: moment(new Date(2022, 8, 20)),
               sets: {
                 1: {
                   weight: 20,
@@ -332,7 +334,7 @@ const testdata = () => {
           name: 'TestExercise3',
           sessions: [
             {
-              date: '01.00.0000',
+              date: moment(new Date(2022, 8, 21)),
               sets: {
                 1: {
                   weight: 20,
@@ -349,7 +351,7 @@ const testdata = () => {
               }
             },
             {
-              date: '00.00.0000',
+              date: moment(new Date(2022, 8, 20)),
               sets: {
                 1: {
                   weight: 20,
@@ -366,6 +368,24 @@ const testdata = () => {
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      id: '4',
+      name: 'Test',
+      exercises: [
+        {
+          name: 'TestExercise1',
+          sessions: []
+        },
+        {
+          name: 'TestExercise2',
+          sessions: []
+        },
+        {
+          name: 'TestExercise3',
+          sessions: []
         }
       ]
     }

@@ -11,7 +11,7 @@ import { loadWorkouts, removeWorkout } from '../scripts/storage';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
-  const [isLoading, setIsLoading] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     navigation.setOptions({

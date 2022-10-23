@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
 
 const WorkoutScreen = ({ navigation, route }) => {
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState();
 
   useEffect(() => {
     setExercises(route.params.workout.exercises);
@@ -11,7 +11,7 @@ const WorkoutScreen = ({ navigation, route }) => {
   const exercise = (entry) => {
     return (
       <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: entry.item })}>
-        <Text>{Object.keys(entry.item)[0].toUpperCase()}</Text>
+        <Text>{entry.item.name.toUpperCase()}</Text>
       </Pressable>
     );
   };
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    width: 200,
+    width: 250,
     padding: 20,
     borderRadius: 10,
     borderWidth: 1,
