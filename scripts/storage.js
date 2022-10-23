@@ -51,9 +51,9 @@ export const removeWorkout = async (workout) => {
 export const clearWorkouts = async () => {
   try {
     await AsyncStorage.setItem('workouts', JSON.stringify([]));
-    console.log('saved workouts');
+    console.log('cleared workouts');
   } catch (e) {
-    console.error('Failed to save workouts.', e);
+    console.error('Failed to clear workouts.', e);
   }
 };
 
