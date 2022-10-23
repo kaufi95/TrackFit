@@ -3,10 +3,10 @@ const testdata = () => {
     {
       id: '1',
       name: 'Chest-Bizeps-Day',
-      lastDate: '22.22.2222',
       exercises: [
         {
-          benchpress: [
+          name: 'Benchpress',
+          sessions: [
             {
               date: '22.22.2222',
               sets: {
@@ -44,6 +44,7 @@ const testdata = () => {
           ]
         },
         {
+          name: 'Butterfly',
           butterfly: [
             {
               date: '22.22.2222',
@@ -82,7 +83,8 @@ const testdata = () => {
           ]
         },
         {
-          bizepsCurls: [
+          name: 'Cable-Cross',
+          sessions: [
             {
               date: '22.22.2222',
               sets: {
@@ -124,10 +126,10 @@ const testdata = () => {
     {
       id: '2',
       name: 'Back-Day',
-      lastDate: '11.11.1111',
       exercises: [
         {
-          pullup: [
+          name: 'Pullups',
+          sessions: [
             {
               date: '11.11.1111',
               sets: {
@@ -165,7 +167,8 @@ const testdata = () => {
           ]
         },
         {
-          superman: [
+          name: 'Lat-Pulldown',
+          sessions: [
             {
               date: '11.11.1111',
               sets: {
@@ -203,7 +206,8 @@ const testdata = () => {
           ]
         },
         {
-          deadlift: [
+          name: 'Seated-Row',
+          sessions: [
             {
               date: '11.11.1111',
               sets: {
@@ -245,10 +249,10 @@ const testdata = () => {
     {
       id: '3',
       name: 'TestWorkout3',
-      lastDate: '01.00.0000',
       exercises: [
         {
-          pullup: [
+          name: 'TestExercise1',
+          sessions: [
             {
               date: '01.00.0000',
               sets: {
@@ -286,7 +290,8 @@ const testdata = () => {
           ]
         },
         {
-          superman: [
+          name: 'TestExercise2',
+          sessions: [
             {
               date: '01.00.0000',
               sets: {
@@ -324,7 +329,8 @@ const testdata = () => {
           ]
         },
         {
-          deadlift: [
+          name: 'TestExercise3',
+          sessions: [
             {
               date: '01.00.0000',
               sets: {

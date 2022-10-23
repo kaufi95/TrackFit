@@ -18,8 +18,10 @@ const CreateWorkout = ({ navigation }) => {
   };
 
   const removeInput = (i) => {
-    refInputs.current.splice(i, 1)[0];
-    setNumInputs((value) => value - 1);
+    if (numInputs > 1) {
+      refInputs.current.splice(i, 1)[0];
+      setNumInputs((value) => value - 1);
+    }
   };
 
   const addInput = () => {
@@ -38,16 +40,20 @@ const CreateWorkout = ({ navigation }) => {
   };
 
   const saveWorkout = () => {
-    let exercises = {};
+    let exercises = [];
 
     refInputs.current.map((item) => {
-      if (item != '') exercises[item] = {};
+      if (item != '') {
+        exercises.push({
+          name: item,
+          sessions: []
+        });
+      }
     });
 
     let workout = {
       id: uuid.v4(),
       name: nameRef.current,
-      lastDate: moment(new Date()).format('DD.MM.YYYY'),
       exercises: exercises
     };
 
@@ -56,7 +62,7 @@ const CreateWorkout = ({ navigation }) => {
       return;
     }
 
-    if (Object.values(workout.exercises).length == 0) {
+    if (workout.exercises.length == 0) {
       Alert.alert('Error while saving workout', 'Please add an exercise');
       return;
     }
