@@ -7,7 +7,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
 import WorkoutCard from '../components/WorkoutCard';
-import { loadWorkouts } from '../scripts/storage';
+import { loadWorkouts, removeWorkout } from '../scripts/storage';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -34,6 +34,14 @@ const HomeScreen = ({ navigation }) => {
     }, [])
   );
 
+  const deleteWorkout = (workout) => {
+    removeWorkout(workout).then(() => {
+      loadWorkouts().then((workouts) => {
+        setWorkouts(workouts);
+      });
+    });
+  };
+
   const renderWorkouts = () => {
     if (isLoading) {
       return (
@@ -55,7 +63,9 @@ const HomeScreen = ({ navigation }) => {
             data={workouts}
             style={styles.gridView}
             spacing={10}
-            renderItem={({ item }) => <WorkoutCard workout={item} navigation={navigation} />}
+            renderItem={({ item }) => (
+              <WorkoutCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
+            )}
             extraData={workouts}
           />
         );

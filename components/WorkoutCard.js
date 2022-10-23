@@ -7,7 +7,7 @@ import WorkoutMenu from './WorkoutMenu';
 const WorkoutCard = (props) => {
   return (
     <Card style={styles.container} onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}>
-      <WorkoutMenu workout={props.workout} navigation={props.navigation} />
+      <WorkoutMenu workout={props.workout} navigation={props.navigation} deleteWorkout={props.deleteWorkout} />
       <Card.Content style={styles.down}>
         <Title style={styles.name}>{props.workout.name}</Title>
         <Paragraph style={styles.date}>{props.workout.lastDate}</Paragraph>
