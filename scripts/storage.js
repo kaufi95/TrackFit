@@ -65,3 +65,20 @@ export const insertTestdata = async () => {
     console.error('Failed to save workouts.', e);
   }
 };
+
+export const verifyIfWorkoutNameExists = async (name) => {
+  try {
+    let workouts = await loadWorkouts();
+    let exists = false;
+    workouts.forEach((workout) => {
+      if (workout.name === name) {
+        console.log('workout name already exists');
+        exists = true;
+      }
+    });
+    console.log('workout name does not exist');
+    return exists;
+  } catch (e) {
+    console.error('Failed to verify workout name.', e);
+  }
+};

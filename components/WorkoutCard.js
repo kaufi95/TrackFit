@@ -45,8 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#1abc9c',
     borderRadius: 5,
-    padding: 5,
-    height: 150
+    padding: 5
   },
   up: {
     alignSelf: 'flex-end'

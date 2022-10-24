@@ -6,11 +6,14 @@ const WorkoutScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     setExercises(route.params.workout.exercises);
+    navigation.setOptions({
+      headerTitle: route.params.workout.name
+    });
   }, []);
 
   const exercise = (entry) => {
     return (
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: entry.item })}>
+      <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: entry.item, workoutName: route.params.workout.name })}>
         <Text>{entry.item.name.toUpperCase()}</Text>
       </Pressable>
     );

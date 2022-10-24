@@ -1,42 +1,98 @@
 import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { StyleSheet, FlatList, View, Text, Pressable } from 'react-native';
+import moment from 'moment';
 
-import { FlatGrid } from 'react-native-super-grid';
-
-import WorkoutCard from '../components/WorkoutCard';
 import { loadWorkouts } from '../scripts/storage';
 
-const HistoryScreen = ({ navigation }) => {
-  const [workouts, setWorkouts] = useState([]);
+const HistoryScreen = () => {
+  const [cardElements, setCardElements] = useState([]);
 
   useEffect(() => {
     loadWorkouts().then((workouts) => {
-      workouts.sort((workout1, workout2) => workout1.lastDate < workout2.lastDate);
-      setWorkouts(workouts);
+      buildHistoryCards(workouts);
     });
   }, []);
 
-  const renderWorkouts = () => {
+  const getDatesOfWorkout = (workout) => {
+    let dates = [];
+    workout.exercises.map((exercise) => {
+      exercise.sessions?.forEach((session) => {
+        dates.push(session.date);
+      });
+    });
+    return dates;
+  };
+
+  const buildHistoryCards = (workouts) => {
+    let cards = [];
+    workouts.forEach((workout) => {
+      getDatesOfWorkout(workout).forEach((date) => {
+        let card = {
+          workoutName: workout.name,
+          date: date
+        };
+        cards.push(card);
+      });
+    });
+    cards.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    setCardElements(cards);
+  };
+
+  const renderCard = (item) => {
     return (
-      <FlatGrid
-        itemDimension={150}
-        data={workouts}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({ item }) => <WorkoutCard workout={item} navigation={navigation} />}
-        extraData={workouts}
+      <View style={styles.card}>
+        <Text style={styles.date}>{moment(item.date).format('DD.MM.YYYY')}</Text>
+        <Pressable
+          style={styles.innerCard}
+          onPress={() => {
+            alert('hallo');
+          }}
+        >
+          <Text style={styles.name}>{item.workoutName}</Text>
+        </Pressable>
+      </View>
+    );
+  };
+
+  const renderHistory = () => {
+    return (
+      <FlatList
+        //temDimension={100}
+        data={cardElements}
+        style={styles.list}
+        spacing={5}
+        renderItem={({ item }) => renderCard(item)}
+        keyExtractor={(item, index) => index.toString()}
       />
     );
   };
 
-  return renderWorkouts();
+  return renderHistory();
 };
 
 const styles = StyleSheet.create({
-  container: {
+  list: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    marginTop: 20
+  },
+  card: {
+    padding: 15
+  },
+  innerCard: {
+    backgroundColor: '#1abc9c',
+    padding: 15,
+    borderRadius: 10
+  },
+  date: {
+    fontSize: 18,
+    marginBottom: 5,
+    marginLeft: 20
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold'
   }
 });
 

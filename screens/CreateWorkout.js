@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
 import { Text, Button, IconButton } from 'react-native-paper';
 
 import uuid from 'react-native-uuid';
 
-import { storeWorkout } from '../scripts/storage';
+import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
   const [workoutName, setWorkoutName] = useState('');
@@ -27,7 +27,12 @@ const CreateWorkout = ({ navigation }) => {
     setInputs([...inputs, '']);
   };
 
-  const saveWorkout = () => {
+  const saveWorkout = async () => {
+    if (await verifyIfWorkoutNameExists(workoutName)) {
+      Alert.alert('Failed to store Workout', 'Workout name already exists');
+      return;
+    }
+
     let exercises = [];
 
     inputs.map((item) => {
