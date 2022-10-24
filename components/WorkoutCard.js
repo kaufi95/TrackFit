@@ -6,7 +6,12 @@ import WorkoutMenu from './WorkoutMenu';
 
 const WorkoutCard = (props) => {
   return (
-    <Card style={styles.container} onPress={() => props.navigation.navigate('Workout', { workout: props.workout })}>
+    <Card
+      style={styles.container}
+      onPress={() =>
+        props.navigation.navigate('Workout', { workout: props.workout })
+      }
+    >
       <WorkoutMenu workout={props.workout} navigation={props.navigation} />
       <Card.Content style={styles.down}>
         <Title style={styles.name}>{props.workout.name}</Title>
@@ -22,8 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#1abc9c',
     borderRadius: 5,
-    padding: 5,
-    height: 150
+    padding: 5
   },
   up: {
     alignSelf: 'flex-end'
