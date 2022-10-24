@@ -1,62 +1,41 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
 import { Text, Button, IconButton } from 'react-native-paper';
 
-import moment from 'moment';
 import uuid from 'react-native-uuid';
 
-import { storeWorkout, loadWorkouts } from '../scripts/storage';
-
+import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
-  const [workouts, setWorkouts] = useState([]);
-  const nameRef = useRef('');
-  const [numInputs, setNumInputs] = useState(3);
-  const refInputs = useRef(['', '', '']);
-
-  useEffect(() => {
-    loadWorkouts().then(setWorkouts);
-  }, []);
+  const [workoutName, setWorkoutName] = useState('');
+  const [inputs, setInputs] = useState(['', '', '']);
 
   const setInputValue = (index, value) => {
-    const inputs = refInputs.current;
-    inputs[index] = value;
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
   };
 
   const removeInput = (i) => {
-    if (numInputs > 1) {
-      refInputs.current.splice(i, 1)[0];
-      setNumInputs((value) => value - 1);
+    if (inputs.length > 1) {
+      inputs.splice(i, 1);
+      setInputs([...inputs]);
     }
   };
 
   const addInput = () => {
-    refInputs.current.push('');
-    setNumInputs((value) => value + 1);
+    setInputs([...inputs, '']);
   };
 
-  const setHeader = () => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button onPress={() => saveWorkout()} title="Add">
-          Save
-        </Button>
-      )
-    });
-  };
-
-  const verifyIfWorkoutNameExists = (name) => {
-    return workouts.some((workout) => workout.name === name);
-  };
-
-  const saveWorkout = () => {
-    if (verifyIfWorkoutNameExists(nameRef.current)) {
+  const saveWorkout = async () => {
+    if (await verifyIfWorkoutNameExists(workoutName)) {
       Alert.alert('Failed to store Workout', 'Workout name already exists');
       return;
-    } 
+    }
+
     let exercises = [];
 
-    refInputs.current.map((item) => {
+    inputs.map((item) => {
       if (item != '') {
         exercises.push({
           name: item,
@@ -67,7 +46,7 @@ const CreateWorkout = ({ navigation }) => {
 
     let workout = {
       id: uuid.v4(),
-      name: nameRef.current,
+      name: workoutName,
       exercises: exercises
     };
 
@@ -94,6 +73,7 @@ const CreateWorkout = ({ navigation }) => {
         <TextInput
           style={styles.inputExercise}
           onChangeText={(value) => setInputValue(item.index, value)}
+          value={inputs[item.index]}
           placeholder="Exercise"
         />
         <IconButton icon="minus-circle-outline" size={25} color="red" onPress={() => removeInput(item.index)} />
@@ -114,22 +94,24 @@ const CreateWorkout = ({ navigation }) => {
           style={styles.inputHeader}
           placeholder="Workout name"
           onChangeText={(value) => {
-            nameRef.current = value;
-            setHeader();
+            setWorkoutName(value);
           }}
         />
       </View>
       <FlatList
-        data={refInputs.current}
+        data={inputs}
         spacing={10}
         renderItem={(index) => inputExercise(index)}
-        extraData={refInputs.current}
+        extraData={inputs}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={false}
       />
       <View style={styles.viewFooter}>
         <Button style={styles.button} onPress={addInput}>
           Add Exercise
+        </Button>
+        <Button style={styles.button} onPress={saveWorkout}>
+          Save workout
         </Button>
       </View>
     </KeyboardAvoidingView>

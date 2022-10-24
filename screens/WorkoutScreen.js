@@ -13,7 +13,10 @@ const WorkoutScreen = ({ navigation, route }) => {
 
   const exercise = (entry) => {
     return (
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: entry.item, workoutName: route.params.workout.name })}>
+      <Pressable
+        style={styles.button}
+        onPress={() => navigation.navigate('Exercise', { exercise: entry.item, workout: route.params.workout })}
+      >
         <Text>{entry.item.name.toUpperCase()}</Text>
       </Pressable>
     );

@@ -82,3 +82,35 @@ export const verifyIfWorkoutNameExists = async (name) => {
     console.error('Failed to verify workout name.', e);
   }
 };
+
+export const storeSession = async (workout, exercise, sets) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const workoutIndex = workouts.findIndex((element) => element.id === workout.id);
+
+    if (workoutIndex === -1) {
+      console.log('workout not found');
+      return;
+    }
+
+    const exerciseIndex = workouts[workoutIndex].exercises.findIndex((element) => element.id === exercise.id);
+
+    if (exerciseIndex === -1) {
+      console.log('exercise not found');
+      return;
+    }
+
+    let session = {
+      date: new Date(),
+      sets: sets
+    };
+
+    workouts[workoutIndex].exercises[exerciseIndex].sessions.push(session);
+
+    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    console.log('stored session');
+  } catch (e) {
+    console.error('Failed to store session.', e);
+  }
+};
