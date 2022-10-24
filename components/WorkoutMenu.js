@@ -25,10 +25,7 @@ const WorkoutMenu = (props) => {
               {
                 text: 'DELETE IT!',
                 onPress: () => {
-                  removeWorkout(props.workout).then(() => {
-                    setVisible(false);
-                    // props.navigation.navigate('Home');
-                  });
+                  props.deleteWorkout(props.workout);
                 }
               }
             ])
