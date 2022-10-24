@@ -1,55 +1,50 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { NativeBaseProvider, extendTheme } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import HomeScreen from './screens/HomeScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
+import ExerciseScreen from './screens/ExerciseScreen';
+import SettingsScreen from './screens/SettingsScreen';
 
-// Define the config
-const config = {
-  useSystemColorMode: false,
-  initialColorMode: 'dark'
+const theme = {
+  ...DefaultTheme
+  // colors: {
+  //   ...DefaultTheme.colors,
+  //   primary: 'tomato',
+  //   accent: 'yellow'
+  // }
 };
-
-// extend the theme
-export const theme = extendTheme({ config });
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NativeBaseProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
               backgroundColor: '#76a7a7'
             },
+            headerTitleAlign: 'center',
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold'
             }
           }}
         >
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={({ navigation }) => ({
-              headerLeft: () => <Text onPress={() => navigation.navigate('History')} >History</Text>,
-              headerRight: () => (
-                <Text onPress={() => navigation.navigate('Create a Workout')} >Add</Text>
-              )
-            })}
-          />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="History" component={HistoryScreen} />
           <Stack.Screen name="Create a Workout" component={CreateWorkout} />
           <Stack.Screen name="Workout" component={WorkoutScreen} />
+          <Stack.Screen name="Exercise" component={ExerciseScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </NativeBaseProvider>
+    </PaperProvider>
   );
 }

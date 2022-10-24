@@ -1,114 +1,395 @@
+import moment from 'moment';
+
 const testdata = () => {
-  return ([
+  return [
     {
-      name: 'TestWorkout1',
-      lastDate: '22.22.2222',
-      exercises: {
-        benchpress: {},
-        butterfly: {},
-        bizepsCurls: {}
-      }
+      id: '1',
+      name: 'Chest-Bizeps-Day',
+      exercises: [
+        {
+          name: 'Benchpress',
+          sessions: [
+            {
+              date: moment(new Date(2022, 3, 22)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 4, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'Butterfly',
+          butterfly: [
+            {
+              date: moment(new Date(2022, 4, 22)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 5, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'Cable-Cross',
+          sessions: [
+            {
+              date: moment(new Date(2022, 9, 22)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 9, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
-      name: 'TestWorkout2',
-      lastDate: '11.11.1111',
-      exercises: {
-        textExercise21: {},
-        textExercise22: {},
-        textExercise23: {}
-      }
+      id: '2',
+      name: 'Back-Day',
+      exercises: [
+        {
+          name: 'Pullups',
+          sessions: [
+            {
+              date: moment(new Date(2022, 7, 22)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 7, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'Lat-Pulldown',
+          sessions: [
+            {
+              date: moment(new Date(2022, 7, 22)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 5, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'Seated-Row',
+          sessions: [
+            {
+              date: moment(new Date(2022, 8, 22)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 7, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
+      id: '3',
       name: 'TestWorkout3',
-      lastDate: '00.00.0000',
-      exercises: {
-        textExercise31: {},
-        textExercise32: {},
-        textExercise33: {}
-      }
+      exercises: [
+        {
+          name: 'TestExercise1',
+          sessions: [
+            {
+              date: moment(new Date(2022, 5, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 1, 20)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'TestExercise2',
+          sessions: [
+            {
+              date: moment(new Date(2022, 2, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 3, 20)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          name: 'TestExercise3',
+          sessions: [
+            {
+              date: moment(new Date(2022, 7, 21)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            },
+            {
+              date: moment(new Date(2022, 5, 20)),
+              sets: {
+                1: {
+                  weight: 20,
+                  repeats: 8
+                },
+                2: {
+                  weight: 25,
+                  repeats: 6
+                },
+                3: {
+                  weight: 30,
+                  repeats: 6
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
-        name: 'TestWorkout4',
-        lastDate: '22.22.2222',
-        exercises: {
-          benchpress: {},
-          butterfly: {},
-          bizepsCurls: {}
+      id: '4',
+      name: 'Test',
+      exercises: [
+        {
+          name: 'TestExercise1',
+          sessions: []
+        },
+        {
+          name: 'TestExercise2',
+          sessions: []
+        },
+        {
+          name: 'TestExercise3',
+          sessions: []
         }
-      },
-      {
-        name: 'TestWorkout5',
-        lastDate: '11.11.1111',
-        exercises: {
-          textExercise21: {},
-          textExercise22: {},
-          textExercise23: {}
-        }
-      },
-      {
-        name: 'TestWorkout6',
-        lastDate: '00.00.0000',
-        exercises: {
-          textExercise31: {},
-          textExercise32: {},
-          textExercise33: {}
-        }
-      },
-      {
-        name: 'TestWorkout7',
-        lastDate: '22.22.2222',
-        exercises: {
-          benchpress: {},
-          butterfly: {},
-          bizepsCurls: {}
-        }
-      },
-      {
-        name: 'TestWorkout8',
-        lastDate: '11.11.1111',
-        exercises: {
-          textExercise21: {},
-          textExercise22: {},
-          textExercise23: {}
-        }
-      },
-      {
-        name: 'TestWorkout9',
-        lastDate: '00.00.0000',
-        exercises: {
-          textExercise31: {},
-          textExercise32: {},
-          textExercise33: {}
-        }
-      },
-      {
-        name: 'TestWorkout10',
-        lastDate: '22.22.2222',
-        exercises: {
-          benchpress: {},
-          butterfly: {},
-          bizepsCurls: {}
-        }
-      },
-      {
-        name: 'TestWorkout11',
-        lastDate: '11.11.1111',
-        exercises: {
-          textExercise21: {},
-          textExercise22: {},
-          textExercise23: {}
-        }
-      },
-      {
-        name: 'TestWorkout12',
-        lastDate: '00.00.0000',
-        exercises: {
-          textExercise31: {},
-          textExercise32: {},
-          textExercise33: {}
-        }
-      }
-  ]);
+      ]
+    }
+  ];
 };
 
 export default testdata;

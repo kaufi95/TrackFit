@@ -1,21 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
 
-const WorkoutScreen = (props) => {
+const WorkoutScreen = ({ navigation, route }) => {
+  const [exercises, setExercises] = useState();
+
+  useEffect(() => {
+    setExercises(route.params.workout.exercises);
+    navigation.setOptions({
+      headerTitle: route.params.workout.name
+    });
+  }, []);
+
+  const exercise = (entry) => {
+    return (
+      <Pressable style={styles.button} onPress={() => navigation.navigate('Exercise', { exercise: entry.item, workoutName: route.params.workout.name })}>
+        <Text>{entry.item.name.toUpperCase()}</Text>
+      </Pressable>
+    );
+  };
+
   return (
-    <View style={styles.containerView}>
-      {console.log(props)}
-      <Text>{props.route.params.workout.name}</Text>
-      <Text>{props.route.params.workout.lastDate}</Text>
-    </View>
+    <FlatList
+      contentContainerStyle={styles.list}
+      data={exercises}
+      spacing={10}
+      renderItem={(entry) => exercise(entry)}
+      extraData={exercises}
+      keyExtractor={(item, index) => index.toString()}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  containerView: {
+  list: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  button: {
+    width: 250,
+    padding: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    marginBottom: 50,
+    alignItems: 'center'
   }
 });
 
