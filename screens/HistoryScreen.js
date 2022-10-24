@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList, View, Text, Pressable } from 'react-native';
+import moment from 'moment';
 
 import { loadWorkouts } from '../scripts/storage';
 
@@ -15,12 +16,8 @@ const HistoryScreen = () => {
   const getDatesOfWorkout = (workout) => {
     let dates = [];
     workout.exercises.map((exercise) => {
-      Object.keys(exercise).map((key) => {
-        exercise[key].map((set) => {
-          if (!dates.includes(set.date)) {
-            dates.push(set.date);
-          }
-        });
+      exercise.sessions?.forEach((session) => {
+        dates.push(session.date);
       });
     });
     return dates;
@@ -37,13 +34,16 @@ const HistoryScreen = () => {
         cards.push(card);
       });
     });
+    cards.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
     setCardElements(cards);
   };
 
   const renderCard = (item) => {
     return (
       <View style={styles.card}>
-        <Text style={styles.date}>{item.date}</Text>
+        <Text style={styles.date}>{moment(item.date).format('DD.MM.YYYY')}</Text>
         <Pressable
           style={styles.innerCard}
           onPress={() => {
