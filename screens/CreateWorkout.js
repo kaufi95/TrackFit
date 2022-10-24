@@ -56,9 +56,9 @@ const CreateWorkout = ({ navigation }) => {
     }
 
     console.log(workout);
-    // storeWorkout(workout).then(() => {
-    //   navigation.popToTop();
-    // });
+    storeWorkout(workout).then(() => {
+      navigation.popToTop();
+    });
   };
 
   const inputExercise = (item) => {
