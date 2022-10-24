@@ -14,7 +14,7 @@ const WorkoutMenu = (props) => {
         onDismiss={() => setVisible(false)}
         anchor={<IconButton icon="dots-horizontal" size={25} onPress={() => setVisible(true)} />}
       >
-        <Menu.Item onPress={() => setVisible(false)} title="Edit" />
+        {/* <Menu.Item onPress={() => setVisible(false)} title="Edit" /> */}
         <Menu.Item
           onPress={() =>
             Alert.alert('Delete', 'Are you sure you want to delete this Workout?', [
