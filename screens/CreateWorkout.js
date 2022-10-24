@@ -1,16 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
 import { Text, Button, IconButton } from 'react-native-paper';
 
 import moment from 'moment';
 import uuid from 'react-native-uuid';
 
-import { storeWorkout } from '../scripts/storage';
+import { storeWorkout, loadWorkouts } from '../scripts/storage';
+
 
 const CreateWorkout = ({ navigation }) => {
+  const [workouts, setWorkouts] = useState([]);
   const nameRef = useRef('');
   const [numInputs, setNumInputs] = useState(3);
   const refInputs = useRef(['', '', '']);
+
+  useEffect(() => {
+    loadWorkouts().then(setWorkouts);
+  }, []);
 
   const setInputValue = (index, value) => {
     const inputs = refInputs.current;
@@ -39,7 +45,15 @@ const CreateWorkout = ({ navigation }) => {
     });
   };
 
+  const verifyIfWorkoutNameExists = (name) => {
+    return workouts.some((workout) => workout.name === name);
+  };
+
   const saveWorkout = () => {
+    if (verifyIfWorkoutNameExists(nameRef.current)) {
+      Alert.alert('Failed to store Workout', 'Workout name already exists');
+      return;
+    } 
     let exercises = [];
 
     refInputs.current.map((item) => {
@@ -96,6 +110,7 @@ const CreateWorkout = ({ navigation }) => {
     >
       <View style={styles.viewHeader}>
         <TextInput
+          autoFocus={true}
           style={styles.inputHeader}
           placeholder="Workout name"
           onChangeText={(value) => {
