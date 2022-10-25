@@ -9,6 +9,7 @@ import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import ProgressScreen from './screens/ProgressScreen';
 
 const theme = {
   ...DefaultTheme
@@ -43,6 +44,7 @@ export default function App() {
           <Stack.Screen name="Workout" component={WorkoutScreen} />
           <Stack.Screen name="Exercise" component={ExerciseScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Progress" component={ProgressScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

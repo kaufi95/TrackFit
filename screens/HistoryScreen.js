@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View, Text, Pressable } from 'react-native';
+import { StyleSheet, FlatList, View, Text, Pressable, Modal } from 'react-native';
 import moment from 'moment';
 
 import { loadWorkouts } from '../scripts/storage';
 
-const HistoryScreen = () => {
+const HistoryScreen = ({ navigation }) => {
   const [cardElements, setCardElements] = useState([]);
 
   useEffect(() => {
@@ -28,7 +28,8 @@ const HistoryScreen = () => {
     workouts.forEach((workout) => {
       getDatesOfWorkout(workout).forEach((date) => {
         let card = {
-          workoutName: workout.name,
+          name: workout.name,
+          exercises: workout.exercises,
           date: date
         };
         cards.push(card);
@@ -47,10 +48,10 @@ const HistoryScreen = () => {
         <Pressable
           style={styles.innerCard}
           onPress={() => {
-            alert('hallo');
+            navigation.navigate('Progress', { workout: item });
           }}
         >
-          <Text style={styles.name}>{item.workoutName}</Text>
+          <Text style={styles.name}>{item.name}</Text>
         </Pressable>
       </View>
     );
