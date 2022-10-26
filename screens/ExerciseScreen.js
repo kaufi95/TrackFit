@@ -11,19 +11,19 @@ const ExerciseScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(1);
   const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => {
-        return (
-          <View style={styles.header}>
-            <Text style={styles.workoutName}>{route.params.workout.name}</Text>
-            <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
-          </View>
-        );
-      }
-      // headerBackTitle: route.params.workout.name
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: () => {
+  //       return (
+  //         <View style={styles.header}>
+  //           <Text style={styles.workoutName}>{route.params.workout.name}</Text>
+  //           <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
+  //         </View>
+  //       );
+  //     }
+  //     // headerBackTitle: route.params.workout.name
+  //   });
+  // }, []);
 
   useEffect(() => {
     console.log('------------------------------');
@@ -182,11 +182,9 @@ const styles = StyleSheet.create({
     width: '25%',
     textAlign: 'center'
   },
-
   IconStyle: {
     alignSelf: 'center'
   },
-
   finishButton: {
     alignSelf: 'center',
     justifyContent: 'center',

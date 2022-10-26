@@ -18,7 +18,6 @@ const ProgressView = (props) => {
   const renderSession = (session) => {
     return (
       <View style={{ alignItems: 'center' }}>
-        <Text>{moment(session.date).format('DD-MM-YYYY')}</Text>
         <FlatList
           data={session.sets}
           spacing={10}
@@ -46,7 +45,7 @@ const ProgressView = (props) => {
 
   return (
     <View style={{ alignItems: 'center' }}>
-      <Title style={styles.name}>{props.workout.name}</Title>
+      <Title style={styles.name}>{moment(props.workout.date).format('DD-MM-YYYY')}</Title>
       <FlatList
         data={props.workout.exercises}
         spacing={10}
