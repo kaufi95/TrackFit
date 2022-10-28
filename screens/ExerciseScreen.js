@@ -9,21 +9,21 @@ import { storeSession } from '../scripts/storage';
 
 const ExerciseScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(1);
-  const [inputs, setInputs] = useState([{ weight: '', reps: '' }]);
+  const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => {
-        return (
-          <View style={styles.header}>
-            <Text style={styles.workoutName}>{route.params.workout.name}</Text>
-            <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
-          </View>
-        );
-      }
-      // headerBackTitle: route.params.workout.name
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: () => {
+  //       return (
+  //         <View style={styles.header}>
+  //           <Text style={styles.workoutName}>{route.params.workout.name}</Text>
+  //           <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
+  //         </View>
+  //       );
+  //     }
+  //     // headerBackTitle: route.params.workout.name
+  //   });
+  // }, []);
 
   useEffect(() => {
     console.log('------------------------------');
@@ -46,7 +46,7 @@ const ExerciseScreen = ({ navigation, route }) => {
 
   const handleRepsChange = (value) => {
     const newInputs = [...inputs];
-    newInputs[count - 1].reps = value;
+    newInputs[count - 1].repeats = value;
     setInputs(newInputs);
   };
 
@@ -59,17 +59,17 @@ const ExerciseScreen = ({ navigation, route }) => {
   const nextSet = () => {
     setCount(count + 1);
     if (count === inputs.length) {
-      setInputs([...inputs, { weight: '', reps: '' }]);
+      setInputs([...inputs, { weight: '', repeats: '' }]);
     }
   };
 
   const handleSave = () => {
     let error;
     inputs.forEach((input) => {
-      if (isNaN(input.weight) || isNaN(input.reps)) {
+      if (isNaN(input.weight) || isNaN(input.repeats)) {
         error = true;
       }
-      if (input.weight === '' || input.reps === '') {
+      if (input.weight === '' || input.repeats === '') {
         error = true;
       }
     });
@@ -79,12 +79,13 @@ const ExerciseScreen = ({ navigation, route }) => {
       return;
     }
 
-    let sets = inputs.map((input, index) => {
-      return {
-        id: index,
-        weight: input.weight,
-        reps: input.reps
-      };
+    let sets = [];
+    inputs.forEach((input, index) => {
+      sets.push({
+        index: index,
+        weight: parseInt(input.weight),
+        repeats: parseInt(input.repeats)
+      });
     });
 
     storeSession(route.params.workout, route.params.exercise, sets);
@@ -181,11 +182,9 @@ const styles = StyleSheet.create({
     width: '25%',
     textAlign: 'center'
   },
-
   IconStyle: {
     alignSelf: 'center'
   },
-
   finishButton: {
     alignSelf: 'center',
     justifyContent: 'center',

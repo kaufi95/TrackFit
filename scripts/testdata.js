@@ -11,37 +11,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 3, 22)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 4, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         },
@@ -50,37 +56,43 @@ const testdata = () => {
           butterfly: [
             {
               date: moment(new Date(2022, 4, 22)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 5, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         },
@@ -89,37 +101,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 9, 22)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 9, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         }
@@ -134,37 +152,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 7, 22)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 7, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         },
@@ -173,37 +197,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 7, 22)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 5, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         },
@@ -212,37 +242,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 8, 22)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 7, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         }
@@ -257,37 +293,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 5, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 1, 20)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         },
@@ -296,37 +338,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 2, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 3, 20)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         },
@@ -335,37 +383,43 @@ const testdata = () => {
           sessions: [
             {
               date: moment(new Date(2022, 7, 21)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             },
             {
               date: moment(new Date(2022, 5, 20)),
-              sets: {
-                1: {
+              sets: [
+                {
+                  index: 0,
                   weight: 20,
                   repeats: 8
                 },
-                2: {
+                {
+                  index: 1,
                   weight: 25,
                   repeats: 6
                 },
-                3: {
+                {
+                  index: 2,
                   weight: 30,
                   repeats: 6
                 }
-              }
+              ]
             }
           ]
         }

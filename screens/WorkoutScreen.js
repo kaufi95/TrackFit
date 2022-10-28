@@ -6,9 +6,6 @@ const WorkoutScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     setExercises(route.params.workout.exercises);
-    navigation.setOptions({
-      headerTitle: route.params.workout.name
-    });
   }, []);
 
   const exercise = (entry) => {
