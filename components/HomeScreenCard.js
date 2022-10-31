@@ -5,7 +5,7 @@ import { Card, Title, Paragraph } from 'react-native-paper';
 
 import WorkoutMenu from './WorkoutMenu';
 
-const WorkoutCard = (props) => {
+const HomeScreenCard = (props) => {
   const getLastestDate = (workout) => {
     let lastestDate;
     workout.exercises.forEach((exercise) => {
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default WorkoutCard;
+export default HomeScreenCard;

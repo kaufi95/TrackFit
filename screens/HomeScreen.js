@@ -6,7 +6,7 @@ import { Title } from 'react-native-paper';
 import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
-import WorkoutCard from '../components/WorkoutCard';
+import HomeScreenCard from '../components/HomeScreenCard';
 import { loadWorkouts, removeWorkout } from '../services/WorkoutService';
 
 const HomeScreen = ({ navigation }) => {
@@ -62,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
             style={styles.gridView}
             spacing={10}
             renderItem={({ item }) => (
-              <WorkoutCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
+              <HomeScreenCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
             )}
             extraData={workouts}
           />
