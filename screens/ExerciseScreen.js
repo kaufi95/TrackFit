@@ -73,20 +73,26 @@ const ExerciseScreen = ({ navigation, route }) => {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.kav}>
       <View style={styles.inputs}>
-        <TextInput
-          mode="outlined"
-          style={styles.textInput}
-          onChangeText={(value) => handleWeightChange(value, 0)}
-          label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
-          keyboardType="numeric"
-        />
-        <TextInput
-          mode="outlined"
-          style={styles.textInput}
-          onChangeText={(value) => handleRepeatsChange(value, 1)}
-          label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
-          keyboardType="numeric"
-        />
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Weight</Text>
+          <TextInput
+            mode="outlined"
+            style={styles.textInput}
+            onChangeText={(value) => handleWeightChange(value, 0)}
+            label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Repeats</Text>
+          <TextInput
+            mode="outlined"
+            style={styles.textInput}
+            onChangeText={(value) => handleRepeatsChange(value, 1)}
+            label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
+            keyboardType="numeric"
+          />
+        </View>
       </View>
 
       <View style={styles.navigation}>
@@ -132,6 +138,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10
   },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    margin: 10
+  },
+  inputLabel: {
+    fontSize: 18,
+    color: '#4f4f4f',
+    textAlign: 'center'
+  },
+  textInput: {
+    width: '75%',
+    margin: 10
+  },
   navigation: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -149,10 +169,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: '600'
-  },
-  textInput: {
-    width: '33%',
-    margin: 10
   },
   set: {
     fontSize: 24,
