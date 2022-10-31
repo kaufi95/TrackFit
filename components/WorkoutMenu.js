@@ -15,15 +15,16 @@ const WorkoutMenu = (props) => {
         {/* <Menu.Item onPress={() => setVisible(false)} title="Edit" /> */}
         <Menu.Item
           onPress={() =>
-            Alert.alert('Delete', 'Are you sure you want to delete this Workout?', [
+            Alert.alert('Delete', `Are you sure you want to delete ${props.workout.name}?`, [
               {
                 text: 'Cancel',
                 style: 'cancel'
               },
               {
-                text: 'DELETE IT!',
+                text: 'Delete!',
                 onPress: () => {
                   props.deleteWorkout(props.workout);
+                  setVisible(false);
                 }
               }
             ])
