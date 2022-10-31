@@ -7,7 +7,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
 import WorkoutCard from '../components/WorkoutCard';
-import { loadWorkouts, removeWorkout } from '../services/StorageService';
+import { loadWorkouts, removeWorkout } from '../services/WorkoutService';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);

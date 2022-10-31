@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, FlatList, View, Text, Pressable, Modal } from 'react-native';
 import moment from 'moment';
 
-import { loadWorkouts } from '../services/StorageService';
+import { loadWorkouts } from '../services/WorkoutService';
 
 const HistoryScreen = ({ navigation }) => {
   const [cardElements, setCardElements] = useState([]);
