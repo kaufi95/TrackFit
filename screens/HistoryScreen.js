@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View, Text, Pressable, Button } from 'react-native';
-import moment from 'moment';
+import { StyleSheet, FlatList, View, Text, Button } from 'react-native';
+
+import HistoryScreenCard from '../components/HistoryScreenCard';
 
 import { loadWorkouts } from '../services/WorkoutService';
 
@@ -41,22 +42,6 @@ const HistoryScreen = ({ navigation }) => {
     setCardElements(elements);
   };
 
-  const renderCard = (item) => {
-    return (
-      <View style={styles.card}>
-        <Text style={styles.date}>{moment(item.date).format('DD.MM.YYYY')}</Text>
-        <Pressable
-          style={styles.innerCard}
-          onPress={() => {
-            navigation.navigate('Progress', { workout: item });
-          }}
-        >
-          <Text style={styles.name}>{item.name}</Text>
-        </Pressable>
-      </View>
-    );
-  };
-
   const renderHistory = () => {
     if (cardElements.length > 0) {
       return (
@@ -64,7 +49,7 @@ const HistoryScreen = ({ navigation }) => {
           data={cardElements}
           style={styles.list}
           spacing={5}
-          renderItem={({ item }) => renderCard(item)}
+          renderItem={({ item }) => <HistoryScreenCard card={item} />}
           keyExtractor={(item, index) => index.toString()}
         />
       );
@@ -94,23 +79,6 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     marginTop: 20
-  },
-  card: {
-    padding: 15
-  },
-  innerCard: {
-    backgroundColor: '#1abc9c',
-    padding: 15,
-    borderRadius: 10
-  },
-  date: {
-    fontSize: 18,
-    marginBottom: 5,
-    marginLeft: 20
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: 'bold'
   }
 });
 
