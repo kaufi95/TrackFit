@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 
-import { clearWorkouts, insertTestdata } from '../scripts/storage';
+import { clearWorkouts, insertTestdata } from '../services/StorageService';
 
 const SettingsScreen = () => {
   return (

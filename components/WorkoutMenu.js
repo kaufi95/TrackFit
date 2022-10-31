@@ -2,8 +2,6 @@ import React from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { IconButton, Menu } from 'react-native-paper';
 
-import { removeWorkout } from '../scripts/storage';
-
 const WorkoutMenu = (props) => {
   const [visible, setVisible] = React.useState(false);
 

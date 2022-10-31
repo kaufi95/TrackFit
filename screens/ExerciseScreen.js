@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
-import { storeSession } from '../scripts/storage';
+import { storeSession } from '../services/StorageService';
 
 const ExerciseScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(1);

@@ -4,7 +4,7 @@ import { Text, Button, IconButton } from 'react-native-paper';
 
 import uuid from 'react-native-uuid';
 
-import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../scripts/storage';
+import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../services/StorageService';
 
 const CreateWorkout = ({ navigation }) => {
   const [workoutName, setWorkoutName] = useState('');
