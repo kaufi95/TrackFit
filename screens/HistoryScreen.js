@@ -24,21 +24,21 @@ const HistoryScreen = ({ navigation }) => {
   };
 
   const prepareHistoryEntries = (workouts) => {
-    let cards = [];
+    let elements = [];
     workouts.forEach((workout) => {
       getDatesOfWorkout(workout).forEach((date) => {
-        let card = {
+        let element = {
           name: workout.name,
           exercises: workout.exercises,
           date: date
         };
-        cards.push(card);
+        elements.push(element);
       });
     });
-    cards.sort((a, b) => {
+    elements.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    setCardElements(cards);
+    setCardElements(elements);
   };
 
   const renderCard = (item) => {

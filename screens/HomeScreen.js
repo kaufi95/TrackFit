@@ -34,30 +34,9 @@ const HomeScreen = ({ navigation }) => {
     }, [])
   );
 
-  // const getLastestDate = (workout) => {
-  //   let lastestDate;
-  //   workout.exercises.forEach((exercise) => {
-  //     exercise.sessions?.forEach((session) => {
-  //       if (lastestDate == undefined || lastestDate < session.date) {
-  //         lastestDate = session.date;
-  //       }
-  //     });
-  //   });
-  //   return lastestDate;
-  // };
-
-  // const sortWorkouts = (workouts) => {
-  //   workouts.sort((a, b) => {
-  //     return getLastestDate(a) < getLastestDate(b);
-  //   });
-  //   setWorkouts(workouts);
-  // };
-
   const deleteWorkout = (workout) => {
-    removeWorkout(workout).then(() => {
-      loadWorkouts().then((workouts) => {
-        setWorkouts(workouts);
-      });
+    removeWorkout(workout).then((workouts) => {
+      setWorkouts(workouts);
     });
   };
 

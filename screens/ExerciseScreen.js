@@ -11,32 +11,10 @@ const ExerciseScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(1);
   const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerTitle: () => {
-  //       return (
-  //         <View style={styles.header}>
-  //           <Text style={styles.workoutName}>{route.params.workout.name}</Text>
-  //           <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
-  //         </View>
-  //       );
-  //     }
-  //     // headerBackTitle: route.params.workout.name
-  //   });
-  // }, []);
-
   useEffect(() => {
     console.log('------------------------------');
     console.log(inputs);
   }, [inputs]);
-
-  // useEffect(() => {
-  //   inputs.forEach((input) => {
-  //     if (isNaN(input)) {
-  //       Alert.alert('Please enter a number');
-  //     }
-  //   });
-  // }, [inputs]);
 
   const handleWeightChange = (value) => {
     const newInputs = [...inputs];
@@ -44,7 +22,7 @@ const ExerciseScreen = ({ navigation, route }) => {
     setInputs(newInputs);
   };
 
-  const handleRepsChange = (value) => {
+  const handleRepeatsChange = (value) => {
     const newInputs = [...inputs];
     newInputs[count - 1].repeats = value;
     setInputs(newInputs);
@@ -105,7 +83,7 @@ const ExerciseScreen = ({ navigation, route }) => {
         <TextInput
           mode="outlined"
           style={styles.textInput}
-          onChangeText={(value) => handleRepsChange(value, 1)}
+          onChangeText={(value) => handleRepeatsChange(value, 1)}
           label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
           keyboardType="numeric"
         />
