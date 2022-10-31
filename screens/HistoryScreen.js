@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View, Text, Pressable, Modal } from 'react-native';
+import { StyleSheet, FlatList, View, Text, Pressable, Button } from 'react-native';
 import moment from 'moment';
 
 import { loadWorkouts } from '../services/WorkoutService';
@@ -58,22 +58,39 @@ const HistoryScreen = ({ navigation }) => {
   };
 
   const renderHistory = () => {
-    return (
-      <FlatList
-        //temDimension={100}
-        data={cardElements}
-        style={styles.list}
-        spacing={5}
-        renderItem={({ item }) => renderCard(item)}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
+    if (cardElements.length > 0) {
+      return (
+        <FlatList
+          data={cardElements}
+          style={styles.list}
+          spacing={5}
+          renderItem={({ item }) => renderCard(item)}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Text>No data to show.</Text>
+          <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
+        </View>
+      );
+    }
   };
 
   return renderHistory();
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  lottie: {
+    width: 150,
+    height: 150
+  },
   list: {
     flex: 1,
     marginTop: 20
