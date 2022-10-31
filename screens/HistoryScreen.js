@@ -9,7 +9,7 @@ const HistoryScreen = ({ navigation }) => {
 
   useEffect(() => {
     loadWorkouts().then((workouts) => {
-      buildHistoryCards(workouts);
+      prepareHistoryEntries(workouts);
     });
   }, []);
 
@@ -23,7 +23,7 @@ const HistoryScreen = ({ navigation }) => {
     return dates;
   };
 
-  const buildHistoryCards = (workouts) => {
+  const prepareHistoryEntries = (workouts) => {
     let cards = [];
     workouts.forEach((workout) => {
       getDatesOfWorkout(workout).forEach((date) => {
