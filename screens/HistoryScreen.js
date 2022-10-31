@@ -49,7 +49,7 @@ const HistoryScreen = ({ navigation }) => {
           data={cardElements}
           style={styles.list}
           spacing={5}
-          renderItem={({ item }) => <HistoryScreenCard card={item} />}
+          renderItem={({ item }) => <HistoryScreenCard card={item} navigation={navigation} />}
           keyExtractor={(item, index) => index.toString()}
         />
       );

@@ -10,7 +10,7 @@ const HistoryScreenCard = (props) => {
       <Pressable
         style={styles.innerCard}
         onPress={() => {
-          navigation.navigate('Progress', { workout: props });
+          props.navigation.navigate('Progress', { workout: props.card });
         }}
       >
         <Text style={styles.name}>{props.card.name}</Text>
