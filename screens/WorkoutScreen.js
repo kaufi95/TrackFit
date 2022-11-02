@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
 
+import ExerciseItem from '../components/ExerciseItem';
+
 const WorkoutScreen = ({ navigation, route }) => {
   const [exercises, setExercises] = useState();
 
@@ -8,23 +10,14 @@ const WorkoutScreen = ({ navigation, route }) => {
     setExercises(route.params.workout.exercises);
   }, []);
 
-  const exercise = (entry) => {
-    return (
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate('Exercise', { exercise: entry.item, workout: route.params.workout })}
-      >
-        <Text>{entry.item.name.toUpperCase()}</Text>
-      </Pressable>
-    );
-  };
-
   return (
     <FlatList
       contentContainerStyle={styles.list}
       data={exercises}
       spacing={10}
-      renderItem={(entry) => exercise(entry)}
+      renderItem={(entry) => (
+        <ExerciseItem exercise={entry.item} navigation={navigation} workout={route.params.workout} />
+      )}
       extraData={exercises}
       keyExtractor={(item, index) => index.toString()}
     />
@@ -36,14 +29,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  button: {
-    width: 250,
-    padding: 20,
-    borderRadius: 10,
-    borderWidth: 1,
-    marginBottom: 50,
-    alignItems: 'center'
   }
 });
 

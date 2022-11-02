@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import testdata from './testdata';
+import testdata from './TestdataService';
 
 export const loadWorkouts = async () => {
   try {
@@ -37,12 +37,13 @@ export const removeWorkout = async (workout) => {
 
     if (index === -1) {
       console.log('workout not found');
-      return;
+      return workouts;
     }
 
     workouts.splice(index, 1);
     await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
     console.log('removed workout');
+    return workouts;
   } catch (e) {
     console.error('Failed to remove workout.', e);
   }

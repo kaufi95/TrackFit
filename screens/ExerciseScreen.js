@@ -5,38 +5,16 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
-import { storeSession } from '../scripts/storage';
+import { storeSession } from '../services/WorkoutService';
 
 const ExerciseScreen = ({ navigation, route }) => {
   const [count, setCount] = useState(1);
   const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerTitle: () => {
-  //       return (
-  //         <View style={styles.header}>
-  //           <Text style={styles.workoutName}>{route.params.workout.name}</Text>
-  //           <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
-  //         </View>
-  //       );
-  //     }
-  //     // headerBackTitle: route.params.workout.name
-  //   });
-  // }, []);
-
   useEffect(() => {
     console.log('------------------------------');
     console.log(inputs);
   }, [inputs]);
-
-  // useEffect(() => {
-  //   inputs.forEach((input) => {
-  //     if (isNaN(input)) {
-  //       Alert.alert('Please enter a number');
-  //     }
-  //   });
-  // }, [inputs]);
 
   const handleWeightChange = (value) => {
     const newInputs = [...inputs];
@@ -44,7 +22,7 @@ const ExerciseScreen = ({ navigation, route }) => {
     setInputs(newInputs);
   };
 
-  const handleRepsChange = (value) => {
+  const handleRepeatsChange = (value) => {
     const newInputs = [...inputs];
     newInputs[count - 1].repeats = value;
     setInputs(newInputs);
@@ -95,28 +73,34 @@ const ExerciseScreen = ({ navigation, route }) => {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.kav}>
       <View style={styles.inputs}>
-        <TextInput
-          mode="outlined"
-          outlineColor='#1abc9c'
-          style={styles.textInput}
-          onChangeText={(value) => handleWeightChange(value, 0)}
-          label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
-          keyboardType="numeric"
-        />
-        <TextInput
-          mode="outlined"
-          outlineColor='#1abc9c'
-          style={styles.textInput}
-          onChangeText={(value) => handleRepsChange(value, 1)}
-          label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
-          keyboardType="numeric"
-        />
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Weight</Text>
+          <TextInput
+            mode="outlined"
+            outlineColor="#1abc9c"
+            style={styles.textInput}
+            onChangeText={(value) => handleWeightChange(value, 0)}
+            label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Repeats</Text>
+          <TextInput
+            mode="outlined"
+            outlineColor="#1abc9c"
+            style={styles.textInput}
+            onChangeText={(value) => handleRepeatsChange(value, 1)}
+            label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
+            keyboardType="numeric"
+          />
+        </View>
       </View>
 
       <View style={styles.navigation}>
         <AntIcon
           name="caretleft"
-          color='#59c8ac'
+          color="#59c8ac"
           size={55}
           onPress={() => {
             lastSet();
@@ -125,7 +109,7 @@ const ExerciseScreen = ({ navigation, route }) => {
         <Text style={styles.set}>{count}. Set</Text>
         <AntIcon
           name="caretright"
-          color='#59c8ac'
+          color="#59c8ac"
           size={55}
           onPress={() => {
             nextSet();
@@ -136,7 +120,7 @@ const ExerciseScreen = ({ navigation, route }) => {
       <View style={styles.button}>
         <Button
           mode="contained"
-          color='#1abc9c'
+          color="#1abc9c"
           style={styles.finishButton}
           onPress={() => {
             handleSave();
@@ -159,6 +143,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 10
   },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    margin: 10
+  },
+  inputLabel: {
+    fontSize: 18,
+    color: '#4f4f4f',
+    textAlign: 'center'
+  },
+  textInput: {
+    width: '75%',
+    margin: 10
+  },
   navigation: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -175,10 +173,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600'
   },
-  textInput: {
-    width: '33%',
-    margin: 10,
-  },
   set: {
     fontSize: 24,
     fontWeight: '600',
@@ -193,7 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     padding: 10,
-    marginTop: 20,
+    marginTop: 20
   }
 });
 

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, FlatList, View, Text, Pressable, Modal } from 'react-native';
-import moment from 'moment';
+import { StyleSheet, FlatList, View, Text, Button } from 'react-native';
 
-import { loadWorkouts } from '../scripts/storage';
+import HistoryScreenCard from '../components/HistoryScreenCard';
+
+import { loadWorkouts } from '../services/WorkoutService';
 
 const HistoryScreen = ({ navigation }) => {
   const [cardElements, setCardElements] = useState([]);
 
   useEffect(() => {
     loadWorkouts().then((workouts) => {
-      buildHistoryCards(workouts);
+      prepareHistoryEntries(workouts);
     });
   }, []);
 
@@ -23,77 +24,61 @@ const HistoryScreen = ({ navigation }) => {
     return dates;
   };
 
-  const buildHistoryCards = (workouts) => {
-    let cards = [];
+  const prepareHistoryEntries = (workouts) => {
+    let elements = [];
     workouts.forEach((workout) => {
       getDatesOfWorkout(workout).forEach((date) => {
-        let card = {
+        let element = {
           name: workout.name,
           exercises: workout.exercises,
           date: date
         };
-        cards.push(card);
+        elements.push(element);
       });
     });
-    cards.sort((a, b) => {
+    elements.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-    setCardElements(cards);
-  };
-
-  const renderCard = (item) => {
-    return (
-      <View style={styles.card}>
-        <Text style={styles.date}>{moment(item.date).format('DD.MM.YYYY')}</Text>
-        <Pressable
-          style={styles.innerCard}
-          onPress={() => {
-            navigation.navigate('Progress', { workout: item });
-          }}
-        >
-          <Text style={styles.name}>{item.name}</Text>
-        </Pressable>
-      </View>
-    );
+    setCardElements(elements);
   };
 
   const renderHistory = () => {
-    return (
-      <FlatList
-        //temDimension={100}
-        data={cardElements}
-        style={styles.list}
-        spacing={5}
-        renderItem={({ item }) => renderCard(item)}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
+    if (cardElements.length > 0) {
+      return (
+        <FlatList
+          data={cardElements}
+          style={styles.list}
+          spacing={5}
+          renderItem={({ item }) => <HistoryScreenCard card={item} navigation={navigation} />}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Text>No data to show.</Text>
+          <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
+        </View>
+      );
+    }
   };
 
   return renderHistory();
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  lottie: {
+    width: 150,
+    height: 150
+  },
   list: {
     flex: 1,
     marginTop: 20
-  },
-  card: {
-    padding: 15
-  },
-  innerCard: {
-    backgroundColor: '#7fd3bc',
-    padding: 15,
-    borderRadius: 10
-  },
-  date: {
-    fontSize: 18,
-    marginBottom: 5,
-    marginLeft: 20
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: 'bold'
   }
 });
 

@@ -1,21 +1,10 @@
 import React, { useState } from 'react';
-import {
-  TextInput,
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Alert,
-  Platform,
-  FlatList
-} from 'react-native';
+import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
 import { Text, Button, IconButton } from 'react-native-paper';
 
 import uuid from 'react-native-uuid';
 
-import {
-  storeWorkout,
-  verifyIfWorkoutNameExists
-} from '../scripts/storage';
+import { storeWorkout, verifyIfWorkoutNameExists } from '../services/WorkoutService';
 
 const CreateWorkout = ({ navigation }) => {
   const [workoutName, setWorkoutName] = useState('');
@@ -87,12 +76,7 @@ const CreateWorkout = ({ navigation }) => {
           value={inputs[item.index]}
           placeholder="Exercise"
         />
-        <IconButton
-          icon="minus-circle-outline"
-          size={25}
-          color="red"
-          onPress={() => removeInput(item.index)}
-        />
+        <IconButton icon="minus-circle-outline" size={25} color="red" onPress={() => removeInput(item.index)} />
       </View>
     );
   };

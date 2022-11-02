@@ -6,8 +6,8 @@ import { Title } from 'react-native-paper';
 import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
-import WorkoutCard from '../components/WorkoutCard';
-import { loadWorkouts, removeWorkout } from '../scripts/storage';
+import HomeScreenCard from '../components/HomeScreenCard';
+import { loadWorkouts, removeWorkout } from '../services/WorkoutService';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -42,30 +42,9 @@ const HomeScreen = ({ navigation }) => {
     }, [])
   );
 
-  // const getLastestDate = (workout) => {
-  //   let lastestDate;
-  //   workout.exercises.forEach((exercise) => {
-  //     exercise.sessions?.forEach((session) => {
-  //       if (lastestDate == undefined || lastestDate < session.date) {
-  //         lastestDate = session.date;
-  //       }
-  //     });
-  //   });
-  //   return lastestDate;
-  // };
-
-  // const sortWorkouts = (workouts) => {
-  //   workouts.sort((a, b) => {
-  //     return getLastestDate(a) < getLastestDate(b);
-  //   });
-  //   setWorkouts(workouts);
-  // };
-
   const deleteWorkout = (workout) => {
-    removeWorkout(workout).then(() => {
-      loadWorkouts().then((workouts) => {
-        setWorkouts(workouts);
-      });
+    removeWorkout(workout).then((workouts) => {
+      setWorkouts(workouts);
     });
   };
 
@@ -91,7 +70,7 @@ const HomeScreen = ({ navigation }) => {
             style={styles.gridView}
             spacing={10}
             renderItem={({ item }) => (
-              <WorkoutCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
+              <HomeScreenCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
             )}
             extraData={workouts}
           />
