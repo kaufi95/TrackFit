@@ -12,11 +12,19 @@ import SettingsScreen from './screens/SettingsScreen';
 import ProgressScreen from './screens/ProgressScreen';
 
 const theme = {
-  ...DefaultTheme
-  // colors: {
-  //   ...DefaultTheme.colors,
-  //   primary: 'tomato',
-  //   accent: 'yellow'
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'black',
+    onPrimary: '#3cae94',
+  },
+  // fonts: {
+  //   ...DefaultTheme.fonts,
+  //   regular: {
+  //     ...DefaultTheme.fonts.regular,
+  //     fontFamily: 'Roboto',
+  //     fontWeight: 'normal'
+  //   },
   // }
 };
 
@@ -29,10 +37,10 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#76a7a7'
+              backgroundColor: '#3cae94'
             },
             headerTitleAlign: 'center',
-            headerTintColor: '#fff',
+            headerTintColor: '#000000',
             headerTitleStyle: {
               fontWeight: 'bold'
             }

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#7fd3bc',
     borderRadius: 5,
     padding: 5
   },
@@ -54,12 +54,10 @@ const styles = StyleSheet.create({
     marginTop: 'auto'
   },
   name: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600'
   },
   date: {
-    color: '#fff',
     fontSize: 12,
     fontWeight: '600'
   }

@@ -20,8 +20,16 @@ const HomeScreen = ({ navigation }) => {
           Home
         </Title>
       ),
-      headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" />,
-      headerRight: () => <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" />
+      headerLeft: () => (
+        <Title style={styles.sideText} onPress={() => navigation.navigate('History')}>
+          History
+        </Title>
+      ),
+      headerRight: () => (
+        <Title style={styles.sideText} onPress={() => navigation.navigate('Create a Workout')}>
+          Add
+        </Title>
+      )
     });
   }, []);
 
@@ -115,7 +123,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff'
+  },
+  sideText: {
+    fontSize: 16,
   }
 });
 

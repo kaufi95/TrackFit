@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     padding: 15
   },
   innerCard: {
-    backgroundColor: '#1abc9c',
+    backgroundColor: '#7fd3bc',
     padding: 15,
     borderRadius: 10
   },

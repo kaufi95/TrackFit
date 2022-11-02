@@ -97,6 +97,7 @@ const ExerciseScreen = ({ navigation, route }) => {
       <View style={styles.inputs}>
         <TextInput
           mode="outlined"
+          outlineColor='#1abc9c'
           style={styles.textInput}
           onChangeText={(value) => handleWeightChange(value, 0)}
           label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
@@ -104,6 +105,7 @@ const ExerciseScreen = ({ navigation, route }) => {
         />
         <TextInput
           mode="outlined"
+          outlineColor='#1abc9c'
           style={styles.textInput}
           onChangeText={(value) => handleRepsChange(value, 1)}
           label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
@@ -114,6 +116,7 @@ const ExerciseScreen = ({ navigation, route }) => {
       <View style={styles.navigation}>
         <AntIcon
           name="caretleft"
+          color='#59c8ac'
           size={55}
           onPress={() => {
             lastSet();
@@ -122,6 +125,7 @@ const ExerciseScreen = ({ navigation, route }) => {
         <Text style={styles.set}>{count}. Set</Text>
         <AntIcon
           name="caretright"
+          color='#59c8ac'
           size={55}
           onPress={() => {
             nextSet();
@@ -132,6 +136,7 @@ const ExerciseScreen = ({ navigation, route }) => {
       <View style={styles.button}>
         <Button
           mode="contained"
+          color='#1abc9c'
           style={styles.finishButton}
           onPress={() => {
             handleSave();
@@ -163,18 +168,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   workoutName: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600'
   },
   exerciseName: {
-    color: '#fff',
     fontSize: 20,
     fontWeight: '600'
   },
   textInput: {
     width: '33%',
-    margin: 10
+    margin: 10,
   },
   set: {
     fontSize: 24,
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     padding: 10,
-    marginTop: 20
+    marginTop: 20,
   }
 });
 
