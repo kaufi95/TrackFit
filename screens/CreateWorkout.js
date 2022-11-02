@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
-import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Alert,
+  Platform,
+  FlatList
+} from 'react-native';
 import { Text, Button, IconButton } from 'react-native-paper';
 
 import uuid from 'react-native-uuid';
 
-import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../scripts/storage';
+import {
+  storeWorkout,
+  verifyIfWorkoutNameExists
+} from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
   const [workoutName, setWorkoutName] = useState('');
@@ -76,7 +87,12 @@ const CreateWorkout = ({ navigation }) => {
           value={inputs[item.index]}
           placeholder="Exercise"
         />
-        <IconButton icon="minus-circle-outline" size={25} color="red" onPress={() => removeInput(item.index)} />
+        <IconButton
+          icon="minus-circle-outline"
+          size={25}
+          color="red"
+          onPress={() => removeInput(item.index)}
+        />
       </View>
     );
   };
@@ -85,7 +101,7 @@ const CreateWorkout = ({ navigation }) => {
     <KeyboardAvoidingView
       style={styles.kav}
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS == 'ios' ? '75' : '135'}
+      keyboardVerticalOffset={Platform.OS == 'ios' ? 0 : 100}
       enabled
     >
       <View style={styles.viewHeader}>
@@ -105,11 +121,15 @@ const CreateWorkout = ({ navigation }) => {
         extraData={inputs}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={false}
+        ListFooterComponent={
+          <View style={styles.listFooter}>
+            <Button style={styles.button} onPress={() => addInput()}>
+              Add Exercise
+            </Button>
+          </View>
+        }
       />
       <View style={styles.viewFooter}>
-        <Button style={styles.button} onPress={addInput}>
-          Add Exercise
-        </Button>
         <Button style={styles.button} onPress={saveWorkout}>
           Save workout
         </Button>
@@ -141,15 +161,20 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 25
   },
+  listFooter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10
+  },
   button: {
     width: '80%',
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
-    marginBottom: 25
+    marginBottom: 25,
+    backgroundColor: '#59c8ac'
   },
   text: {
-    color: 'black',
     width: 30,
     marginLeft: 15
   },
