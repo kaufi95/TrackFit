@@ -1,150 +1,165 @@
-import React, { useRef, useState } from 'react';
-import { TouchableOpacity, StyleSheet, KeyboardAvoidingView, Alert } from 'react-native';
-import { Input, Text, ScrollView, HStack, Button } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { TextInput, View, StyleSheet, KeyboardAvoidingView, Alert, Platform, FlatList } from 'react-native';
+import { Text, Button, IconButton } from 'react-native-paper';
 
-import { saveWorkout } from '../scripts/storage';
+import uuid from 'react-native-uuid';
+
+import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../scripts/storage';
 
 const CreateWorkout = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [textValue, setTextValue] = useState('');
-  const [numInputs, setNumInputs] = useState(3);
-  const refInputs = useRef([textValue]);
+  const [workoutName, setWorkoutName] = useState('');
+  const [inputs, setInputs] = useState(['', '', '']);
 
   const setInputValue = (index, value) => {
-    const inputs = refInputs.current;
-    inputs[index] = value;
-    setTextValue(value);
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
   };
 
   const removeInput = (i) => {
-    refInputs.current.splice(i, 1)[0];
-    setNumInputs((value) => value - 1);
+    if (inputs.length > 1) {
+      inputs.splice(i, 1);
+      setInputs([...inputs]);
+    }
   };
 
   const addInput = () => {
-    refInputs.current.push('');
-    setNumInputs((value) => value + 1);
+    setInputs([...inputs, '']);
   };
 
-  const addWorkout = () => {
-    let exercises = {};
-    for (let i = 0; i < inputs.length; i++) {
-      exercises[i] = refInputs.current[i];
+  const saveWorkout = async () => {
+    if (await verifyIfWorkoutNameExists(workoutName)) {
+      Alert.alert('Failed to store Workout', 'Workout name already exists');
+      return;
     }
 
+    let exercises = [];
+
+    inputs.map((item) => {
+      if (item != '') {
+        exercises.push({
+          name: item,
+          sessions: []
+        });
+      }
+    });
+
     let workout = {
-      name: name,
-      lastDate: new Date().toLocaleDateString('de-AT', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+      id: uuid.v4(),
+      name: workoutName,
       exercises: exercises
     };
 
-    if (workout.name != '' && workout.exercises[0] != '') {
-      console.log(workout);
-      saveWorkout(workout);
-      navigation.navigate('Home');
-    } else {
-      Alert.alert('Error while saving workout', 'Enter a name or add an exercise');
+    if (workout.name == '') {
+      Alert.alert('Error while saving workout', 'Please enter a name');
+      return;
     }
+
+    if (workout.exercises.length == 0) {
+      Alert.alert('Error while saving workout', 'Please add an exercise');
+      return;
+    }
+
+    console.log(workout);
+    storeWorkout(workout).then(() => {
+      navigation.popToTop();
+    });
   };
 
-  const scrollViewRef = useRef();
-
-  const inputs = [];
-
-  for (let i = 0; i < numInputs; i++) {
-    inputs.push(
-      <HStack key={i} style={styles.stack}>
-        <Text style={styles.text}>{i + 1}.</Text>
-        <Input
-          variant="unstyled"
-          size="mg"
-          style={styles.input}
-          onChangeText={(value) => setInputValue(i, value)}
-          value={refInputs.current[i]}
+  const inputExercise = (item) => {
+    return (
+      <View key={item.index} style={styles.stack}>
+        <Text style={styles.text}>{item.index + 1}.</Text>
+        <TextInput
+          style={styles.inputExercise}
+          onChangeText={(value) => setInputValue(item.index, value)}
+          value={inputs[item.index]}
           placeholder="Exercise"
         />
-        <TouchableOpacity style={styles.icon} onPress={() => removeInput(i)}>
-          <AntDesign name="minuscircleo" size={20} color="red" />
-        </TouchableOpacity>
-      </HStack>
+        <IconButton icon="minus-circle-outline" size={25} color="red" onPress={() => removeInput(item.index)} />
+      </View>
     );
-  }
+  };
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}
-      behavior="padding"
+      style={styles.kav}
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS == 'ios' ? '75' : '135'}
       enabled
-      keyboardVerticalOffset="100"
     >
-      <Input
-        variant="rounded"
-        size="2xl"
-        style={styles.header}
-        placeholder="Workout name"
-        onChangeText={(value) => setName(value)}
+      <View style={styles.viewHeader}>
+        <TextInput
+          autoFocus={true}
+          style={styles.inputHeader}
+          placeholder="Workout name"
+          onChangeText={(value) => {
+            setWorkoutName(value);
+          }}
+        />
+      </View>
+      <FlatList
+        data={inputs}
+        spacing={10}
+        renderItem={(index) => inputExercise(index)}
+        extraData={inputs}
+        keyExtractor={(item, index) => index.toString()}
+        removeClippedSubviews={false}
       />
-      <ScrollView
-        contentContainerStyle={styles.view}
-        ref={scrollViewRef}
-        onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
-      >
-        {inputs}
-        <HStack>
-          <Button variant="rounded" style={styles.button} onPress={addInput}>
-            Add Exercise
-          </Button>
-          <Button variant="rounded" style={styles.button} onPress={addWorkout}>
-            Save Workout
-          </Button>
-        </HStack>
-      </ScrollView>
+      <View style={styles.viewFooter}>
+        <Button style={styles.button} onPress={addInput}>
+          Add Exercise
+        </Button>
+        <Button style={styles.button} onPress={saveWorkout}>
+          Save workout
+        </Button>
+      </View>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  view: {
-    alignItems: 'center'
+  kav: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
-  input: {
-    width: '70%',
-    maxWidth: '70%'
+  viewHeader: {
+    alignItems: 'center',
+    marginTop: 10
   },
-  header: {
+  viewFooter: {
+    alignItems: 'center',
+    padding: 5
+  },
+  inputExercise: {
+    width: '75%'
+  },
+  inputHeader: {
     width: '80%',
     height: 50,
-    padding: 20
+    padding: 10,
+    fontSize: 25
   },
   button: {
-    margin: 20,
-    padding: 20,
+    width: '80%',
+    padding: 10,
     borderRadius: 10,
-    backgroundColor: 'cyan',
-    marginBottom: 50
+    borderWidth: 1,
+    marginBottom: 25
   },
   text: {
     color: 'black',
     width: 30,
     marginLeft: 15
   },
-  box: {
-    margin: 15
-  },
-  icon: {
-    width: 30,
-    marginLeft: 15,
-    marginRight: 5
-  },
   stack: {
-    flex: 0.8,
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 30,
-    padding: 10,
+    padding: 5,
     margin: 10
   }
 });

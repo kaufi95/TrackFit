@@ -1,36 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { Title } from 'react-native-paper';
+
+import { FlatGrid } from 'react-native-super-grid';
+import AnimatedLoader from 'react-native-animated-loader';
 
 import WorkoutCard from '../components/WorkoutCard';
-import { ScrollView } from 'native-base';
-
-import { load } from '../scripts/storage';
+import { loadWorkouts, removeWorkout } from '../scripts/storage';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    load().then(setWorkouts);
+    navigation.setOptions({
+      headerTitle: () => (
+        <Title style={styles.text} onLongPress={() => navigation.navigate('Settings')}>
+          Home
+        </Title>
+      ),
+      headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" />,
+      headerRight: () => <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" />
+    });
   }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      loadWorkouts().then((workouts) => {
+        setWorkouts(workouts);
+        setIsLoading(false);
+      });
+    }, [])
+  );
+
+  // const getLastestDate = (workout) => {
+  //   let lastestDate;
+  //   workout.exercises.forEach((exercise) => {
+  //     exercise.sessions?.forEach((session) => {
+  //       if (lastestDate == undefined || lastestDate < session.date) {
+  //         lastestDate = session.date;
+  //       }
+  //     });
+  //   });
+  //   return lastestDate;
+  // };
+
+  // const sortWorkouts = (workouts) => {
+  //   workouts.sort((a, b) => {
+  //     return getLastestDate(a) < getLastestDate(b);
+  //   });
+  //   setWorkouts(workouts);
+  // };
+
+  const deleteWorkout = (workout) => {
+    removeWorkout(workout).then(() => {
+      loadWorkouts().then((workouts) => {
+        setWorkouts(workouts);
+      });
+    });
+  };
+
   const renderWorkouts = () => {
-    if (workouts != null && workouts.length > 0) {
+    if (isLoading) {
       return (
-        <ScrollView contentContainerStyle={styles.content}>
-          {workouts.map((workout, index) => (
-            <View key={index} style={styles.item}>
-              <WorkoutCard key={index} navigation={navigation} workout={workout} />
-            </View>
-          ))}
-        </ScrollView>
+        <AnimatedLoader
+          visible={true}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require('../assets/loader.json')}
+          animationStyle={styles.lottie}
+          speed={1}
+        >
+          <Text>Loading content...</Text>
+        </AnimatedLoader>
       );
     } else {
-      return (
-        <View style={styles.container}>
-          <Text>No workouts added yet.</Text>
-          <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
-        </View>
-      );
+      if (workouts.length > 0) {
+        return (
+          <FlatGrid
+            itemDimension={150}
+            data={workouts}
+            style={styles.gridView}
+            spacing={10}
+            renderItem={({ item }) => (
+              <WorkoutCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
+            )}
+            extraData={workouts}
+          />
+        );
+      } else {
+        return (
+          <View style={styles.container}>
+            <Text>No workouts added yet.</Text>
+            <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
+          </View>
+        );
+      }
     }
   };
 
@@ -43,13 +108,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  content: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
+  lottie: {
+    width: 150,
+    height: 150
   },
-  item: {
-    width: '50%',
-    padding: 5
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff'
   }
 });
 
