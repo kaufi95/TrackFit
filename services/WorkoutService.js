@@ -137,3 +137,20 @@ export const updateWorkout = async (workout) => {
     console.error('Failed to update workout.', e);
   }
 };
+
+export const getExercisesFromWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return;
+    }
+
+    return workouts[index].exercises;
+  } catch (e) {
+    console.error('Failed to update workout.', e);
+  }
+};

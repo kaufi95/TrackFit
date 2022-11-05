@@ -30,6 +30,26 @@ const testdata = () => {
               ]
             },
             {
+              date: moment(new Date(2022, 9, 5).setHours(0, 0, 0, 0)),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
               date: moment(new Date(2022, 3, 22).setHours(0, 0, 0, 0)),
               sets: [
                 {
@@ -75,7 +95,7 @@ const testdata = () => {
           name: 'Butterfly',
           sessions: [
             {
-              date: moment(new Date(2022, 4, 22).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 10, 5).setHours(0, 0, 0, 0)),
               sets: [
                 {
                   index: 0,

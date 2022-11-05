@@ -60,7 +60,6 @@ const CreateWorkout = ({ navigation }) => {
       return;
     }
 
-    console.log(workout);
     storeWorkout(workout).then(() => {
       navigation.popToTop();
     });

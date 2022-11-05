@@ -1,44 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert, LogBox } from 'react-native';
 import { TextInput, Text, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
-import { storeSession } from '../services/WorkoutService';
+import moment from 'moment';
 
 const ExerciseScreen = ({ navigation, route }) => {
-  const [count, setCount] = useState(1);
+  LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
+  const [count, setCount] = useState(0);
   const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
 
+  const verifyIfExerciseIsDone = (exercise) => {
+    return exercise.sessions?.some((element) => {
+      let date1 = moment(new Date(element.date).setHours(0, 0, 0, 0));
+      let date2 = moment(new Date().setHours(0, 0, 0, 0));
+      return date1.isSame(date2);
+    });
+  };
+
+  const getLatestSessionofExercise = (exercise) => {
+    return exercise.sessions?.find((element) => {
+      let date1 = moment(new Date(element.date).setHours(0, 0, 0, 0));
+      let date2 = moment(new Date().setHours(0, 0, 0, 0));
+      return date1.isSame(date2);
+    });
+  };
+
+  const prepareInputs = (exercise) => {
+    const session = getLatestSessionofExercise(exercise);
+    setCount(session.sets.length - 1);
+    let inputs = [];
+    session.sets.map((set) => {
+      inputs.push({ weight: set.weight, repeats: set.repeats });
+    });
+    setInputs(inputs);
+  };
+
   useEffect(() => {
-    console.log('------------------------------');
-    console.log(inputs);
-  }, [inputs]);
+    if (verifyIfExerciseIsDone(route.params.exercise)) {
+      prepareInputs(route.params.exercise);
+    }
+  }, []);
 
   const handleWeightChange = (value) => {
     const newInputs = [...inputs];
-    newInputs[count - 1].weight = value;
+    newInputs[count].weight = value;
     setInputs(newInputs);
   };
 
   const handleRepeatsChange = (value) => {
     const newInputs = [...inputs];
-    newInputs[count - 1].repeats = value;
+    newInputs[count].repeats = value;
     setInputs(newInputs);
   };
 
   const lastSet = () => {
-    if (count > 1) {
+    if (count > 0) {
       setCount(count - 1);
     }
   };
 
   const nextSet = () => {
-    setCount(count + 1);
-    if (count === inputs.length) {
+    if (count + 1 === inputs.length) {
       setInputs([...inputs, { weight: '', repeats: '' }]);
     }
+    setCount(count + 1);
   };
 
   const handleSave = () => {
@@ -66,7 +94,8 @@ const ExerciseScreen = ({ navigation, route }) => {
       });
     });
 
-    storeSession(route.params.workout, route.params.exercise, sets);
+    console.log(sets);
+    route.params.updateExercise(route.params.exercise.name, sets);
     navigation.goBack();
   };
 
@@ -79,9 +108,10 @@ const ExerciseScreen = ({ navigation, route }) => {
             mode="outlined"
             outlineColor="#1abc9c"
             style={styles.textInput}
-            onChangeText={(value) => handleWeightChange(value, 0)}
+            onChangeText={(value) => handleWeightChange(value)}
             label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
             keyboardType="numeric"
+            value={inputs[count].weight.toString()}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -90,9 +120,10 @@ const ExerciseScreen = ({ navigation, route }) => {
             mode="outlined"
             outlineColor="#1abc9c"
             style={styles.textInput}
-            onChangeText={(value) => handleRepeatsChange(value, 1)}
+            onChangeText={(value) => handleRepeatsChange(value)}
             label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
             keyboardType="numeric"
+            value={inputs[count].repeats.toString()}
           />
         </View>
       </View>
@@ -106,7 +137,7 @@ const ExerciseScreen = ({ navigation, route }) => {
             lastSet();
           }}
         />
-        <Text style={styles.set}>{count}. Set</Text>
+        <Text style={styles.set}>{count + 1}. Set</Text>
         <AntIcon
           name="caretright"
           color="#59c8ac"

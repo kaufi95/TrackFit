@@ -1,25 +1,36 @@
 import React from 'react';
 import { StyleSheet, Text, Pressable } from 'react-native';
+import { IconButton } from 'react-native-paper';
 
 const ExerciseItem = (props) => {
   return (
     <Pressable
-      style={styles.button}
-      onPress={() => props.navigation.navigate('Exercise', { exercise: props.exercise, workout: props.workout })}
+      style={styles.item}
+      onPress={() =>
+        props.navigation.navigate('Exercise', {
+          exercise: props.exercise,
+          workout: props.workout,
+          updateExercise: props.updateExercise
+        })
+      }
     >
       <Text>{props.exercise.name.toUpperCase()}</Text>
+      {props.done ? <IconButton icon="check-outline" size={25} color="green" /> : null}
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
+  item: {
+    flexDirection: 'row',
     width: 250,
+    height: 75,
     padding: 20,
     borderRadius: 10,
     borderWidth: 1,
     marginBottom: 50,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 });
 
