@@ -1,13 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 
 const HistoryScreenCard = (props) => {
-  const renderExercises = () => {
-    return props.item.exercises.map((exercise) => {
-      return <Text>{exercise.name}</Text>;
-    });
-  };
-
   return (
     <View style={styles.card}>
       <Pressable
@@ -19,9 +13,14 @@ const HistoryScreenCard = (props) => {
             exercises: props.item.exercises
           });
         }}
+        key={props.item.workoutName + props.item.date}
       >
         <Text style={styles.name}>{props.item.workoutName}</Text>
-        {renderExercises()}
+        <FlatList
+          data={props.item.exercises}
+          renderItem={({ item }) => <Text>{item.name}</Text>}
+          keyExtractor={(item, index) => item + index.toString()}
+        />
       </Pressable>
     </View>
   );

@@ -24,7 +24,7 @@ const HistoryDetailView = (props) => {
         spacing={10}
         renderItem={(item) => renderSet(item.item)}
         extraData={props.exercise.sessions[0].sets}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item + index.toString()}
         removeClippedSubviews={false}
       />
     </Pressable>
