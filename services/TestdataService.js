@@ -5,6 +5,7 @@ const testdata = () => {
     {
       id: '1',
       name: 'Chest-Bizeps-Day',
+      disabled: false,
       exercises: [
         {
           name: 'Benchpress',
@@ -186,6 +187,7 @@ const testdata = () => {
     {
       id: '2',
       name: 'Back-Day',
+      disabled: false,
       exercises: [
         {
           name: 'Pullups',
@@ -327,6 +329,7 @@ const testdata = () => {
     {
       id: '3',
       name: 'TestWorkout3',
+      disabled: false,
       exercises: [
         {
           name: 'TestExercise1',
@@ -468,6 +471,7 @@ const testdata = () => {
     {
       id: '4',
       name: 'Test',
+      disabled: false,
       exercises: [
         {
           name: 'TestExercise1',

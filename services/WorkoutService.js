@@ -9,6 +9,21 @@ export const loadWorkouts = async () => {
     let temp = await AsyncStorage.getItem('workouts');
     if (temp !== null) {
       console.log('loaded workouts');
+      return JSON.parse(temp).filter((workout) => workout.disabled !== true);
+    } else {
+      console.log('no workouts available');
+      return [];
+    }
+  } catch (e) {
+    console.error('Failed to load workouts.', e);
+  }
+};
+
+export const loadWorkoutsForHistory = async () => {
+  try {
+    let temp = await AsyncStorage.getItem('workouts');
+    if (temp !== null) {
+      console.log('loaded workouts');
       return JSON.parse(temp);
     } else {
       console.log('no workouts available');
@@ -44,6 +59,27 @@ export const removeWorkout = async (workout) => {
 
     workouts.splice(index, 1);
     await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    console.log('removed workout');
+    return workouts;
+  } catch (e) {
+    console.error('Failed to remove workout.', e);
+  }
+};
+
+export const disableWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return workouts;
+    }
+
+    workouts[index].disabled = true;
+    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    workouts.splice(index, 1);
     console.log('removed workout');
     return workouts;
   } catch (e) {

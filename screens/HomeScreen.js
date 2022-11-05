@@ -7,7 +7,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
 import HomeScreenCard from '../components/HomeScreenCard';
-import { loadWorkouts, removeWorkout } from '../services/WorkoutService';
+import { loadWorkouts, disableWorkout } from '../services/WorkoutService';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -43,7 +43,7 @@ const HomeScreen = ({ navigation }) => {
   );
 
   const deleteWorkout = (workout) => {
-    removeWorkout(workout).then((workouts) => {
+    disableWorkout(workout).then((workouts) => {
       setWorkouts(workouts);
     });
   };
@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   sideText: {
-    fontSize: 16,
+    fontSize: 16
   }
 });
 

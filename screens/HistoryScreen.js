@@ -5,13 +5,13 @@ import HistoryScreenCard from '../components/HistoryScreenCard';
 
 import moment from 'moment';
 
-import { loadWorkouts } from '../services/WorkoutService';
+import { loadWorkoutsForHistory } from '../services/WorkoutService';
 
 const HistoryScreen = ({ navigation }) => {
   const [historyElements, setHistoryElements] = useState([]);
 
   useEffect(() => {
-    loadWorkouts().then((workouts) => {
+    loadWorkoutsForHistory().then((workouts) => {
       prepareSectionListData(workouts);
     });
   }, []);
