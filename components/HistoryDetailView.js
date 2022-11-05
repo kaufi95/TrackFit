@@ -1,22 +1,33 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
 import { Title } from 'react-native-paper';
 
-import moment from 'moment';
-
 const HistoryDetailView = (props) => {
+  const renderSet = (set) => {
+    return (
+      <View style={styles.set}>
+        <Text>{set.index + 1}. Set</Text>
+        <Text>{set.weight} kg</Text>
+        <Text>{set.repeats} repeats</Text>
+      </View>
+    );
+  };
+
   return (
-    <View style={{ alignItems: 'center' }}>
-      <Title style={styles.name}>{moment(props.workout.date).format('DD-MM-YYYY')}</Title>
+    <Pressable
+      style={{ alignItems: 'center' }}
+      onPress={() => props.navigation.navigate('Progress', { exercise: props.exercise })}
+    >
+      <Title style={styles.name}>{props.exercise.name}</Title>
       <FlatList
-        data={props.exercises}
+        data={props.exercise.sessions[0].sets}
         spacing={10}
-        renderItem={(item) => renderExercise(item.item, props.workout.date)}
-        extraData={props.exercises}
+        renderItem={(item) => renderSet(item.item)}
+        extraData={props.exercise.sessions[0].sets}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={false}
       />
-    </View>
+    </Pressable>
   );
 };
 
@@ -27,22 +38,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1abc9c',
     borderRadius: 5,
     padding: 5
-  },
-  up: {
-    alignSelf: 'flex-end'
-  },
-  down: {
-    marginTop: 'auto'
-  },
-  name: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: '600'
-  },
-  date: {
-    color: '#ccc',
-    fontSize: 12,
-    fontWeight: '600'
   },
   set: {
     alignItems: 'center'

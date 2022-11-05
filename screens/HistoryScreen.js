@@ -68,21 +68,20 @@ const HistoryScreen = ({ navigation }) => {
             });
           }
         });
+
+        let formattedDate = moment(date).format('DD/MM/YYYY');
+
         data.push({
+          date: formattedDate,
           workoutName: workoutName,
           exercises: exercises
         });
-      });
-
-      data.forEach((element) => {
-        element[date] = date;
       });
 
       let object = {
         date: date,
         data: data
       };
-      console.log(object);
       historyElements.push(object);
     });
     setHistoryElements(historyElements);

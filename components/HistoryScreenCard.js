@@ -13,7 +13,11 @@ const HistoryScreenCard = (props) => {
       <Pressable
         style={styles.innerCard}
         onPress={() => {
-          props.navigation.navigate('History Detail', { workout: props.item.name, exercises: props.item.exercises });
+          props.navigation.navigate('History Detail', {
+            date: props.item.date,
+            workoutName: props.item.workoutName,
+            exercises: props.item.exercises
+          });
         }}
       >
         <Text style={styles.name}>{props.item.workoutName}</Text>

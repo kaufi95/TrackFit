@@ -9,6 +9,7 @@ import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import ProgressScreen from './screens/ProgressScreen';
 import HistoryDetailScreen from './screens/HistoryDetailScreen';
 
 const theme = {
@@ -68,9 +69,10 @@ export default function App() {
             name="History Detail"
             component={HistoryDetailScreen}
             options={({ route }) => ({
-              title: route.params.workout.name
+              title: route.params.workoutName
             })}
           />
+          <Stack.Screen name="Progress" component={ProgressScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
