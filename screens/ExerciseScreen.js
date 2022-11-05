@@ -11,6 +11,7 @@ const ExerciseScreen = ({ navigation, route }) => {
   LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
   const [count, setCount] = useState(0);
   const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
+  const inputRef = useRef(null);
 
   const verifyIfExerciseIsDone = (exercise) => {
     return exercise.sessions?.some((element) => {
@@ -30,17 +31,19 @@ const ExerciseScreen = ({ navigation, route }) => {
 
   const prepareInputs = (exercise) => {
     const session = getLatestSessionOfExercise(exercise);
-    setCount(session.sets.length - 1);
     let inputs = session.sets.map((set) => {
       return { weight: set.weight, repeats: set.repeats };
     });
+    inputs.push({ weight: '', repeats: '' });
     setInputs(inputs);
+    setCount(session.sets.length);
   };
 
   useEffect(() => {
     if (verifyIfExerciseIsDone(route.params.exercise)) {
       prepareInputs(route.params.exercise);
     }
+    inputRef.current.focus();
   }, []);
 
   const handleWeightChange = (value) => {
@@ -59,6 +62,7 @@ const ExerciseScreen = ({ navigation, route }) => {
     if (count > 0) {
       setCount(count - 1);
     }
+    inputRef.current.focus();
   };
 
   const nextSet = () => {
@@ -66,6 +70,7 @@ const ExerciseScreen = ({ navigation, route }) => {
       setInputs([...inputs, { weight: '', repeats: '' }]);
     }
     setCount(count + 1);
+    inputRef.current.focus();
   };
 
   const handleSave = () => {
@@ -99,6 +104,7 @@ const ExerciseScreen = ({ navigation, route }) => {
             onChangeText={(value) => handleWeightChange(value)}
             label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
             keyboardType="numeric"
+            ref={(ref) => (inputRef.current = ref)}
             value={inputs[count].weight.toString()}
           />
         </View>
