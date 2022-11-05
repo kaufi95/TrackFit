@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import moment from 'moment';
+
 import testdata from './TestdataService';
 
 export const loadWorkouts = async () => {
@@ -103,7 +105,7 @@ export const storeSession = async (workout, exercise, sets) => {
     }
 
     let session = {
-      date: new Date(),
+      date: moment(new Date().setHours(0, 0, 0, 0)),
       sets: sets
     };
 
@@ -113,5 +115,25 @@ export const storeSession = async (workout, exercise, sets) => {
     console.log('stored session');
   } catch (e) {
     console.error('Failed to store session.', e);
+  }
+};
+
+export const updateWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return;
+    }
+
+    workouts[index] = workout;
+
+    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    console.log('updated workout');
+  } catch (e) {
+    console.error('Failed to update workout.', e);
   }
 };

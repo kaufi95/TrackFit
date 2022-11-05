@@ -1,19 +1,23 @@
 import React from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 
-import moment from 'moment';
-
 const HistoryScreenCard = (props) => {
+  const renderExercises = () => {
+    return props.item.exercises.map((exercise) => {
+      return <Text>{exercise.name}</Text>;
+    });
+  };
+
   return (
     <View style={styles.card}>
-      <Text style={styles.date}>{moment(props.card.date).format('DD.MM.YYYY')}</Text>
       <Pressable
         style={styles.innerCard}
         onPress={() => {
-          props.navigation.navigate('Progress', { workout: props.card });
+          props.navigation.navigate('History Detail', { workout: props.item.name, exercises: props.item.exercises });
         }}
       >
-        <Text style={styles.name}>{props.card.name}</Text>
+        <Text style={styles.name}>{props.item.workoutName}</Text>
+        {renderExercises()}
       </Pressable>
     </View>
   );

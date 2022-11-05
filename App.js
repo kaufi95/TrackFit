@@ -9,15 +9,15 @@ import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import ProgressScreen from './screens/ProgressScreen';
+import HistoryDetailScreen from './screens/HistoryDetailScreen';
 
 const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
     primary: 'black',
-    onPrimary: '#3cae94',
-  },
+    onPrimary: '#3cae94'
+  }
   // fonts: {
   //   ...DefaultTheme.fonts,
   //   regular: {
@@ -65,8 +65,8 @@ export default function App() {
           />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen
-            name="Progress"
-            component={ProgressScreen}
+            name="History Detail"
+            component={HistoryDetailScreen}
             options={({ route }) => ({
               title: route.params.workout.name
             })}
