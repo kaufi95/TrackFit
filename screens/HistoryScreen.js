@@ -69,7 +69,7 @@ const HistoryScreen = ({ navigation }) => {
           }
         });
 
-        let formattedDate = moment(date).format('DD/MM/YYYY');
+        let formattedDate = moment(date).format('DD.MM.YYYY');
 
         data.push({
           date: formattedDate,
