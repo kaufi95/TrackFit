@@ -6,16 +6,23 @@ const HistoryDetailView = (props) => {
   const renderSet = (set) => {
     return (
       <View style={styles.set}>
-        <Text>{set.index + 1}. Set</Text>
-        <Text>{set.weight} kg</Text>
-        <Text>{set.repeats} repeats</Text>
+        <Text style={styles.text}>{set.index + 1}. Set</Text>
+        <Text style={styles.text}>{set.weight} kg</Text>
+        <Text style={styles.text}>{set.repeats} repeats</Text>
       </View>
     );
   };
 
+  let color;
+  if (props.index % 2 === 0) {
+    color = '#e0f4ee';
+  } else {
+    color = '#a2decc';
+  }
+
   return (
     <Pressable
-      style={{ alignItems: 'center' }}
+      style={[styles.view, { backgroundColor: color }]}
       onPress={() => props.navigation.navigate('Progress', { exercise: props.exercise })}
     >
       <Title style={styles.name}>{props.exercise.name}</Title>
@@ -25,22 +32,33 @@ const HistoryDetailView = (props) => {
         renderItem={(item) => renderSet(item.item)}
         extraData={props.exercise.sessions[0].sets}
         keyExtractor={(item, index) => index.toString()}
-        removeClippedSubviews={false}
       />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  view: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#1abc9c',
-    borderRadius: 5,
     padding: 5
   },
   set: {
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    fontSize: 20,
+    padding: 5
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 30
+  },
+  text: {
+    fontSize: 18
   }
 });
 
