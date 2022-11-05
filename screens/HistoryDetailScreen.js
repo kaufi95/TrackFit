@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     width: '65%'
-  },
-  exercises: {
-    justifyContent: 'center',
-    alignItems: 'flex-end'
-  },
-  list: {}
+  }
+  // exercises: {
+  //   justifyContent: 'center',
+  //   alignItems: 'flex-end'
+  // },
+  //list: {}
 });
 
 export default HistoryDetailScreen;
