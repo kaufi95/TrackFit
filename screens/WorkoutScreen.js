@@ -27,14 +27,14 @@ const WorkoutScreen = ({ navigation, route }) => {
     if (verifyIfExerciseIsDone(exercise)) {
       const exerciseIndex = newExercises.findIndex((item) => item.name === exercise);
       const sessionIndex = newExercises[exerciseIndex].sessions.find(
-        (item) => item.date === moment(new Date().setHours(0, 0, 0, 0))
+        (item) => item.date === moment(new Date()).startOf('day')
       );
       newExercises[exerciseIndex].sessions[sessionIndex].sets = sets;
     } else {
       newExercises
         .find((item) => item.name === exercise)
         .sessions.unshift({
-          date: moment(new Date().setHours(0, 0, 0, 0)),
+          date: moment(new Date()).startOf('day'),
           sets: sets
         });
     }
@@ -47,8 +47,8 @@ const WorkoutScreen = ({ navigation, route }) => {
 
   const verifyIfExerciseIsDone = (exercise) => {
     return exercise.sessions?.some((element) => {
-      let date1 = moment(new Date(element.date).setHours(0, 0, 0, 0));
-      let date2 = moment(new Date().setHours(0, 0, 0, 0));
+      let date1 = moment(new Date(element.date)).startOf('day');
+      let date2 = moment(new Date()).startOf('day');
       return date1.isSame(date2);
     });
   };

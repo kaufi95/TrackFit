@@ -14,16 +14,16 @@ const ExerciseScreen = ({ navigation, route }) => {
 
   const verifyIfExerciseIsDone = (exercise) => {
     return exercise.sessions?.some((element) => {
-      let date1 = moment(new Date(element.date).setHours(0, 0, 0, 0));
-      let date2 = moment(new Date().setHours(0, 0, 0, 0));
+      let date1 = moment(new Date(element.date)).startOf('day');
+      let date2 = moment(new Date()).startOf('day');
       return date1.isSame(date2);
     });
   };
 
   const getLatestSessionofExercise = (exercise) => {
     return exercise.sessions?.find((element) => {
-      let date1 = moment(new Date(element.date).setHours(0, 0, 0, 0));
-      let date2 = moment(new Date().setHours(0, 0, 0, 0));
+      let date1 = moment(new Date(element.date)).startOf('day');
+      let date2 = moment(new Date()).startOf('day');
       return date1.isSame(date2);
     });
   };

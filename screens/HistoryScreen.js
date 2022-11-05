@@ -21,7 +21,7 @@ const HistoryScreen = ({ navigation }) => {
     workouts.map((workout) => {
       workout.exercises.map((exercise) => {
         exercise.sessions.map((session) => {
-          let date = moment(new Date(session.date).setHours(0, 0, 0, 0));
+          let date = moment(new Date(session.date)).startOf('day');
           if (!dates.some((element) => element.isSame(date))) {
             dates.push(date);
           }

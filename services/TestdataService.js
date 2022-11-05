@@ -10,7 +10,7 @@ const testdata = () => {
           name: 'Benchpress',
           sessions: [
             {
-              date: moment(new Date(2022, 10, 5).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 10, 5)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -30,7 +30,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 9, 5).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 9, 5)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -50,7 +50,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 3, 22).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 3, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -70,7 +70,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 4, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 4, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -95,7 +95,7 @@ const testdata = () => {
           name: 'Butterfly',
           sessions: [
             {
-              date: moment(new Date(2022, 10, 5).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 10, 5)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -115,7 +115,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 5, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 5, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -140,7 +140,7 @@ const testdata = () => {
           name: 'Cable-Cross',
           sessions: [
             {
-              date: moment(new Date(2022, 9, 22).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 9, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -160,7 +160,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 9, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 9, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -191,7 +191,7 @@ const testdata = () => {
           name: 'Pullups',
           sessions: [
             {
-              date: moment(new Date(2022, 7, 22).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 7, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -211,7 +211,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 7, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 7, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -236,7 +236,7 @@ const testdata = () => {
           name: 'Lat-Pulldown',
           sessions: [
             {
-              date: moment(new Date(2022, 7, 22).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 7, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -256,7 +256,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 5, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 5, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -281,7 +281,7 @@ const testdata = () => {
           name: 'Seated-Row',
           sessions: [
             {
-              date: moment(new Date(2022, 8, 22).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 8, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -301,7 +301,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 7, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 7, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -332,7 +332,7 @@ const testdata = () => {
           name: 'TestExercise1',
           sessions: [
             {
-              date: moment(new Date(2022, 5, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 5, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -352,7 +352,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 1, 20).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 1, 20)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -377,7 +377,7 @@ const testdata = () => {
           name: 'TestExercise2',
           sessions: [
             {
-              date: moment(new Date(2022, 2, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 2, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -397,7 +397,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 3, 20).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 3, 20)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -422,7 +422,7 @@ const testdata = () => {
           name: 'TestExercise3',
           sessions: [
             {
-              date: moment(new Date(2022, 7, 21).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 7, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -442,7 +442,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 5, 20).setHours(0, 0, 0, 0)),
+              date: moment(new Date(2022, 5, 20)).startOf('day'),
               sets: [
                 {
                   index: 0,

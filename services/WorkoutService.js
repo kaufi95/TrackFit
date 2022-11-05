@@ -105,7 +105,7 @@ export const storeSession = async (workout, exercise, sets) => {
     }
 
     let session = {
-      date: moment(new Date().setHours(0, 0, 0, 0)),
+      date: moment(new Date()).startOf('day'),
       sets: sets
     };
 
