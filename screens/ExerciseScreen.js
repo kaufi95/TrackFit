@@ -20,7 +20,7 @@ const ExerciseScreen = ({ navigation, route }) => {
     });
   };
 
-  const getLatestSessionofExercise = (exercise) => {
+  const getLatestSessionOfExercise = (exercise) => {
     return exercise.sessions?.find((element) => {
       let date1 = moment(new Date(element.date)).startOf('day');
       let date2 = moment(new Date()).startOf('day');
@@ -29,11 +29,10 @@ const ExerciseScreen = ({ navigation, route }) => {
   };
 
   const prepareInputs = (exercise) => {
-    const session = getLatestSessionofExercise(exercise);
+    const session = getLatestSessionOfExercise(exercise);
     setCount(session.sets.length - 1);
-    let inputs = [];
-    session.sets.map((set) => {
-      inputs.push({ weight: set.weight, repeats: set.repeats });
+    let inputs = session.sets.map((set) => {
+      return { weight: set.weight, repeats: set.repeats };
     });
     setInputs(inputs);
   };
@@ -70,33 +69,22 @@ const ExerciseScreen = ({ navigation, route }) => {
   };
 
   const handleSave = () => {
-    let error;
-    inputs.forEach((input) => {
-      if (isNaN(input.weight) || isNaN(input.repeats)) {
-        error = true;
-      }
-      if (input.weight === '' || input.repeats === '') {
-        error = true;
-      }
-    });
-
-    if (error) {
-      Alert.alert('Please verify your inputs');
-      return;
-    }
-
     let sets = [];
     inputs.forEach((input, index) => {
-      sets.push({
-        index: index,
-        weight: parseInt(input.weight),
-        repeats: parseInt(input.repeats)
-      });
+      if (input.weight !== '' && input.repeats !== '') {
+        sets.push({
+          index: index,
+          weight: parseInt(input.weight),
+          repeats: parseInt(input.repeats)
+        });
+      }
     });
-
-    console.log(sets);
-    route.params.updateExercise(route.params.exercise.name, sets);
-    navigation.goBack();
+    if (sets.length > 0) {
+      route.params.updateExercise(route.params.exercise, sets);
+      navigation.goBack();
+    } else {
+      Alert.alert('Error', 'You must enter at least one set');
+    }
   };
 
   return (

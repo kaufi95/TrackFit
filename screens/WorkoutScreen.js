@@ -21,18 +21,26 @@ const WorkoutScreen = ({ navigation, route }) => {
     navigation.goBack();
   };
 
+  const verifyIfExerciseIsDone = (exercise) => {
+    return exercise.sessions?.some((element) => {
+      let date1 = moment(new Date(element.date)).startOf('day');
+      let date2 = moment(new Date()).startOf('day');
+      return date1.isSame(date2);
+    });
+  };
+
   const updateExercise = (exercise, sets) => {
     const newExercises = [...exercises];
 
     if (verifyIfExerciseIsDone(exercise)) {
-      const exerciseIndex = newExercises.findIndex((item) => item.name === exercise);
-      const sessionIndex = newExercises[exerciseIndex].sessions.find(
-        (item) => item.date === moment(new Date()).startOf('day')
-      );
+      const exerciseIndex = newExercises.findIndex((item) => item.name === exercise.name);
+      const sessionIndex = newExercises[exerciseIndex].sessions.findIndex((item) => {
+        return moment(item.date).startOf('day').isSame(moment(new Date()).startOf('day'));
+      });
       newExercises[exerciseIndex].sessions[sessionIndex].sets = sets;
     } else {
       newExercises
-        .find((item) => item.name === exercise)
+        .find((item) => item.name === exercise.name)
         .sessions.unshift({
           date: moment(new Date()).startOf('day'),
           sets: sets
@@ -43,14 +51,6 @@ const WorkoutScreen = ({ navigation, route }) => {
     let workout = route.params.workout;
     workout.exercises = newExercises;
     updateWorkout(workout);
-  };
-
-  const verifyIfExerciseIsDone = (exercise) => {
-    return exercise.sessions?.some((element) => {
-      let date1 = moment(new Date(element.date)).startOf('day');
-      let date2 = moment(new Date()).startOf('day');
-      return date1.isSame(date2);
-    });
   };
 
   return (
