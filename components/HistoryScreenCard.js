@@ -28,21 +28,27 @@ const HistoryScreenCard = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 15
-  },
-  date: {
-    fontSize: 18,
-    marginBottom: 5,
-    marginLeft: 20
-  },
-  innerCard: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#7fd3bc',
     padding: 15,
-    borderRadius: 10
+    borderRadius: 10,
+    margin: 15,
+    minHeight: 80,
+    marginBottom: 30
   },
   name: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold'
+  },
+  exercises: {
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+  },
+  exercise: {
+    fontSize: 16
   }
 });
 

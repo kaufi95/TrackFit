@@ -93,7 +93,6 @@ const HistoryScreen = ({ navigation }) => {
         <SectionList
           sections={historyElements}
           style={styles.list}
-          spacing={5}
           renderItem={({ item }) => <HistoryScreenCard item={item} navigation={navigation} />}
           renderSectionHeader={({ section: { date } }) => (
             <Text style={styles.date}>{moment(date).format('DD.MM.YYYY')}</Text>
@@ -126,7 +125,12 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    marginTop: 20
+    marginTop: 30
+  },
+  date: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 25
   }
 });
 

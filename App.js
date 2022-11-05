@@ -65,13 +65,7 @@ export default function App() {
             })}
           />
           <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen
-            name="History Detail"
-            component={HistoryDetailScreen}
-            options={({ route }) => ({
-              title: route.params.workoutName
-            })}
-          />
+          <Stack.Screen name="History Detail" component={HistoryDetailScreen} />
           <Stack.Screen name="Progress" component={ProgressScreen} />
         </Stack.Navigator>
       </NavigationContainer>
