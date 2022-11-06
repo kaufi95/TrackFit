@@ -22,15 +22,18 @@ const ExerciseItem = (props) => {
 
 const styles = StyleSheet.create({
   item: {
+    flexDirection: 'row',
     minWidth: '60%',
     width: '60%',
+    maxWidth: '60%',
     height: 75,
     padding: 20,
     borderRadius: 10,
     borderWidth: 1,
     margin: 20,
     padding: 20,
-    justifyContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 });
 
