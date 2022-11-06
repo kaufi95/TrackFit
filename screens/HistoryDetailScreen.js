@@ -49,11 +49,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: '65%'
   }
-  // exercises: {
-  //   justifyContent: 'center',
-  //   alignItems: 'flex-end'
-  // },
-  //list: {}
 });
 
 export default HistoryDetailScreen;

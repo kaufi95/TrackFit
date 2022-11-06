@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert, LogBox } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert, FlatList, LogBox } from 'react-native';
 import { TextInput, Text, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -92,66 +92,93 @@ const ExerciseScreen = ({ navigation, route }) => {
     }
   };
 
+  const renderSet = (set) => {
+    return (
+      <View style={styles.lastSets}>
+        <Text style={styles.text}>{set.index + 1}. Set</Text>
+        <Text style={styles.text}>{set.weight} kg</Text>
+        <Text style={styles.text}>{set.repeats} reps</Text>
+      </View>
+    );
+  };
+
+  const header = () => {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.headerText}>{moment(route.params.exercise.sessions[0]?.date).format('DD.MM.YYYY')}</Text>
+      </View>
+    );
+  };
+
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.kav}>
-      <View style={styles.inputs}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Weight</Text>
-          <TextInput
-            mode="outlined"
-            outlineColor="#1abc9c"
-            style={styles.textInput}
-            onChangeText={(value) => handleWeightChange(value)}
-            label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
-            keyboardType="numeric"
-            ref={(ref) => (inputRef.current = ref)}
-            value={inputs[count].weight.toString()}
-          />
+      <View style={styles.list}>
+        <FlatList
+          data={route.params.exercise.sessions[0]?.sets}
+          renderItem={(item) => renderSet(item.item)}
+          ListHeaderComponent={header()}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+      <View style={styles.view}>
+        <View style={styles.inputs}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Weight</Text>
+            <TextInput
+              mode="outlined"
+              outlineColor="#1abc9c"
+              style={styles.textInput}
+              onChangeText={(value) => handleWeightChange(value)}
+              label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
+              keyboardType="numeric"
+              ref={(ref) => (inputRef.current = ref)}
+              value={inputs[count].weight.toString()}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Repeats</Text>
+            <TextInput
+              mode="outlined"
+              outlineColor="#1abc9c"
+              style={styles.textInput}
+              onChangeText={(value) => handleRepeatsChange(value)}
+              label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
+              keyboardType="numeric"
+              value={inputs[count].repeats.toString()}
+            />
+          </View>
         </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputLabel}>Repeats</Text>
-          <TextInput
-            mode="outlined"
-            outlineColor="#1abc9c"
-            style={styles.textInput}
-            onChangeText={(value) => handleRepeatsChange(value)}
-            label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
-            keyboardType="numeric"
-            value={inputs[count].repeats.toString()}
+
+        <View style={styles.navigation}>
+          <AntIcon
+            name="caretleft"
+            color="#59c8ac"
+            size={55}
+            onPress={() => {
+              lastSet();
+            }}
+          />
+          <Text style={styles.set}>{count + 1}. Set</Text>
+          <AntIcon
+            name="caretright"
+            color="#59c8ac"
+            size={55}
+            onPress={() => {
+              nextSet();
+            }}
           />
         </View>
       </View>
-
-      <View style={styles.navigation}>
-        <AntIcon
-          name="caretleft"
-          color="#59c8ac"
-          size={55}
-          onPress={() => {
-            lastSet();
-          }}
-        />
-        <Text style={styles.set}>{count + 1}. Set</Text>
-        <AntIcon
-          name="caretright"
-          color="#59c8ac"
-          size={55}
-          onPress={() => {
-            nextSet();
-          }}
-        />
-      </View>
-
       <View style={styles.button}>
         <Button
           mode="contained"
           color="#1abc9c"
-          style={styles.finishButton}
+          style={styles.doneButton}
           onPress={() => {
             handleSave();
           }}
         >
-          Finish Exercise
+          Done
         </Button>
       </View>
     </KeyboardAvoidingView>
@@ -160,9 +187,40 @@ const ExerciseScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   kav: {
+    flex: 2,
+    justifyContent: 'center'
+  },
+  view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  list: {
+    backgroundColor: '#c1eadd',
+    flexDirection: 'column',
+    height: '30%',
+    justifyContent: 'center'
+  },
+  header: {
+    padding: 20,
+    alignItems: 'flex-start',
+    justifyContent: 'center'
+  },
+  headerText: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  lastSets: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    fontSize: 20,
+    padding: 5
+  },
+  text: {
+    fontSize: 18
   },
   inputs: {
     flexDirection: 'row',
@@ -187,9 +245,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10
   },
-  header: {
-    alignItems: 'center'
-  },
   workoutName: {
     fontSize: 16,
     fontWeight: '600'
@@ -207,12 +262,12 @@ const styles = StyleSheet.create({
   IconStyle: {
     alignSelf: 'center'
   },
-  finishButton: {
+  doneButton: {
+    borderRadius: 5,
+    padding: 5,
+    width: '50%',
     alignSelf: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    padding: 10,
-    marginTop: 20
+    marginBottom: 150
   }
 });
 
