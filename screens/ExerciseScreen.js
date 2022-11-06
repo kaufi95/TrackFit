@@ -105,7 +105,7 @@ const ExerciseScreen = ({ navigation, route }) => {
   const header = () => {
     return (
       <View style={styles.header}>
-        <Text style={styles.headerText}>{route.params.exercise.sessions[0].date}</Text>
+        <Text style={styles.headerText}>{route.params.exercise.sessions[0]?.date}</Text>
       </View>
     );
   };
@@ -114,7 +114,7 @@ const ExerciseScreen = ({ navigation, route }) => {
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.kav}>
       <View style={styles.list}>
         <FlatList
-          data={route.params.exercise.sessions[0].sets}
+          data={route.params.exercise.sessions[0]?.sets}
           renderItem={(item) => renderSet(item.item)}
           ListHeaderComponent={header()}
           keyExtractor={(item, index) => index.toString()}
