@@ -13,9 +13,9 @@ const ProgressScreen = (props) => {
   const renderSet = (set) => {
     return (
       <View style={styles.set}>
-        <Text>{set.index + 1}. Set</Text>
-        <Text>{set.weight} kg</Text>
-        <Text>{set.repeats} repeats</Text>
+        <Text style={styles.text}>{set.index + 1}. Set</Text>
+        <Text style={styles.text}>{set.weight} kg</Text>
+        <Text style={styles.text}>{set.repeats} repeats</Text>
       </View>
     );
   };
@@ -23,13 +23,13 @@ const ProgressScreen = (props) => {
   const renderSession = (session) => {
     let color;
     if (session.index % 2 === 0) {
-      color = '#1abc9c';
+      color = '#e0f4ee';
     } else {
-      color = '#333385';
+      color = '#a2decc';
     }
     return (
       <View style={[styles.session, { backgroundColor: color }]}>
-        <Text>{moment(session.item.date).format('DD.MM.YYYY')}</Text>
+        <Text style={styles.date}>{moment(session.item.date).format('DD.MM.YYYY')}</Text>
         <FlatList
           data={session.item.sets}
           spacing={10}
@@ -60,15 +60,30 @@ const ProgressScreen = (props) => {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  session: {
-    flex: 1,
-    alignItems: 'center'
+    flexDirection: 'column'
   },
   set: {
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    fontSize: 20,
+    padding: 5
+  },
+  name: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    padding: 20
+  },
+  date: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 30
+  },
+  text: {
+    fontSize: 18
   }
 });
 
