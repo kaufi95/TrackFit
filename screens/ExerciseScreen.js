@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   doneButton: {
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 5,
     width: '50%',
     alignSelf: 'center',
