@@ -14,8 +14,8 @@ const ExerciseItem = (props) => {
         })
       }
     >
-      <Text>{props.exercise.name.toUpperCase()}</Text>
-      {props.done ? <IconButton icon="check-outline" size={25} color="green" /> : null}
+      <Text style={styles.text}>{props.exercise.name.toUpperCase()}</Text>
+      {props.done ? <IconButton icon="check-outline" size={25} color="#1abc9c" /> : null}
     </Pressable>
   );
 };
@@ -23,17 +23,22 @@ const ExerciseItem = (props) => {
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
-    minWidth: '60%',
-    width: '60%',
-    maxWidth: '60%',
+    minWidth: '80%',
+    width: '80%',
+    maxWidth: '80%',
     height: 75,
     padding: 20,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: '#1abc9c',
     margin: 20,
     padding: 20,
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  text: {
+    fontSize: 17,
+    color: 'black'
   }
 });
 

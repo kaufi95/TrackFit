@@ -88,13 +88,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    width: '50%',
-    height: 75,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: '80%',
     padding: 10,
     borderRadius: 10,
-    borderWidth: 1,
     marginBottom: 25,
-    alignSelf: 'center'
+    backgroundColor: '#59c8ac'
   }
 });
 
