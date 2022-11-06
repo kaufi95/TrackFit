@@ -105,7 +105,7 @@ const ExerciseScreen = ({ navigation, route }) => {
   const header = () => {
     return (
       <View style={styles.header}>
-        <Text style={styles.headerText}>{route.params.exercise.sessions[0]?.date}</Text>
+        <Text style={styles.headerText}>{moment(route.params.exercise.sessions[0]?.date).format('DD.MM.YYYY')}</Text>
       </View>
     );
   };
