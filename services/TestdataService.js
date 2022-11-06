@@ -71,7 +71,67 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 9, 15)).startOf('day'),
+              date: moment(new Date(2022, 9, 14)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
+              date: moment(new Date(2022, 9, 7)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
+              date: moment(new Date(2022, 9, 1)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
+              date: moment(new Date(2022, 8, 25)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -116,7 +176,47 @@ const testdata = () => {
               ]
             },
             {
+              date: moment(new Date(2022, 10, 5)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
               date: moment(new Date(2022, 9, 28)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
+              date: moment(new Date(2022, 9, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -141,7 +241,7 @@ const testdata = () => {
           name: 'Cable-Cross',
           sessions: [
             {
-              date: moment(new Date(2022, 10, 5)).startOf('day'),
+              date: moment(new Date(2022, 9, 14)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -161,7 +261,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 9, 28)).startOf('day'),
+              date: moment(new Date(2022, 9, 7)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -467,7 +567,7 @@ const testdata = () => {
           ]
         }
       ]
-    },
+    }
   ];
 };
 
