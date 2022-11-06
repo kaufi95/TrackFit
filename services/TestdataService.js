@@ -4,7 +4,7 @@ const testdata = () => {
   return [
     {
       id: '1',
-      name: 'Chest-Bizeps-Day',
+      name: 'Chest Day',
       disabled: false,
       exercises: [
         {
@@ -31,7 +31,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 9, 5)).startOf('day'),
+              date: moment(new Date(2022, 9, 28)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -51,7 +51,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 3, 22)).startOf('day'),
+              date: moment(new Date(2022, 9, 21)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -71,7 +71,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 4, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 15)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -116,7 +116,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 5, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 28)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -141,7 +141,7 @@ const testdata = () => {
           name: 'Cable-Cross',
           sessions: [
             {
-              date: moment(new Date(2022, 9, 22)).startOf('day'),
+              date: moment(new Date(2022, 10, 5)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -161,7 +161,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 9, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 28)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -186,14 +186,14 @@ const testdata = () => {
     },
     {
       id: '2',
-      name: 'Back-Day',
+      name: 'Back Day',
       disabled: false,
       exercises: [
         {
           name: 'Pullups',
           sessions: [
             {
-              date: moment(new Date(2022, 7, 22)).startOf('day'),
+              date: moment(new Date(2022, 9, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -213,7 +213,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 7, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 15)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -238,7 +238,7 @@ const testdata = () => {
           name: 'Lat-Pulldown',
           sessions: [
             {
-              date: moment(new Date(2022, 7, 22)).startOf('day'),
+              date: moment(new Date(2022, 9, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -258,7 +258,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 5, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 15)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -283,7 +283,7 @@ const testdata = () => {
           name: 'Seated-Row',
           sessions: [
             {
-              date: moment(new Date(2022, 8, 22)).startOf('day'),
+              date: moment(new Date(2022, 9, 22)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -303,7 +303,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 7, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 15)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -328,14 +328,14 @@ const testdata = () => {
     },
     {
       id: '3',
-      name: 'TestWorkout3',
+      name: 'Leg Day',
       disabled: false,
       exercises: [
         {
-          name: 'TestExercise1',
+          name: 'Squats',
           sessions: [
             {
-              date: moment(new Date(2022, 5, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 14)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -355,7 +355,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 1, 20)).startOf('day'),
+              date: moment(new Date(2022, 9, 7)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -377,10 +377,10 @@ const testdata = () => {
           ]
         },
         {
-          name: 'TestExercise2',
+          name: 'Hip-Thrust',
           sessions: [
             {
-              date: moment(new Date(2022, 2, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 14)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -400,7 +400,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 3, 20)).startOf('day'),
+              date: moment(new Date(2022, 9, 7)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -422,10 +422,10 @@ const testdata = () => {
           ]
         },
         {
-          name: 'TestExercise3',
+          name: 'Seated-Leg-Curl',
           sessions: [
             {
-              date: moment(new Date(2022, 7, 21)).startOf('day'),
+              date: moment(new Date(2022, 9, 14)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -445,7 +445,7 @@ const testdata = () => {
               ]
             },
             {
-              date: moment(new Date(2022, 5, 20)).startOf('day'),
+              date: moment(new Date(2022, 9, 7)).startOf('day'),
               sets: [
                 {
                   index: 0,
@@ -468,25 +468,6 @@ const testdata = () => {
         }
       ]
     },
-    {
-      id: '4',
-      name: 'Test',
-      disabled: false,
-      exercises: [
-        {
-          name: 'TestExercise1',
-          sessions: []
-        },
-        {
-          name: 'TestExercise2',
-          sessions: []
-        },
-        {
-          name: 'TestExercise3',
-          sessions: []
-        }
-      ]
-    }
   ];
 };
 
