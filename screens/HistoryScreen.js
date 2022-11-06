@@ -5,13 +5,13 @@ import HistoryScreenCard from '../components/HistoryScreenCard';
 
 import moment from 'moment';
 
-import { loadWorkouts } from '../services/WorkoutService';
+import { loadWorkoutsForHistory } from '../services/WorkoutService';
 
 const HistoryScreen = ({ navigation }) => {
   const [historyElements, setHistoryElements] = useState([]);
 
   useEffect(() => {
-    loadWorkouts().then((workouts) => {
+    loadWorkoutsForHistory().then((workouts) => {
       prepareSectionListData(workouts);
     });
   }, []);
@@ -21,7 +21,7 @@ const HistoryScreen = ({ navigation }) => {
     workouts.map((workout) => {
       workout.exercises.map((exercise) => {
         exercise.sessions.map((session) => {
-          let date = moment(new Date(session.date).setHours(0, 0, 0, 0));
+          let date = moment(new Date(session.date)).startOf('day');
           if (!dates.some((element) => element.isSame(date))) {
             dates.push(date);
           }
@@ -69,7 +69,7 @@ const HistoryScreen = ({ navigation }) => {
           }
         });
 
-        let formattedDate = moment(date).format('DD/MM/YYYY');
+        let formattedDate = moment(date).format('DD.MM.YYYY');
 
         data.push({
           date: formattedDate,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    marginTop: 30
+    marginTop: 20
   },
   date: {
     fontSize: 18,

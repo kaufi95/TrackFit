@@ -1,13 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Pressable, unstable_enableLogBox } from 'react-native';
+import { StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
 
 const HistoryScreenCard = (props) => {
-  const renderExercises = () => {
-    return props.item.exercises.map((exercise) => {
-      return <Text style={styles.exercise}>{exercise.name}</Text>;
-    });
-  };
-
   return (
     <Pressable
       style={styles.card}
@@ -18,9 +12,15 @@ const HistoryScreenCard = (props) => {
           exercises: props.item.exercises
         });
       }}
+      key={props.item.workoutName + props.item.date}
     >
       <Text style={styles.name}>{props.item.workoutName}</Text>
-      <View style={styles.exercises}>{renderExercises()}</View>
+      <FlatList
+        style={styles.exercises}
+        data={props.item.exercises}
+        renderItem={({ item }) => <Text style={styles.exercise}>{item.name}</Text>}
+        keyExtractor={(item, index) => item + index.toString()}
+      />
     </Pressable>
   );
 };
@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     margin: 15,
-    minHeight: 80,
-    marginBottom: 30
+    marginVertical: 5,
+    marginBottom: 30,
+    minHeight: 80
   },
   name: {
     fontSize: 20,
