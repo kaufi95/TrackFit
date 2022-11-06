@@ -19,14 +19,6 @@ const theme = {
     primary: 'black',
     onPrimary: '#3cae94'
   }
-  // fonts: {
-  //   ...DefaultTheme.fonts,
-  //   regular: {
-  //     ...DefaultTheme.fonts.regular,
-  //     fontFamily: 'Roboto',
-  //     fontWeight: 'normal'
-  //   },
-  // }
 };
 
 const Stack = createNativeStackNavigator();
