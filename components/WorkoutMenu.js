@@ -2,8 +2,6 @@ import React from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { IconButton, Menu } from 'react-native-paper';
 
-import { removeWorkout } from '../scripts/storage';
-
 const WorkoutMenu = (props) => {
   const [visible, setVisible] = React.useState(false);
 
@@ -17,18 +15,23 @@ const WorkoutMenu = (props) => {
         {/* <Menu.Item onPress={() => setVisible(false)} title="Edit" /> */}
         <Menu.Item
           onPress={() =>
-            Alert.alert('Delete', 'Are you sure you want to delete this Workout?', [
-              {
-                text: 'Cancel',
-                style: 'cancel'
-              },
-              {
-                text: 'DELETE IT!',
-                onPress: () => {
-                  props.deleteWorkout(props.workout);
+            Alert.alert(
+              'Delete',
+              `Are you sure you want to delete the '${props.workout.name}' workout?\nThe history will remain.`,
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel'
+                },
+                {
+                  text: 'Delete!',
+                  onPress: () => {
+                    props.deleteWorkout(props.workout);
+                    setVisible(false);
+                  }
                 }
-              }
-            ])
+              ]
+            )
           }
           title="Delete"
         />
