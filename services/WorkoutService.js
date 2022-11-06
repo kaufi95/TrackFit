@@ -1,8 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import testdata from './testdata';
+import moment from 'moment';
+
+import testdata from './TestdataService';
 
 export const loadWorkouts = async () => {
+  try {
+    let temp = await AsyncStorage.getItem('workouts');
+    if (temp !== null) {
+      console.log('loaded workouts');
+      return JSON.parse(temp).filter((workout) => workout.disabled !== true);
+    } else {
+      console.log('no workouts available');
+      return [];
+    }
+  } catch (e) {
+    console.error('Failed to load workouts.', e);
+  }
+};
+
+export const loadWorkoutsForHistory = async () => {
   try {
     let temp = await AsyncStorage.getItem('workouts');
     if (temp !== null) {
@@ -37,12 +54,34 @@ export const removeWorkout = async (workout) => {
 
     if (index === -1) {
       console.log('workout not found');
-      return;
+      return workouts;
     }
 
     workouts.splice(index, 1);
     await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
     console.log('removed workout');
+    return workouts;
+  } catch (e) {
+    console.error('Failed to remove workout.', e);
+  }
+};
+
+export const disableWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return workouts;
+    }
+
+    workouts[index].disabled = true;
+    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    workouts.splice(index, 1);
+    console.log('removed workout');
+    return workouts;
   } catch (e) {
     console.error('Failed to remove workout.', e);
   }
@@ -102,7 +141,7 @@ export const storeSession = async (workout, exercise, sets) => {
     }
 
     let session = {
-      date: new Date(),
+      date: moment(new Date()).startOf('day'),
       sets: sets
     };
 
@@ -112,5 +151,42 @@ export const storeSession = async (workout, exercise, sets) => {
     console.log('stored session');
   } catch (e) {
     console.error('Failed to store session.', e);
+  }
+};
+
+export const updateWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return;
+    }
+
+    workouts[index] = workout;
+
+    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    console.log('updated workout');
+  } catch (e) {
+    console.error('Failed to update workout.', e);
+  }
+};
+
+export const getExercisesFromWorkout = async (workout) => {
+  try {
+    let workouts = await loadWorkouts();
+
+    const index = workouts.findIndex((element) => element.id === workout.id);
+
+    if (index === -1) {
+      console.log('workout not found');
+      return;
+    }
+
+    return workouts[index].exercises;
+  } catch (e) {
+    console.error('Failed to update workout.', e);
   }
 };

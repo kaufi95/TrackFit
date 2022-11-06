@@ -4,7 +4,7 @@ import { Text, Button, IconButton } from 'react-native-paper';
 
 import uuid from 'react-native-uuid';
 
-import { storeWorkout, loadWorkouts, verifyIfWorkoutNameExists } from '../scripts/storage';
+import { storeWorkout, verifyIfWorkoutNameExists } from '../services/WorkoutService';
 
 const CreateWorkout = ({ navigation }) => {
   const [workoutName, setWorkoutName] = useState('');
@@ -60,7 +60,6 @@ const CreateWorkout = ({ navigation }) => {
       return;
     }
 
-    console.log(workout);
     storeWorkout(workout).then(() => {
       navigation.popToTop();
     });
@@ -85,7 +84,7 @@ const CreateWorkout = ({ navigation }) => {
     <KeyboardAvoidingView
       style={styles.kav}
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS == 'ios' ? '75' : '135'}
+      keyboardVerticalOffset={Platform.OS == 'ios' ? 0 : 100}
       enabled
     >
       <View style={styles.viewHeader}>
@@ -105,11 +104,15 @@ const CreateWorkout = ({ navigation }) => {
         extraData={inputs}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={false}
+        ListFooterComponent={
+          <View style={styles.listFooter}>
+            <Button style={styles.button} onPress={() => addInput()}>
+              Add Exercise
+            </Button>
+          </View>
+        }
       />
       <View style={styles.viewFooter}>
-        <Button style={styles.button} onPress={addInput}>
-          Add Exercise
-        </Button>
         <Button style={styles.button} onPress={saveWorkout}>
           Save workout
         </Button>
@@ -141,15 +144,20 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 25
   },
+  listFooter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10
+  },
   button: {
     width: '80%',
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,
-    marginBottom: 25
+    marginBottom: 25,
+    backgroundColor: '#59c8ac'
   },
   text: {
-    color: 'black',
     width: 30,
     marginLeft: 15
   },

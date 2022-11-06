@@ -1,143 +1,184 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert, FlatList, LogBox } from 'react-native';
 import { TextInput, Text, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 
-import { storeSession } from '../scripts/storage';
+import moment from 'moment';
 
 const ExerciseScreen = ({ navigation, route }) => {
-  const [count, setCount] = useState(1);
+  LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
+  const [count, setCount] = useState(0);
   const [inputs, setInputs] = useState([{ weight: '', repeats: '' }]);
+  const inputRef = useRef(null);
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerTitle: () => {
-  //       return (
-  //         <View style={styles.header}>
-  //           <Text style={styles.workoutName}>{route.params.workout.name}</Text>
-  //           <Text style={styles.exerciseName}>{route.params.exercise.name}</Text>
-  //         </View>
-  //       );
-  //     }
-  //     // headerBackTitle: route.params.workout.name
-  //   });
-  // }, []);
+  const verifyIfExerciseIsDone = (exercise) => {
+    return exercise.sessions?.some((element) => {
+      let date1 = moment(new Date(element.date)).startOf('day');
+      let date2 = moment(new Date()).startOf('day');
+      return date1.isSame(date2);
+    });
+  };
+
+  const getLatestSessionOfExercise = (exercise) => {
+    return exercise.sessions?.find((element) => {
+      let date1 = moment(new Date(element.date)).startOf('day');
+      let date2 = moment(new Date()).startOf('day');
+      return date1.isSame(date2);
+    });
+  };
+
+  const prepareInputs = (exercise) => {
+    const session = getLatestSessionOfExercise(exercise);
+    let inputs = session.sets.map((set) => {
+      return { weight: set.weight, repeats: set.repeats };
+    });
+    inputs.push({ weight: '', repeats: '' });
+    setInputs(inputs);
+    setCount(session.sets.length);
+  };
 
   useEffect(() => {
-    console.log('------------------------------');
-    console.log(inputs);
-  }, [inputs]);
-
-  // useEffect(() => {
-  //   inputs.forEach((input) => {
-  //     if (isNaN(input)) {
-  //       Alert.alert('Please enter a number');
-  //     }
-  //   });
-  // }, [inputs]);
+    if (verifyIfExerciseIsDone(route.params.exercise)) {
+      prepareInputs(route.params.exercise);
+    }
+    inputRef.current.focus();
+  }, []);
 
   const handleWeightChange = (value) => {
     const newInputs = [...inputs];
-    newInputs[count - 1].weight = value;
+    newInputs[count].weight = value;
     setInputs(newInputs);
   };
 
-  const handleRepsChange = (value) => {
+  const handleRepeatsChange = (value) => {
     const newInputs = [...inputs];
-    newInputs[count - 1].repeats = value;
+    newInputs[count].repeats = value;
     setInputs(newInputs);
   };
 
   const lastSet = () => {
-    if (count > 1) {
+    if (count > 0) {
       setCount(count - 1);
     }
+    inputRef.current.focus();
   };
 
   const nextSet = () => {
-    setCount(count + 1);
-    if (count === inputs.length) {
+    if (count + 1 === inputs.length) {
       setInputs([...inputs, { weight: '', repeats: '' }]);
     }
+    setCount(count + 1);
+    inputRef.current.focus();
   };
 
   const handleSave = () => {
-    let error;
-    inputs.forEach((input) => {
-      if (isNaN(input.weight) || isNaN(input.repeats)) {
-        error = true;
-      }
-      if (input.weight === '' || input.repeats === '') {
-        error = true;
-      }
-    });
-
-    if (error) {
-      Alert.alert('Please verify your inputs');
-      return;
-    }
-
     let sets = [];
     inputs.forEach((input, index) => {
-      sets.push({
-        index: index,
-        weight: parseInt(input.weight),
-        repeats: parseInt(input.repeats)
-      });
+      if (input.weight !== '' && input.repeats !== '') {
+        sets.push({
+          index: index,
+          weight: parseInt(input.weight),
+          repeats: parseInt(input.repeats)
+        });
+      }
     });
+    if (sets.length > 0) {
+      route.params.updateExercise(route.params.exercise, sets);
+      navigation.goBack();
+    } else {
+      Alert.alert('Error', 'You must enter at least one set');
+    }
+  };
 
-    storeSession(route.params.workout, route.params.exercise, sets);
-    navigation.goBack();
+  const renderSet = (set) => {
+    return (
+      <View style={styles.lastSets}>
+        <Text style={styles.text}>{set.index + 1}. Set</Text>
+        <Text style={styles.text}>{set.weight} kg</Text>
+        <Text style={styles.text}>{set.repeats} reps</Text>
+      </View>
+    );
+  };
+
+  const header = () => {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.headerText}>{moment(route.params.exercise.sessions[0]?.date).format('DD.MM.YYYY')}</Text>
+      </View>
+    );
   };
 
   return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.kav}>
-      <View style={styles.inputs}>
-        <TextInput
-          mode="outlined"
-          style={styles.textInput}
-          onChangeText={(value) => handleWeightChange(value, 0)}
-          label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
-          keyboardType="numeric"
-        />
-        <TextInput
-          mode="outlined"
-          style={styles.textInput}
-          onChangeText={(value) => handleRepsChange(value, 1)}
-          label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
-          keyboardType="numeric"
+      <View style={styles.list}>
+        <FlatList
+          data={route.params.exercise.sessions[0]?.sets}
+          renderItem={(item) => renderSet(item.item)}
+          ListHeaderComponent={header()}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
+      <View style={styles.view}>
+        <View style={styles.inputs}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Weight</Text>
+            <TextInput
+              mode="outlined"
+              outlineColor="#1abc9c"
+              style={styles.textInput}
+              onChangeText={(value) => handleWeightChange(value)}
+              label={<Icon name="weight-hanging" size={30} style={styles.IconStyle} />}
+              keyboardType="numeric"
+              ref={(ref) => (inputRef.current = ref)}
+              value={inputs[count].weight.toString()}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Repeats</Text>
+            <TextInput
+              mode="outlined"
+              outlineColor="#1abc9c"
+              style={styles.textInput}
+              onChangeText={(value) => handleRepeatsChange(value)}
+              label={<FeatherIcon name="repeat" size={30} style={styles.IconStyle} />}
+              keyboardType="numeric"
+              value={inputs[count].repeats.toString()}
+            />
+          </View>
+        </View>
 
-      <View style={styles.navigation}>
-        <AntIcon
-          name="caretleft"
-          size={55}
-          onPress={() => {
-            lastSet();
-          }}
-        />
-        <Text style={styles.set}>{count}. Set</Text>
-        <AntIcon
-          name="caretright"
-          size={55}
-          onPress={() => {
-            nextSet();
-          }}
-        />
+        <View style={styles.navigation}>
+          <AntIcon
+            name="caretleft"
+            color="#59c8ac"
+            size={55}
+            onPress={() => {
+              lastSet();
+            }}
+          />
+          <Text style={styles.set}>{count + 1}. Set</Text>
+          <AntIcon
+            name="caretright"
+            color="#59c8ac"
+            size={55}
+            onPress={() => {
+              nextSet();
+            }}
+          />
+        </View>
       </View>
-
       <View style={styles.button}>
         <Button
           mode="contained"
-          style={styles.finishButton}
+          color="#1abc9c"
+          style={styles.doneButton}
           onPress={() => {
             handleSave();
           }}
         >
-          Finish Exercise
+          Done
         </Button>
       </View>
     </KeyboardAvoidingView>
@@ -146,12 +187,57 @@ const ExerciseScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   kav: {
+    flex: 2,
+    justifyContent: 'center'
+  },
+  view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
+  list: {
+    backgroundColor: '#c1eadd',
+    flexDirection: 'column',
+    height: '30%',
+    justifyContent: 'center'
+  },
+  header: {
+    padding: 20,
+    alignItems: 'flex-start',
+    justifyContent: 'center'
+  },
+  headerText: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  lastSets: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    fontSize: 20,
+    padding: 5
+  },
+  text: {
+    fontSize: 18
+  },
   inputs: {
     flexDirection: 'row',
+    margin: 10
+  },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    margin: 10
+  },
+  inputLabel: {
+    fontSize: 18,
+    color: '#4f4f4f',
+    textAlign: 'center'
+  },
+  textInput: {
+    width: '75%',
     margin: 10
   },
   navigation: {
@@ -159,22 +245,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10
   },
-  header: {
-    alignItems: 'center'
-  },
   workoutName: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600'
   },
   exerciseName: {
-    color: '#fff',
     fontSize: 20,
     fontWeight: '600'
-  },
-  textInput: {
-    width: '33%',
-    margin: 10
   },
   set: {
     fontSize: 24,
@@ -185,12 +262,12 @@ const styles = StyleSheet.create({
   IconStyle: {
     alignSelf: 'center'
   },
-  finishButton: {
-    alignSelf: 'center',
-    justifyContent: 'center',
+  doneButton: {
     borderRadius: 10,
-    padding: 10,
-    marginTop: 20
+    padding: 5,
+    width: '50%',
+    alignSelf: 'center',
+    marginBottom: 150
   }
 });
 

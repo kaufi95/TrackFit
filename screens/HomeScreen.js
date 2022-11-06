@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Button, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { Title } from 'react-native-paper';
+import { Title, Button } from 'react-native-paper';
 
 import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
-import WorkoutCard from '../components/WorkoutCard';
-import { loadWorkouts, removeWorkout } from '../scripts/storage';
+import HomeScreenCard from '../components/HomeScreenCard';
+import { loadWorkouts, disableWorkout } from '../services/WorkoutService';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -20,8 +20,16 @@ const HomeScreen = ({ navigation }) => {
           Home
         </Title>
       ),
-      headerLeft: () => <Button onPress={() => navigation.navigate('History')} title="History" />,
-      headerRight: () => <Button onPress={() => navigation.navigate('Create a Workout')} title="Add" />
+      headerLeft: () => (
+        <Title style={styles.sideText} onPress={() => navigation.navigate('History')}>
+          History
+        </Title>
+      ),
+      headerRight: () => (
+        <Title style={styles.sideText} onPress={() => navigation.navigate('Create a Workout')}>
+          Add
+        </Title>
+      )
     });
   }, []);
 
@@ -34,30 +42,9 @@ const HomeScreen = ({ navigation }) => {
     }, [])
   );
 
-  // const getLastestDate = (workout) => {
-  //   let lastestDate;
-  //   workout.exercises.forEach((exercise) => {
-  //     exercise.sessions?.forEach((session) => {
-  //       if (lastestDate == undefined || lastestDate < session.date) {
-  //         lastestDate = session.date;
-  //       }
-  //     });
-  //   });
-  //   return lastestDate;
-  // };
-
-  // const sortWorkouts = (workouts) => {
-  //   workouts.sort((a, b) => {
-  //     return getLastestDate(a) < getLastestDate(b);
-  //   });
-  //   setWorkouts(workouts);
-  // };
-
   const deleteWorkout = (workout) => {
-    removeWorkout(workout).then(() => {
-      loadWorkouts().then((workouts) => {
-        setWorkouts(workouts);
-      });
+    disableWorkout(workout).then((workouts) => {
+      setWorkouts(workouts);
     });
   };
 
@@ -83,7 +70,7 @@ const HomeScreen = ({ navigation }) => {
             style={styles.gridView}
             spacing={10}
             renderItem={({ item }) => (
-              <WorkoutCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
+              <HomeScreenCard workout={item} navigation={navigation} deleteWorkout={deleteWorkout} />
             )}
             extraData={workouts}
           />
@@ -91,8 +78,14 @@ const HomeScreen = ({ navigation }) => {
       } else {
         return (
           <View style={styles.container}>
-            <Text>No workouts added yet.</Text>
-            <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
+            <View style={styles.welcomeView}>
+              <Text style={styles.welcomeText}>Welcome to TrackFit</Text>
+              <Image source={require('../assets/TrackFit.png')} style={styles.welcomeImage} />
+            </View>
+            <Text style={styles.text}>No workouts added yet.</Text>
+            <Button style={styles.button} onPress={() => navigation.navigate('Create a Workout')}>
+              Add your first workout
+            </Button>
           </View>
         );
       }
@@ -113,9 +106,29 @@ const styles = StyleSheet.create({
     height: 150
   },
   text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff'
+    fontSize: 18
+  },
+  welcomeView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
+  },
+  welcomeText: {
+    fontSize: 28
+  },
+  welcomeImage: {
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+    marginBottom: 20
+  },
+  button: {
+    width: '80%',
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    margin: 25,
+    backgroundColor: '#59c8ac'
   }
 });
 

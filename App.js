@@ -10,14 +10,15 @@ import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ProgressScreen from './screens/ProgressScreen';
+import HistoryDetailScreen from './screens/HistoryDetailScreen';
 
 const theme = {
-  ...DefaultTheme
-  // colors: {
-  //   ...DefaultTheme.colors,
-  //   primary: 'tomato',
-  //   accent: 'yellow'
-  // }
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'black',
+    onPrimary: '#3cae94'
+  }
 };
 
 const Stack = createNativeStackNavigator();
@@ -29,10 +30,10 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#76a7a7'
+              backgroundColor: '#3cae94'
             },
             headerTitleAlign: 'center',
-            headerTintColor: '#fff',
+            headerTintColor: '#000000',
             headerTitleStyle: {
               fontWeight: 'bold'
             }
@@ -56,13 +57,8 @@ export default function App() {
             })}
           />
           <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen
-            name="Progress"
-            component={ProgressScreen}
-            options={({ route }) => ({
-              title: route.params.workout.name
-            })}
-          />
+          <Stack.Screen name="History Detail" component={HistoryDetailScreen} />
+          <Stack.Screen name="Progress" component={ProgressScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
