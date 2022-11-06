@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SectionList, View, Text, Button } from 'react-native';
+import { StyleSheet, SectionList, View, Text } from 'react-native';
+import { Button } from 'react-native-paper';
 
 import HistoryScreenCard from '../components/HistoryScreenCard';
 
@@ -103,8 +104,10 @@ const HistoryScreen = ({ navigation }) => {
     } else {
       return (
         <View style={styles.container}>
-          <Text>No data to show.</Text>
-          <Button onPress={() => navigation.navigate('Create a Workout')} title="Add your first workout" />
+          <Text style={styles.text}>No data to show.</Text>
+          <Button style={styles.button} onPress={() => navigation.navigate('Create a Workout')}>
+            Add your first workout
+          </Button>
         </View>
       );
     }
@@ -131,6 +134,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 25
+  },
+  text: {
+    fontSize: 18
+  },
+  button: {
+    width: '80%',
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    margin: 25,
+    backgroundColor: '#59c8ac'
   }
 });
 

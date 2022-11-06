@@ -17,7 +17,7 @@ const WorkoutMenu = (props) => {
           onPress={() =>
             Alert.alert(
               'Delete',
-              `Are you sure you want to delete the '${props.workout.name}' workout?\nIt will remain in the History`,
+              `Are you sure you want to delete the '${props.workout.name}' workout?\nThe history will remain.`,
               [
                 {
                   text: 'Cancel',
