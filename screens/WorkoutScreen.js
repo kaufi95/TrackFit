@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import { Button } from 'react-native-paper';
 
 import moment from 'moment';
@@ -54,45 +54,47 @@ const WorkoutScreen = ({ navigation, route }) => {
   };
 
   return (
-    <FlatList
-      contentContainerStyle={styles.list}
-      data={exercises}
-      spacing={10}
-      renderItem={(entry) => (
-        <ExerciseItem
-          exercise={entry.item}
-          navigation={navigation}
-          workout={route.params.workout}
-          updateExercise={updateExercise}
-          done={verifyIfExerciseIsDone(entry.item)}
-        />
-      )}
-      extraData={exercises}
-      keyExtractor={(item, index) => index.toString()}
-      ListFooterComponent={
-        <Button style={styles.button} onPress={() => finishWorkout()}>
-          Finish Workout
-        </Button>
-      }
-    />
+    <View style={styles.view}>
+      <FlatList
+        contentContainerStyle={styles.list}
+        data={exercises}
+        spacing={10}
+        renderItem={(entry) => (
+          <ExerciseItem
+            exercise={entry.item}
+            navigation={navigation}
+            workout={route.params.workout}
+            updateExercise={updateExercise}
+            done={verifyIfExerciseIsDone(entry.item)}
+          />
+        )}
+        extraData={exercises}
+        keyExtractor={(item, index) => index.toString()}
+      />
+      <Button style={styles.button} onPress={() => finishWorkout()}>
+        Finish Workout
+      </Button>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  list: {
+  view: {
     flex: 1,
+    justifyContent: 'center'
+  },
+  list: {
     alignItems: 'center',
     justifyContent: 'center'
   },
   button: {
-    width: 250,
+    width: '50%',
     height: 75,
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
     borderWidth: 1,
-    marginBottom: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
+    marginBottom: 25,
+    alignSelf: 'center'
   }
 });
 
