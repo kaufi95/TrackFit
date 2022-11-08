@@ -6,7 +6,7 @@ import HistoryScreenCard from '../components/HistoryScreenCard';
 
 import moment from 'moment';
 
-import { loadWorkoutsForHistory } from '../services/WorkoutService';
+import { loadWorkoutsForHistory, getDatesOfAllWorkouts, getDatesOfWorkout } from '../services/WorkoutService';
 
 const HistoryScreen = ({ navigation }) => {
   const [historyElements, setHistoryElements] = useState([]);
@@ -17,73 +17,48 @@ const HistoryScreen = ({ navigation }) => {
     });
   }, []);
 
-  const getAllDates = (workouts) => {
-    let dates = [];
-    workouts.map((workout) => {
-      workout.exercises.map((exercise) => {
-        exercise.sessions.map((session) => {
-          let date = moment(new Date(session.date)).startOf('day');
-          if (!dates.some((element) => element.isSame(date))) {
-            dates.push(date);
-          }
-        });
-      });
-    });
-    return dates;
-  };
-
-  const getDatesOfWorkout = (workout) => {
-    let dates = [];
-    workout.exercises.map((exercise) => {
-      exercise.sessions?.forEach((session) => {
-        dates.push(session.date);
-      });
-    });
-    return dates;
-  };
-
   const prepareSectionListData = (workouts) => {
-    let historyElements = [];
-    getAllDates(workouts).forEach((date) => {
-      let workoutNamesByDate = [];
+    let historyElements = getDatesOfAllWorkouts(workouts).map((date) => {
+      let workoutsPerDate = [];
+
       workouts.forEach((workout) => {
         if (getDatesOfWorkout(workout).some((element) => moment(element).isSame(date))) {
-          if (!workoutNamesByDate.includes(workout.name)) {
-            workoutNamesByDate.push(workout.name);
+          if (!workoutsPerDate.includes(workout)) {
+            workoutsPerDate.push(workout);
           }
         }
       });
 
-      let data = [];
+      let data = workoutsPerDate.map((workout) => {
+        let element = {
+          date: moment(date).format('DD.MM.YYYY'),
+          workout: workout,
+          exercisesPerDate: []
+        };
 
-      workoutNamesByDate.forEach((workoutName) => {
-        let exercises = [];
-        workouts.forEach((workout) => {
-          if (workout.name === workoutName) {
-            workout.exercises.forEach((exercise) => {
-              exercise.sessions?.forEach((session) => {
-                if (moment(session.date).isSame(date)) {
-                  exercises.push(exercise);
-                }
+        workout.exercises.forEach((exercise) => {
+          exercise.sessions?.forEach((session) => {
+            if (moment(session.date).isSame(moment(date))) {
+              element.exercisesPerDate.push({
+                id: exercise.id,
+                name: exercise.name,
+                sets: session.sets
               });
-            });
-          }
+            }
+          });
         });
 
-        let formattedDate = moment(date).format('DD.MM.YYYY');
-
-        data.push({
-          date: formattedDate,
-          workoutName: workoutName,
-          exercises: exercises
-        });
+        return element;
       });
 
-      let object = {
+      data = data.sort((a, b) => {
+        return a.workout.name.localeCompare(b.workout.name);
+      });
+
+      return {
         date: date,
         data: data
       };
-      historyElements.push(object);
     });
     setHistoryElements(historyElements);
   };

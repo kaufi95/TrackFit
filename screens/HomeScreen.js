@@ -3,11 +3,13 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Title, Button } from 'react-native-paper';
 
+import moment from 'moment';
+
 import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
 import HomeScreenCard from '../components/HomeScreenCard';
-import { loadWorkouts, disableWorkout } from '../services/WorkoutService';
+import { loadWorkouts, disableWorkout, getLastestDateOfWorkout } from '../services/WorkoutService';
 
 const HomeScreen = ({ navigation }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -33,10 +35,16 @@ const HomeScreen = ({ navigation }) => {
     });
   }, []);
 
+  const sortWorkoutsByDate = (workouts) => {
+    return workouts.sort((a, b) => {
+      return getLastestDateOfWorkout(a).isBefore(getLastestDateOfWorkout(b));
+    });
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       loadWorkouts().then((workouts) => {
-        setWorkouts(workouts);
+        setWorkouts(sortWorkoutsByDate(workouts));
         setIsLoading(false);
       });
     }, [])

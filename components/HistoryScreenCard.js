@@ -1,23 +1,33 @@
-import React from 'react';
-import { StyleSheet, View, Text, Pressable, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, Pressable, FlatList } from 'react-native';
 
 const HistoryScreenCard = (props) => {
+  const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    setExercises(
+      props.item.exercisesPerDate.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      })
+    );
+  }, []);
+
   return (
     <Pressable
       style={styles.card}
       onPress={() => {
         props.navigation.navigate('History Detail', {
           date: props.item.date,
-          workoutName: props.item.workoutName,
-          exercises: props.item.exercises
+          workout: props.item.workout,
+          exercises: props.item.exercisesPerDate
         });
       }}
-      key={props.item.workoutName + props.item.date}
+      key={props.item.workout.name + props.item.date}
     >
-      <Text style={styles.name}>{props.item.workoutName}</Text>
+      <Text style={styles.name}>{props.item.workout.name}</Text>
       <FlatList
         style={styles.exercises}
-        data={props.item.exercises}
+        data={exercises}
         renderItem={({ item }) => <Text style={styles.exercise}>{item.name}</Text>}
         keyExtractor={(item, index) => item + index.toString()}
       />

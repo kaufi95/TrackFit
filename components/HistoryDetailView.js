@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
 import { Title } from 'react-native-paper';
 
@@ -23,14 +23,13 @@ const HistoryDetailView = (props) => {
   return (
     <Pressable
       style={[styles.view, { backgroundColor: color }]}
-      onPress={() => props.navigation.navigate('Progress', { exercise: props.exercise })}
+      onPress={() => props.navigation.navigate('Progress', { workout: props.workout, exercise: props.exercise })}
     >
       <Title style={styles.name}>{props.exercise.name}</Title>
       <FlatList
-        data={props.exercise.sessions[0].sets}
+        data={props.exercise.sets}
         spacing={10}
         renderItem={(item) => renderSet(item.item)}
-        extraData={props.exercise.sessions[0].sets}
         keyExtractor={(item, index) => item + index.toString()}
       />
     </Pressable>

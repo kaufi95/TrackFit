@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 import { Title } from 'react-native-paper';
 
 import moment from 'moment';
 
 const ProgressScreen = (props) => {
-  let sessions = props.route.params.exercise.sessions;
-  sessions.sort((a, b) => {
-    return new Date(b.date) - new Date(a.date);
-  });
+  const [sessions, setSessions] = useState([]);
+
+  useEffect(() => {
+    let workout = props.route.params.workout;
+    let exercises = workout.exercises.find((exercise) => exercise.id === props.route.params.exercise.id).sessions;
+    setSessions(exercises);
+  }, []);
 
   const renderSet = (set) => {
     return (
@@ -46,10 +49,9 @@ const ProgressScreen = (props) => {
     <View style={styles.view}>
       <Title style={styles.name}>{props.route.params.exercise.name}</Title>
       <FlatList
-        data={props.route.params.exercise.sessions}
+        data={sessions}
         spacing={10}
         renderItem={(item) => renderSession(item)}
-        extraData={props.route.params.exercise.sessions}
         keyExtractor={(item, index) => index.toString()}
         removeClippedSubviews={false}
       />

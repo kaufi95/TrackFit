@@ -4,22 +4,11 @@ import { StyleSheet } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 
 import WorkoutMenu from './WorkoutMenu';
+import { getLastestDateOfWorkout } from '../services/WorkoutService';
 
 const HomeScreenCard = (props) => {
-  const getLastestDate = (workout) => {
-    let lastestDate;
-    workout.exercises.forEach((exercise) => {
-      exercise.sessions?.forEach((session) => {
-        if (lastestDate == undefined || lastestDate < session.date) {
-          lastestDate = session.date;
-        }
-      });
-    });
-    return lastestDate;
-  };
-
   const calculateDaysAgo = (workout) => {
-    let lastestDate = getLastestDate(workout);
+    let lastestDate = getLastestDateOfWorkout(workout);
 
     if (!lastestDate) {
       return 'Never';
