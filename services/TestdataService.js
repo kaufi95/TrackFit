@@ -11,6 +11,26 @@ const testdata = () => {
           name: 'Benchpress',
           sessions: [
             {
+              date: moment(new Date(2022, 10, 7)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
+            {
               date: moment(new Date(2022, 10, 5)).startOf('day'),
               sets: [
                 {
@@ -292,6 +312,26 @@ const testdata = () => {
         {
           name: 'Pullups',
           sessions: [
+            {
+              date: moment(new Date(2022, 10, 8)).startOf('day'),
+              sets: [
+                {
+                  index: 0,
+                  weight: 20,
+                  repeats: 8
+                },
+                {
+                  index: 1,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 2,
+                  weight: 30,
+                  repeats: 6
+                }
+              ]
+            },
             {
               date: moment(new Date(2022, 9, 22)).startOf('day'),
               sets: [

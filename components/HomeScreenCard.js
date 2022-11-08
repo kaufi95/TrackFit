@@ -21,16 +21,14 @@ const HomeScreenCard = (props) => {
   const calculateDaysAgo = (workout) => {
     let lastestDate = getLastestDate(workout);
 
-    if (lastestDate) {
-      if (moment().isSame(lastestDate, 'day')) {
-        return 'Today';
-      } else if (lastestDate > moment().subtract(1, 'days')) {
-        return 'Yesterday';
-      } else if (lastestDate) {
-        return moment().diff(lastestDate, 'days') + ' days ago';
-      }
-    } else {
+    if (!lastestDate) {
       return 'Never';
+    } else if (moment().isSame(lastestDate, 'day')) {
+      return 'Today';
+    } else if (moment().subtract(1, 'days').isSame(lastestDate, 'day')) {
+      return 'Yesterday';
+    } else {
+      return moment().diff(lastestDate, 'days') + ' days ago';
     }
   };
 
