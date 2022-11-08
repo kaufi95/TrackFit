@@ -3,8 +3,6 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Title, Button } from 'react-native-paper';
 
-import moment from 'moment';
-
 import { FlatGrid } from 'react-native-super-grid';
 import AnimatedLoader from 'react-native-animated-loader';
 
