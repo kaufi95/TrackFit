@@ -74,6 +74,7 @@ const HistoryScreen = ({ navigation }) => {
             <Text style={styles.date}>{moment(date).format('DD.MM.YYYY')}</Text>
           )}
           keyExtractor={(item, index) => item + index.toString()}
+          removeClippedSubviews={false}
         />
       );
     } else {

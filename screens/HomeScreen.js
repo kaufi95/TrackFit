@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150
   },
-  text: {
-    fontSize: 18
+  sideText: {
+    fontSize: 16
   },
   welcomeView: {
     alignItems: 'center',
