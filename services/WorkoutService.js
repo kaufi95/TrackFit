@@ -9,7 +9,7 @@ export const loadWorkouts = async () => {
     let temp = await AsyncStorage.getItem('workouts');
     if (temp !== null) {
       console.log('loaded workouts');
-      return JSON.parse(temp).filter((workout) => workout.disabled !== true);
+      return JSON.parse(temp).filter((workout) => !workout.disabled);
     } else {
       console.log('no workouts available');
       return [];
@@ -39,7 +39,7 @@ export const storeWorkout = async (workout) => {
     let workouts = await loadWorkouts();
     workouts = [workout, ...workouts];
 
-    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    AsyncStorage.setItem('workouts', JSON.stringify(workouts));
     console.log('saved workouts');
   } catch (e) {
     console.error('Failed to save workouts.', e);
@@ -58,7 +58,7 @@ export const removeWorkout = async (workout) => {
     }
 
     workouts.splice(index, 1);
-    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    AsyncStorage.setItem('workouts', JSON.stringify(workouts));
     console.log('removed workout');
     return workouts;
   } catch (e) {
@@ -78,7 +78,7 @@ export const disableWorkout = async (workout) => {
     }
 
     workouts[index].disabled = true;
-    await AsyncStorage.setItem('workouts', JSON.stringify(workouts));
+    AsyncStorage.setItem('workouts', JSON.stringify(workouts));
     workouts.splice(index, 1);
     console.log('removed workout');
     return workouts;
@@ -189,4 +189,42 @@ export const getExercisesFromWorkout = async (workout) => {
   } catch (e) {
     console.error('Failed to update workout.', e);
   }
+};
+
+export const getLastestDateOfWorkout = (workout) => {
+  let lastestDate;
+  workout.exercises.forEach((exercise) => {
+    exercise.sessions?.forEach((session) => {
+      if (lastestDate === undefined || lastestDate < moment(session.date)) {
+        lastestDate = moment(session.date);
+      }
+    });
+  });
+  return lastestDate ? moment(lastestDate) : undefined;
+};
+
+export const getDatesOfAllWorkouts = (workouts) => {
+  let dates = [];
+  workouts.forEach((workout) => {
+    workout.exercises.forEach((exercise) => {
+      exercise.sessions.forEach((session) => {
+        let date = moment(new Date(session.date)).startOf('day');
+        if (!dates.some((element) => element.isSame(date))) {
+          dates.push(date);
+        }
+      });
+    });
+  });
+  dates.sort((a, b) => a.isBefore(b));
+  return dates;
+};
+
+export const getDatesOfWorkout = (workout) => {
+  let dates = [];
+  workout.exercises.forEach((exercise) => {
+    exercise.sessions?.forEach((session) => {
+      dates.push(session.date);
+    });
+  });
+  return dates;
 };

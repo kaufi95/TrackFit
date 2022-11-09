@@ -8,6 +8,7 @@ const testdata = () => {
       disabled: false,
       exercises: [
         {
+          id: '100',
           name: 'Benchpress',
           sessions: [
             {
@@ -153,6 +154,7 @@ const testdata = () => {
           ]
         },
         {
+          id: '101',
           name: 'Butterfly',
           sessions: [
             {
@@ -172,24 +174,19 @@ const testdata = () => {
                   index: 2,
                   weight: 30,
                   repeats: 6
-                }
-              ]
-            },
-            {
-              date: moment(new Date(2022, 10, 5)).startOf('day'),
-              sets: [
+                },
                 {
-                  index: 0,
+                  index: 3,
                   weight: 20,
                   repeats: 8
                 },
                 {
-                  index: 1,
+                  index: 4,
                   weight: 25,
                   repeats: 6
                 },
                 {
-                  index: 2,
+                  index: 5,
                   weight: 30,
                   repeats: 6
                 }
@@ -238,6 +235,7 @@ const testdata = () => {
           ]
         },
         {
+          id: '102',
           name: 'Cable-Cross',
           sessions: [
             {
@@ -290,6 +288,7 @@ const testdata = () => {
       disabled: false,
       exercises: [
         {
+          id: '200',
           name: 'Pullups',
           sessions: [
             {
@@ -307,6 +306,16 @@ const testdata = () => {
                 },
                 {
                   index: 2,
+                  weight: 30,
+                  repeats: 6
+                },
+                {
+                  index: 3,
+                  weight: 25,
+                  repeats: 6
+                },
+                {
+                  index: 4,
                   weight: 30,
                   repeats: 6
                 }
@@ -335,6 +344,7 @@ const testdata = () => {
           ]
         },
         {
+          id: '201',
           name: 'Lat-Pulldown',
           sessions: [
             {
@@ -380,6 +390,7 @@ const testdata = () => {
           ]
         },
         {
+          id: '202',
           name: 'Seated-Row',
           sessions: [
             {
@@ -432,6 +443,7 @@ const testdata = () => {
       disabled: false,
       exercises: [
         {
+          id: '300',
           name: 'Squats',
           sessions: [
             {
@@ -477,6 +489,7 @@ const testdata = () => {
           ]
         },
         {
+          id: '301',
           name: 'Hip-Thrust',
           sessions: [
             {
@@ -522,6 +535,7 @@ const testdata = () => {
           ]
         },
         {
+          id: '302',
           name: 'Seated-Leg-Curl',
           sessions: [
             {
