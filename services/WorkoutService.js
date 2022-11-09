@@ -198,7 +198,7 @@ export const getLastestDateOfWorkout = (workout) => {
       }
     });
   });
-  return moment(lastestDate);
+  return lastestDate ? moment(lastestDate) : undefined;
 };
 
 export const getDatesOfAllWorkouts = (workouts) => {
