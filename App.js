@@ -1,14 +1,13 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { DefaultTheme, Provider as PaperProvider, Title } from 'react-native-paper';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import HomeScreen from './screens/HomeScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import CreateWorkout from './screens/CreateWorkout';
 import WorkoutScreen from './screens/WorkoutScreen';
 import ExerciseScreen from './screens/ExerciseScreen';
-import SettingsScreen from './screens/SettingsScreen';
 import ProgressScreen from './screens/ProgressScreen';
 import HistoryDetailScreen from './screens/HistoryDetailScreen';
 
@@ -56,7 +55,6 @@ export default function App() {
               title: route.params.exercise.name
             })}
           />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="History Detail" component={HistoryDetailScreen} />
           <Stack.Screen name="Progress" component={ProgressScreen} />
         </Stack.Navigator>

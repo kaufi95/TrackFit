@@ -4,27 +4,20 @@ import { StyleSheet } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 
 import WorkoutMenu from './WorkoutMenu';
+import { getLastestDateOfWorkout } from '../services/WorkoutService';
 
 const HomeScreenCard = (props) => {
-  const getLastestDate = (workout) => {
-    let lastestDate;
-    workout.exercises.forEach((exercise) => {
-      exercise.sessions?.forEach((session) => {
-        if (lastestDate == undefined || lastestDate < session.date) {
-          lastestDate = session.date;
-        }
-      });
-    });
-    return lastestDate;
-  };
-
   const calculateDaysAgo = (workout) => {
-    let lastestDate = getLastestDate(workout);
+    let lastestDate = getLastestDateOfWorkout(workout);
 
-    if (lastestDate) {
-      return moment().diff(lastestDate, 'days').toString() + ' days ago';
-    } else {
+    if (!lastestDate) {
       return 'Never';
+    } else if (moment().isSame(lastestDate, 'day')) {
+      return 'Today';
+    } else if (moment().subtract(1, 'days').isSame(lastestDate, 'day')) {
+      return 'Yesterday';
+    } else {
+      return moment().diff(lastestDate, 'days') + ' days ago';
     }
   };
 

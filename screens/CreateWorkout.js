@@ -38,6 +38,7 @@ const CreateWorkout = ({ navigation }) => {
     inputs.map((item) => {
       if (item != '') {
         exercises.push({
+          id: uuid.v4(),
           name: item,
           sessions: []
         });
