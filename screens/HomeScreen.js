@@ -15,11 +15,6 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: () => (
-        <Title style={styles.text} onLongPress={() => navigation.navigate('Settings')}>
-          Home
-        </Title>
-      ),
       headerLeft: () => (
         <Title style={styles.sideText} onPress={() => navigation.navigate('History')}>
           History

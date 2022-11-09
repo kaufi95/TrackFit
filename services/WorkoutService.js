@@ -2,8 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import moment from 'moment';
 
-import testdata from './TestdataService';
-
 export const loadWorkouts = async () => {
   try {
     let temp = await AsyncStorage.getItem('workouts');
